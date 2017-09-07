@@ -2,10 +2,16 @@
 //
 
 #include "stdafx.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 
 int main()
 {
-    return 0;
+	cout << "Press enter to start neural network.\n";
+	string _;
+	cin >> _;
 }
 
