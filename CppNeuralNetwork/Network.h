@@ -1,9 +1,18 @@
 #pragma once
+#include <vector>
+using namespace std;
+
 class Network
 {
 public:
-	Network(int layerCount);
+	// ctor
+	Network();
 	~Network();
-	void Train(int inputValues[], int weights[], double expectedOutput);
+
+	// properties
+	vector<int>* layers;
+
+	// functions
+	void Train(vector<double>* inputValues, vector<double>* weights, double expectedOutput);
 };
 

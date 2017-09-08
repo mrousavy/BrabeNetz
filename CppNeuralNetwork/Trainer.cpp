@@ -16,8 +16,8 @@ Trainer::~Trainer()
 
 void Trainer::TrainXor()
 {
-	int* values = new int[2]{ 1, 0 };
-	int* weights = new int[2]{ 1, 1 };
+	vector<double>* values = new vector<double>{ 1, 0, 1, 1, 0 };
+	vector<double>* weights = new vector<double>{ 1, 1, 1, 1, 0 };
 	int output = 1;
 	_net->Train(values, weights, output);
 }
