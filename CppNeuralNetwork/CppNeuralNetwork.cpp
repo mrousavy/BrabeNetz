@@ -13,9 +13,10 @@ using namespace std;
 
 int main()
 {
-	float weight = 63;
-	float x = Squash(weight);
-	cout << weight << "=" << x;
+	for (double weight = -64; weight < 64; weight++) {
+		double x = Squash(weight);
+		cout << "Squashing " << weight << " = " << x << endl;
+	}
 
 	// boot up neuronal network
 	Network* net = new Network(50);
@@ -27,5 +28,8 @@ int main()
 	// cleanup
 	net = NULL;
 	trainer = NULL;
+
+	string _ = "";
+	cin >> _;
 }
 
