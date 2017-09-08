@@ -1,9 +1,10 @@
+//#ifndef Network_Header
+//#define Network_Header
+
 #include "stdafx.h"
 #include "Network.h"
 
 
-class Network {
-public:
 	int* layers;
 
 	// ctor
@@ -16,7 +17,8 @@ public:
 		layers = NULL;
 	}
 
-	void Train(int* values) {
+	void Network::Train(int* values) {
 
 	}
-};
+
+//#endif
