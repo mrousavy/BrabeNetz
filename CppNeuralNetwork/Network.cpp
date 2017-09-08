@@ -9,12 +9,6 @@ using namespace std;
 // Specifying the amount of neurons to get combined for the next layer
 #define NEURON_LAYER_COMBINE 2
 
-
-void print(double elem)
-{
-	cout << elem << endl;
-}
-
 // ctor
 Network::Network()
 {
@@ -30,6 +24,17 @@ Network::~Network()
 // Train network and adjust weights to expectedOutput
 void Network::Train(vector<double>* inputValues, vector<double>* weights, double expectedOutput)
 {
+	double output = Feed(inputValues, weights);
+
+	if (output == expectedOutput)
+		return; // it's trained good enough
+
+	//TODO: Adjust network
+}
+
+// Feed the network information and return the output
+double Network::Feed(vector<double>* inputValues, vector<double>* weights)
+{
 	int size = inputValues->size(); // Length of inputValues (and eff. weights)
 	int lindex = size - 1; // Last index of inputValues (and eff. weights)
 	double sum;
@@ -40,7 +45,7 @@ void Network::Train(vector<double>* inputValues, vector<double>* weights, double
 	{
 		sum = 0; // sum of inputValues
 
-		// Loop twice
+				 // Loop NEURON_LAYER_COMBINE times (default: 2)
 		for (int i = 0; i < NEURON_LAYER_COMBINE; i++)
 		{
 			int next = current + i; // next layer index to add to (can be current aswell)
@@ -48,7 +53,7 @@ void Network::Train(vector<double>* inputValues, vector<double>* weights, double
 				? 0 // current is last element, go back to first
 				: next; // use current/next element (current+1 | current+0)
 
-			// Add to the sum and include neuron weight
+						// Add to the sum and include neuron weight
 			sum += inputValues->at(index) * weights->at(index);
 		}
 
@@ -58,5 +63,5 @@ void Network::Train(vector<double>* inputValues, vector<double>* weights, double
 		sums->push_back(flattened); // add to final layer sum
 	}
 
-	for_each(sums->begin(), sums->end(), print);
+	return Sum(sums); // Return total sum of all neuron sums
 }
