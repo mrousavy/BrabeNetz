@@ -1,24 +1,23 @@
-//#ifndef Network_Header
-//#define Network_Header
-
 #include "stdafx.h"
 #include "Network.h"
 
 
-	int* layers;
+int* layers;
 
-	// ctor
-	Network::Network(int layerCount) {
-		layers = new int[layerCount];
-	}
+// ctor
+Network::Network(int layerCount)
+{
+	if (layerCount < 1) throw "Layer count cannot be 0 or less!";
+	layers = new int[layerCount];
+}
 
-	// dctor
-	Network::~Network() {
-		layers = NULL;
-	}
+// dctor
+Network::~Network()
+{
+	layers = NULL;
+}
 
-	void Network::Train(int* values) {
+void Network::Train(int* inputValues, int* weights, int expectedOutput)
+{
 
-	}
-
-//#endif
+}

@@ -14,7 +14,10 @@ Trainer::Trainer(Network* net)
 Trainer::~Trainer()
 {}
 
-void Trainer::TrainXor() {
-	int* arr = new int[2]{ 1,0 };
-	_net->Train(arr);
+void Trainer::TrainXor()
+{
+	int* values = new int[2]{ 1, 0 };
+	int* weights = new int[2]{ 1, 1 };
+	int output = 1;
+	_net->Train(values, weights, output);
 }

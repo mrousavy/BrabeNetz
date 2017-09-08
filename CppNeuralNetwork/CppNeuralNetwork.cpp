@@ -13,7 +13,8 @@ using namespace std;
 
 int main()
 {
-	for (double weight = -64; weight < 64; weight++) {
+	for (double weight = -64; weight < 64; weight++)
+	{
 		double x = Squash(weight);
 		cout << "Squashing " << weight << " = " << x << endl;
 	}
