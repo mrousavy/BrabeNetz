@@ -2,8 +2,8 @@
 #include "Functions.h"
 #include <cmath>
 
-#if _WIN64 || _WIN32
-// On x86 CPUs:
+#if _X86_ || _M_IX86 || _M_IA64 || _M_ARM
+// On CPUs with DOUBLE_PRECISION Hardware-Implementation:
 	const double EulerConstant = std::exp(1.0);
 	/// <summary>
 	/// Squash a value with the Sigmoid
@@ -15,7 +15,7 @@
 		return exp / (exp + 1);
 	}
 #else
-// On other CPUs:
+// On CPUs with DOUBLE_PRECISION Software-Implementation:
 	const float EulerConstant = std::exp(1.0);
 	/// <summary>
 	/// Squash a value with the Sigmoid
