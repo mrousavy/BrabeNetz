@@ -15,9 +15,11 @@ int main()
 {
 	for (double weight = -64; weight < 64; weight++)
 	{
+		// Test squashing
 		double x = Squash(weight);
 		cout << "Squashing " << weight << " = " << x << endl;
 	}
+	cout << endl << endl;
 
 	// boot up neuronal network
 	Network* net = new Network(50);
@@ -29,6 +31,7 @@ int main()
 	net = NULL;
 	trainer = NULL;
 
+	// Exit on user input
 	string _ = "";
 	cin >> _;
 }

@@ -3,29 +3,16 @@
 #include <cmath>
 
 #if _X86_ || _M_IX86 || _M_IA64 || _M_ARM || _WIN64 || _WIN32
+// On CPUs with DOUBLE_PRECISION Hardware-Implementation:
+#define float double
+#endif
 
 // On CPUs with DOUBLE_PRECISION Hardware-Implementation:
-const double EulerConstant = std::exp(1.0);
+const float EulerConstant = std::exp(1.0);
 /// <summary>
 /// Squash a value with the Sigmoid
 /// function (https://en.wikipedia.org/wiki/Sigmoid_function) using
-/// double
-/// </summary>
-double Squash(double value)
-{
-	double expP = std::pow(EulerConstant, value);
-	double expN = std::pow(EulerConstant, -value);
-	return (expP - expN) / (expP + expN);
-}
-
-#else
-
-// On CPUs with DOUBLE_PRECISION Software-Implementation:
-const float EulerConstant = std::exp((float)1.0);
-/// <summary>
-/// Squash a value with the Sigmoid
-/// function (https://en.wikipedia.org/wiki/Sigmoid_function) using
-/// floats (Min: -63 | Max: 64)
+/// doubles or floats (depending on compile-architecture)
 /// </summary>
 float Squash(float value)
 {
@@ -34,7 +21,15 @@ float Squash(float value)
 	return (expP - expN) / (expP + expN);
 }
 
-#endif
+/// <summary>
+/// Rectify a value with the rectified linear unit (ReLU)
+/// function (https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) using
+/// doubles or floats (depending on compile-architecture)
+/// </summary>
+float Rectify(float value)
+{
+	return fmax(value, 0);
+}
 
 
 // LOGISTIC:
@@ -42,8 +37,8 @@ float Squash(float value)
 //   return exp / (exp + 1);
 
 // HYPERBOLIC TAN:
-//   double expP = std::pow(EulerConstant, value);
-//   double expN = std::pow(EulerConstant, -value);
+//   float expP = std::pow(EulerConstant, value);
+//   float expN = std::pow(EulerConstant, -value);
 //   return (expP - expN) / (expP + expN);
 
 // SPECIFIC ALGEBRAIC
