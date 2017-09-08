@@ -1,4 +1,4 @@
-// CppNeuralNetwork.cpp : Defines the entry point for the console application.
+// __ConsoleEntry.cpp : Defines the entry point for the console application.
 //
 
 #include "stdafx.h"
@@ -23,8 +23,7 @@ int main()
 	Network* net = new Network(50);
 	// boot up neuronal network trainer
 	Trainer* trainer = new Trainer(net);
-
-
+	trainer->TrainXor();
 
 	// cleanup
 	net = NULL;
