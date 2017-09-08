@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "Functions.h"
 #include <cmath>
+#include <vector>
+using namespace std;
+
 
 #if _X86_ || _M_IX86 || _M_IA64 || _M_ARM || _WIN64 || _WIN32
 // On CPUs with DOUBLE_PRECISION Hardware-Implementation:
@@ -29,6 +32,21 @@ float Squash(float value)
 float Rectify(float value)
 {
 	return fmax(value, 0);
+}
+
+/// <summary>
+/// Rectify a value with the rectified linear unit (ReLU)
+/// function (https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) using
+/// doubles (because doubles are being Hardware-implemented -> faster)
+/// </summary>
+float Sum(vector<float>* values)
+{
+	float sum = 0;
+	for (int i = 0; i < values->size(); i++)
+	{
+		sum += values->at(i);
+	}
+	return sum;
 }
 
 

@@ -1,5 +1,5 @@
 #pragma once
-
+#include <vector>
 
 #if _X86_ || _M_IX86 || _M_IA64 || _M_ARM || _WIN64 || _WIN32
 // On CPUs with DOUBLE_PRECISION Hardware-Implementation:
@@ -17,6 +17,11 @@ double Squash(double);
 /// doubles (because doubles are being Hardware-implemented -> faster)
 /// </summary>
 double Rectify(double);
+
+/// <summary>
+/// Sums up a vector
+/// </summary>
+double Sum(std::vector<double>*);
 
 #else
 // On CPUs with DOUBLE_PRECISION Software-Implementation:
