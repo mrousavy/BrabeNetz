@@ -22,14 +22,15 @@ int main()
 	cout << endl << endl;
 
 	// boot up neuronal network
-	Network* net = new Network();
+	Network* net = new Network({ 2, 5, 1 });
 	// boot up neuronal network trainer
 	Trainer* trainer = new Trainer(net);
 	trainer->TrainXor();
 
+
 	// cleanup
-	net = NULL;
-	trainer = NULL;
+	delete net;
+	delete trainer;
 
 	// Exit on user input
 	string _ = "";

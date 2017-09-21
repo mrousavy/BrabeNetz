@@ -8,17 +8,37 @@ using namespace std;
 
 // Specifying the amount of neurons to get combined for the next layer
 #define NEURON_LAYER_COMBINE 2
+// Specifying the amount of hidden neuron layers to use (layers between input and output layer)
+#define NEURON_LAYER_COUNT 2
+
+
+
 
 // ctor
-Network::Network()
+Network::Network(initializer_list<int> initializerList)
 {
-	this->layers = new vector<int>();
+	if (initializerList.size() < 3)
+		throw "Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
+
+	vector<int> inputVector;
+	inputVector.insert(inputVector.end(), initializerList.begin(), initializerList.end());
+	this->inputNeuronsSize = inputVector[0]; // First element in vector -> input
+	this->outputNeuronsSize = inputVector.back(); // Last element in vector -> output
+
+
+	// BRAH:
+	double** pt;
+	pt = new double*[3];
+	for (int i = 0; i < NEURON_LAYER_COUNT; i++)
+	{
+		*(pt + i) = new double[5];
+	}
 }
 
-// dctor
+// dector
 Network::~Network()
 {
-	this->layers = NULL;
+	delete this->layers;
 }
 
 // Train network and adjust weights to expectedOutput
@@ -37,15 +57,14 @@ double Network::Feed(vector<double>* inputValues, vector<double>* weights)
 {
 	int size = inputValues->size(); // Length of inputValues (and eff. weights)
 	int lindex = size - 1; // Last index of inputValues (and eff. weights)
-	double sum;
 	vector<double>* sums = new vector<double>;
 
 	// Calculate the sum of all input values
 	for (int current = 0; current < size; current++)
 	{
-		sum = 0; // sum of inputValues
+		double sum = 0; // sum of inputValues
 
-				 // Loop NEURON_LAYER_COMBINE times (default: 2)
+        // Loop NEURON_LAYER_COMBINE times (default: 2)
 		for (int i = 0; i < NEURON_LAYER_COMBINE; i++)
 		{
 			int next = current + i; // next layer index to add to (can be current aswell)
@@ -63,5 +82,17 @@ double Network::Feed(vector<double>* inputValues, vector<double>* weights)
 		sums->push_back(flattened); // add to final layer sum
 	}
 
-	return Sum(sums); // Return total sum of all neuron sums
+	double sum = Sum(sums); // sum of all individual neuron sums
+	delete sums; // Cleanup
+	return sum; // Return "result" (last output node)
+}
+
+void Network::Save(string path)
+{
+	// TODO
+}
+
+void Network::Load(string path)
+{
+	// TODO
 }
