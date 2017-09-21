@@ -22,7 +22,7 @@ int main()
 	cout << endl << endl;
 
 	// boot up neuronal network
-	Network* net = new Network({ 2, 5, 1 });
+	Network* net = new Network({ 2, 3, 1 });
 	// boot up neuronal network trainer
 	Trainer* trainer = new Trainer(net);
 	trainer->TrainXor();

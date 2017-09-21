@@ -1,4 +1,7 @@
 #pragma once
+#include "Functions.h"
+#include <iostream> //TODO: REMOVE
+#include <algorithm>
 #include <vector>
 using namespace std;
 

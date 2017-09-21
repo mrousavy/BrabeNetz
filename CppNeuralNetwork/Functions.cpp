@@ -11,8 +11,13 @@ using namespace std;
 #define decimal float
 #endif
 
-// On CPUs with DOUBLE_PRECISION Hardware-Implementation:
+// The Euler's constant (e) calculated with exp(1)
 const decimal EulerConstant = std::exp(1.0);
+// Minimum value that's possible as a Squash(..) input parameter
+const decimal MinValue = -100;
+// Maximum value that's possible as a Squash(..) input parameter
+const decimal MaxValue = 100;
+
 /// <summary>
 /// Squash a value with the Sigmoid
 /// function (https://en.wikipedia.org/wiki/Sigmoid_function) using
@@ -20,9 +25,8 @@ const decimal EulerConstant = std::exp(1.0);
 /// </summary>
 decimal Squash(decimal value)
 {
-	decimal expP = std::pow(EulerConstant, value);
-	decimal expN = std::pow(EulerConstant, -value);
-	return (expP - expN) / (expP + expN);
+	// Squash via BRAH function (squash to -1 .. +1)
+	return (value - MinValue) / (MaxValue - MinValue);
 }
 
 /// <summary>
@@ -62,3 +66,6 @@ decimal Sum(vector<decimal>* values)
 
 // SPECIFIC ALGEBRAIC
 //   return (value) / std::sqrt(1 + std::pow(value, 2));
+
+// BRAH
+// ((value - min_A) / max_A - min_A) * (new_max_A - new_min_A) + new_min_A

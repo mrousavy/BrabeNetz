@@ -1,17 +1,9 @@
 #include "stdafx.h"
 #include "Network.h"
-#include "Functions.h"
-#include <iostream> //TODO: REMOVE
-#include <vector>
-#include <algorithm>
 using namespace std;
 
-// Specifying the amount of neurons to get combined for the next layer
+// Specifying the amount of neurons to get combined for the next layer's node
 #define NEURON_LAYER_COMBINE 2
-// Specifying the amount of hidden neuron layers to use (layers between input and output layer)
-#define NEURON_LAYER_COUNT 2
-
-
 
 
 // ctor
