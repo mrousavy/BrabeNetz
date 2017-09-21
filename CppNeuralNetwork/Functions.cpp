@@ -4,23 +4,24 @@
 #include <vector>
 using namespace std;
 
-
 #if _X86_ || _M_IX86 || _M_IA64 || _M_ARM || _WIN64 || _WIN32
 // On CPUs with DOUBLE_PRECISION Hardware-Implementation:
-#define float double
+#define decimal double
+#else
+#define decimal float
 #endif
 
 // On CPUs with DOUBLE_PRECISION Hardware-Implementation:
-const float EulerConstant = std::exp(1.0);
+const decimal EulerConstant = std::exp(1.0);
 /// <summary>
 /// Squash a value with the Sigmoid
 /// function (https://en.wikipedia.org/wiki/Sigmoid_function) using
 /// doubles or floats (depending on compile-architecture)
 /// </summary>
-float Squash(float value)
+decimal Squash(decimal value)
 {
-	float expP = std::pow(EulerConstant, value);
-	float expN = std::pow(EulerConstant, -value);
+	decimal expP = std::pow(EulerConstant, value);
+	decimal expN = std::pow(EulerConstant, -value);
 	return (expP - expN) / (expP + expN);
 }
 
@@ -29,7 +30,7 @@ float Squash(float value)
 /// function (https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) using
 /// doubles or floats (depending on compile-architecture)
 /// </summary>
-float Rectify(float value)
+decimal Rectify(decimal value)
 {
 	return fmax(value, 0);
 }
@@ -39,9 +40,9 @@ float Rectify(float value)
 /// function (https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) using
 /// doubles (because doubles are being Hardware-implemented -> faster)
 /// </summary>
-float Sum(vector<float>* values)
+decimal Sum(vector<decimal>* values)
 {
-	float sum = 0;
+	decimal sum = 0;
 	for (int i = 0; i < values->size(); i++)
 	{
 		sum += values->at(i);
