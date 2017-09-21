@@ -20,11 +20,20 @@ Network::Network(initializer_list<int> initializerList)
 	if (initializerList.size() < 3)
 		throw "Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
 
-	vector<int> inputVector;
+	vector<int> inputVector; // clone initializer list to vector
 	inputVector.insert(inputVector.end(), initializerList.begin(), initializerList.end());
-	this->inputNeuronsSize = inputVector[0]; // First element in vector -> input
-	this->outputNeuronsSize = inputVector.back(); // Last element in vector -> output
 
+	this->inputNeuronsCount = inputVector[0]; // First element in vector -> input
+	this->outputNeuronsCount = inputVector.back(); // Last element in vector -> output
+	int hiddenCount = inputVector.size() - 2; // Count of hidden layers
+	this->hiddenNeuronsCount = new int[hiddenCount]; // elements except first and last = hidden layers
+
+	int hiddenIndex = 1; // index on input vector
+	for (int i = 0; hiddenIndex < hiddenCount; i++) // Loop from [1] to [last-1] (all hidden layers)
+	{
+		this->hiddenNeuronsCount[i] = inputVector[hiddenIndex];
+		hiddenIndex++;
+	}
 
 	// BRAH:
 	double** pt;

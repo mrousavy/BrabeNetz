@@ -16,9 +16,9 @@ public:
 	// properties //
 	////////////////
 	vector<int>* layers;
-	int inputNeuronsSize;
-	int* layerNeuronsSize;
-	int outputNeuronsSize;
+	int inputNeuronsCount;
+	int* hiddenNeuronsCount;
+	int outputNeuronsCount;
 
 	////////////////
 	// functions  //
