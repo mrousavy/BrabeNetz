@@ -32,9 +32,9 @@ Network::Network(initializer_list<int> initializerList)
 	int hiddenIndex = 1; // index on input vector
 	for (int i = 0; hiddenIndex <= hiddenCount; i++) // Loop from [1] to [last-1] (all hidden layers)
 	{
-		int layerSize = inputVector[hiddenIndex];
-		this->hiddenNeuronsCount[i] = layerSize;
-		this->layers[i] = new int[layerSize];
+		int layerSize = inputVector[hiddenIndex]; // Layer size of this layer (Containing neurons)
+		this->hiddenNeuronsCount[i] = layerSize; // Set neuron count on this hidden layer
+		this->layers[i] = new int[layerSize]; // Create layer with neuron size in hidden-layers array
 		hiddenIndex++;
 	}
 }
@@ -42,6 +42,7 @@ Network::Network(initializer_list<int> initializerList)
 // dector
 Network::~Network()
 {
+	delete this->hiddenNeuronsCount;
 	delete this->layers;
 }
 
@@ -88,6 +89,8 @@ double Network::Feed(vector<double>* inputValues, vector<double>* weights)
 
 	double sum = Sum(sums); // sum of all individual neuron sums
 	delete sums; // Cleanup
+	delete inputValues;
+	delete weights;
 	return sum; // Return "result" (last output node)
 }
 

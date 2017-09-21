@@ -13,18 +13,6 @@ public:
 	~Network();
 
 	////////////////
-	// properties //
-	////////////////
-	// Count of Neurons in Input Layer
-	int inputNeuronsCount;
-	// Count of Neurons in Hidden Layers (LTR in Topology)
-	int* hiddenNeuronsCount;
-	// Count of Neurons in Output Layer
-	int outputNeuronsCount;
-	// Actual Hidden layers
-	int** layers;
-
-	////////////////
 	// functions  //
 	////////////////
 	// Feed the network information and train it to adjust to the expected output
@@ -35,5 +23,18 @@ public:
 	void Save(string path);
 	// Load the network's state from disk by deserializing and loading weights
 	void Load(string path);
+
+private:
+	////////////////
+	// properties //
+	////////////////
+	// Count of Neurons in Input Layer
+	int inputNeuronsCount;
+	// Count of Neurons in Hidden Layers (LTR in Topology)
+	int* hiddenNeuronsCount;
+	// Count of Neurons in Output Layer
+	int outputNeuronsCount;
+	// Actual Hidden layers
+	int** layers;
 };
 
