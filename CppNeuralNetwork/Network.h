@@ -15,10 +15,14 @@ public:
 	////////////////
 	// properties //
 	////////////////
-	vector<int>* layers;
+	// Count of Neurons in Input Layer
 	int inputNeuronsCount;
+	// Count of Neurons in Hidden Layers (LTR in Topology)
 	int* hiddenNeuronsCount;
+	// Count of Neurons in Output Layer
 	int outputNeuronsCount;
+	// Actual Hidden layers
+	int** layers;
 
 	////////////////
 	// functions  //

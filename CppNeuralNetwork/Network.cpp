@@ -27,20 +27,15 @@ Network::Network(initializer_list<int> initializerList)
 	this->outputNeuronsCount = inputVector.back(); // Last element in vector -> output
 	int hiddenCount = inputVector.size() - 2; // Count of hidden layers
 	this->hiddenNeuronsCount = new int[hiddenCount]; // elements except first and last = hidden layers
+	this->layers = new int*[hiddenCount]; // Init all hidden layers (between input & output)
 
 	int hiddenIndex = 1; // index on input vector
-	for (int i = 0; hiddenIndex < hiddenCount; i++) // Loop from [1] to [last-1] (all hidden layers)
+	for (int i = 0; hiddenIndex <= hiddenCount; i++) // Loop from [1] to [last-1] (all hidden layers)
 	{
-		this->hiddenNeuronsCount[i] = inputVector[hiddenIndex];
+		int layerSize = inputVector[hiddenIndex];
+		this->hiddenNeuronsCount[i] = layerSize;
+		this->layers[i] = new int[layerSize];
 		hiddenIndex++;
-	}
-
-	// BRAH:
-	double** pt;
-	pt = new double*[3];
-	for (int i = 0; i < NEURON_LAYER_COUNT; i++)
-	{
-		*(pt + i) = new double[5];
 	}
 }
 
