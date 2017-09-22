@@ -39,5 +39,7 @@ private:
 	int outputNeuronsCount;
 	// Actual Hidden layers
 	int** layers;
+	// Weight of each hidden layer
+	int** layerWeights;
 };
 

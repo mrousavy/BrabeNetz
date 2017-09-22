@@ -20,6 +20,7 @@ Network::Network(initializer_list<int> initializerList)
 	int hiddenCount = inputVector.size() - 2; // Count of hidden layers
 	this->hiddenNeuronsCount = new int[hiddenCount]; // elements except first and last = hidden layers
 	this->layers = new int*[hiddenCount]; // Init all hidden layers (between input & output)
+	this->layerWeights = new int*[hiddenCount]; // Init the weights of all hidden layers (between in- & output)
 
 	int hiddenIndex = 1; // index on input vector
 	for (int i = 0; hiddenIndex <= hiddenCount; i++) // Loop from [1] to [last-1] (all hidden layers)
@@ -27,6 +28,13 @@ Network::Network(initializer_list<int> initializerList)
 		int layerSize = inputVector[hiddenIndex]; // Layer size of this layer (Containing neurons)
 		this->hiddenNeuronsCount[i] = layerSize; // Set neuron count on this hidden layer
 		this->layers[i] = new int[layerSize]; // Create layer with neuron size in hidden-layers array
+		this->layerWeights[i] = new int[layerSize]; // Init the layer weights for this layer
+		for (int nI = 0; nI < layerSize; nI++) // loop through each neuron (nI = neuron index)
+		{
+			// Set all layer weights on this layer to a random number between 0 or 1 (2 digits precision)
+			this->layerWeights[i][nI] = double(rand() % 100) / 100;
+		}
+
 		hiddenIndex++;
 	}
 }
@@ -36,6 +44,7 @@ Network::~Network()
 {
 	delete this->hiddenNeuronsCount;
 	delete this->layers;
+	delete this->layerWeights;
 }
 
 // Train network and adjust weights to expectedOutput

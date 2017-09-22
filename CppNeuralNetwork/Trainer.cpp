@@ -12,7 +12,9 @@ Trainer::Trainer(Network* net)
 
 
 Trainer::~Trainer()
-{}
+{
+	delete _net;
+}
 
 void Trainer::TrainXor()
 {
