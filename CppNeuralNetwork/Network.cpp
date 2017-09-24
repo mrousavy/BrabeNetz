@@ -90,8 +90,6 @@ double Network::Feed(vector<double>* inputValues, vector<double>* weights)
 
 	double sum = Sum(sums); // sum of all individual neuron sums
 	delete sums; // Cleanup
-	delete inputValues;
-	delete weights;
 	return sum; // Return "result" (last output node)
 }
 
