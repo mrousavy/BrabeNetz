@@ -17,13 +17,13 @@ Network::Network(initializer_list<int> initializerList)
 
 	this->inputNeuronsCount = inputVector[0]; // First element in vector -> input
 	this->outputNeuronsCount = inputVector.back(); // Last element in vector -> output
-	int hiddenCount = inputVector.size() - 2; // Count of hidden layers
-	this->hiddenNeuronsCount = new int[hiddenCount]; // elements except first and last = hidden layers
-	this->layers = new int*[hiddenCount]; // Init all hidden layers (between input & output)
-	this->layerWeights = new int*[hiddenCount]; // Init the weights of all hidden layers (between in- & output)
+	this->hiddenLayersCount = inputVector.size() - 2; // Count of hidden layers = total items in vector minus end and start
+	this->hiddenNeuronsCount = new int[hiddenLayersCount]; // elements except first and last = hidden layers
+	this->layers = new int*[hiddenLayersCount]; // Init all hidden layers (between input & output)
+	this->layerWeights = new int*[hiddenLayersCount]; // Init the weights of all hidden layers (between in- & output)
 
 	int hiddenIndex = 1; // index on input vector
-	for (int i = 0; hiddenIndex <= hiddenCount; i++) // Loop from [1] to [last-1] (all hidden layers)
+	for (int i = 0; hiddenIndex <= hiddenLayersCount; i++) // Loop from [1] to [last-1] (all hidden layers)
 	{
 		int layerSize = inputVector[hiddenIndex]; // Layer size of this layer (Containing neurons)
 		this->hiddenNeuronsCount[i] = layerSize; // Set neuron count on this hidden layer
@@ -65,33 +65,52 @@ double Network::Feed(vector<double>* inputValues, vector<double>* weights)
 	int lindex = size - 1; // Last index of inputValues (and eff. weights)
 	vector<double>* sums = new vector<double>;
 
-	// Calculate the sum of all input values
-	for (int current = 0; current < size; current++)
+	vector<double>* values = inputValues; // Values of current layer
+	// Go through each hidden layer
+	for (int hiddenIndex = 0; hiddenIndex < this->hiddenLayersCount; hiddenIndex++)
 	{
-		double sum = 0; // sum of inputValues
-
-        // Loop NEURON_LAYER_COMBINE times (default: 2)
-		for (int i = 0; i < NEURON_LAYER_COMBINE; i++)
-		{
-			int next = current + i; // next layer index to add to (can be current aswell)
-			int index = next == size // check for out of bounds
-				? 0 // current is last element, go back to first
-				: next; // use current/next element (current+1 | current+0)
-
-						// Add to the sum and include neuron weight
-			sum += inputValues->at(index) * weights->at(index);
-		}
-
-		// Squash the sum of input values
-		double flattened = Squash(sum);
-
-		sums->push_back(flattened); // add to final layer sum
+		values = ToNextLayer(values, hiddenIndex);
 	}
+
+	// `values` are last layer's values by now -> to output layer
+	// TODO ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+	//// Calculate the sum of all input values
+	//for (int current = 0; current < size; current++)
+	//{
+	//	double sum = 0; // sum of inputValues
+
+ //       // Loop NEURON_LAYER_COMBINE times (default: 2)
+	//	for (int i = 0; i < NEURON_LAYER_COMBINE; i++)
+	//	{
+	//		int next = current + i; // next layer index to add to (can be current aswell)
+	//		int index = next == size // check for out of bounds
+	//			? 0 // current is last element, go back to first
+	//			: next; // use current/next element (current+1 | current+0)
+
+	//					// Add to the sum and include neuron weight
+	//		sum += inputValues->at(index) * weights->at(index);
+	//	}
+
+	//	// Squash the sum of input values
+	//	double flattened = Squash(sum);
+
+	//	sums->push_back(flattened); // add to final layer sum
+	//}
 
 	double sum = Sum(sums); // sum of all individual neuron sums
 	delete sums; // Cleanup
+	delete values;
 	return sum; // Return "result" (last output node)
 }
+
+vector<double>* Network::ToNextLayer(vector<double>* inputValues, int layerIndex)
+{
+	this->layers[layerIndex];
+	// TODO:
+}
+
 
 void Network::Save(string path)
 {

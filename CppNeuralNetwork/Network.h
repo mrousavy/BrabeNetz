@@ -33,6 +33,8 @@ private:
 	////////////////
 	// Count of Neurons in Input Layer
 	int inputNeuronsCount;
+	// Count of Hidden Layers
+	int hiddenLayersCount;
 	// Count of Neurons in Hidden Layers (LTR in Topology)
 	int* hiddenNeuronsCount;
 	// Count of Neurons in Output Layer
@@ -41,5 +43,12 @@ private:
 	int** layers;
 	// Weight of each hidden layer
 	int** layerWeights;
+
+
+	////////////////
+	// functions  //
+	////////////////
+	// Put inputValues into layer at given layerIndex with squashing, etc and return layer's values
+	vector<double>* ToNextLayer(vector<double>* inputValues, int layerIndex);
 };
 
