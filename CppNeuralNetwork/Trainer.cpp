@@ -12,9 +12,7 @@ Trainer::Trainer(Network* net)
 
 
 Trainer::~Trainer()
-{
-	delete _net;
-}
+{}
 
 void Trainer::TrainXor()
 {
@@ -22,4 +20,7 @@ void Trainer::TrainXor()
 	vector<double>* weights = new vector<double>{ 1, 1 };
 	int output = 1;
 	_net->Train(values, weights, output);
+
+	delete values;
+	delete weights;
 }
