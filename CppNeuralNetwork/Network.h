@@ -21,7 +21,7 @@ public:
 	// Feed the network information and train it to adjust to the expected output
 	void Train(vector<double>* inputValues, vector<double>* weights, double expectedOutput);
 	// Feed the network information and return the output
-	double Feed(vector<double>* inputValues, vector<double>* weights);
+	double Feed(vector<double>* inputValues);
 	// Save the network's state to disk by serializing weights
 	void Save(string path);
 	// Load the network's state from disk by deserializing and loading weights
@@ -43,6 +43,8 @@ private:
 	double** layers;
 	// Weight of each hidden layer
 	double** layerWeights;
+	// Weight of each neuron in the Output layer
+	double* outputWeights;
 
 
 	////////////////

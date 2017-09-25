@@ -47,7 +47,7 @@ Network::~Network()
 // Train network and adjust weights to expectedOutput
 void Network::Train(vector<double>* inputValues, vector<double>* weights, double expectedOutput)
 {
-	double output = Feed(inputValues, weights);
+	double output = Feed(inputValues);
 
 	if (output == expectedOutput)
 		return; // it's trained good enough
@@ -56,25 +56,40 @@ void Network::Train(vector<double>* inputValues, vector<double>* weights, double
 }
 
 // Feed the network information and return the output
-double Network::Feed(vector<double>* inputValues, vector<double>* weights)
+double Network::Feed(vector<double>* inputValues)
 {
 	int size = inputValues->size(); // Length of inputValues (and eff. weights)
 	int lindex = size - 1; // Last index of inputValues (and eff. weights)
-	vector<double>* sums = new vector<double>;
 
 	vector<double>* values = inputValues; // Values of current layer
 	// Go through each hidden layer
 	for (int hiddenIndex = 0; hiddenIndex < this->hiddenLayersCount; hiddenIndex++)
 	{
+		// TODO: Memory leak? no values delete?
 		values = ToNextLayer(values, hiddenIndex);
 	}
 
-	// `values` are last layer's values by now -> to output layer
-	// TODO ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	// virtual output layer
+	vector<double>* output = new vector<double>();
+	double* weights = this->layerWeights[this->hiddenLayersCount]; // ptr to weights of neurons in output layer
 
-	double sum = Sum(sums); // sum of all individual neuron sums
-	delete sums; // Cleanup
-	delete values;
+	// Loop through each neuron on the output layer
+	for (int li = 0; li < this->outputNeuronsCount; li++) // li = layer index
+	{
+		output->push_back(0.0); // push back an empty double
+		// Loop through each value in the inputs (every input broadcasts to all neurons in this layer)
+		for (int ii = 0; ii < values->size(); ii++) // ii = input index
+		{
+			output->at(li) += values->at(ii) * weights[li]; // Add Value * Weight to that neuron
+		}
+
+		output->at(li) = Squash(output->at(li)); // Add value to output layer
+	}
+
+	double sum = Sum(output); // sum of all individual neuron sums
+	delete values; // Cleanup
+	delete weights;
+	delete output;
 	return sum; // Return "result" (last output node)
 }
 
@@ -102,6 +117,10 @@ vector<double>* Network::ToNextLayer(vector<double>* inputValues, int layerIndex
 		neuron = Squash(neuron);
 		output->push_back(neuron); // Add value to output layer
 	}
+
+	// TODO: is that safe to do?
+	delete layer;
+	delete weights;
 
 	return output;
 }
