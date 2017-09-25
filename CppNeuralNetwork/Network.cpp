@@ -2,9 +2,6 @@
 #include "Network.h"
 using namespace std;
 
-// Specifying the amount of neurons to get combined for the next layer's node
-#define NEURON_LAYER_COMBINE 2
-
 
 // ctor
 Network::Network(initializer_list<int> initializerList)
@@ -19,16 +16,16 @@ Network::Network(initializer_list<int> initializerList)
 	this->outputNeuronsCount = inputVector.back(); // Last element in vector -> output
 	this->hiddenLayersCount = inputVector.size() - 2; // Count of hidden layers = total items in vector minus end and start
 	this->hiddenNeuronsCount = new int[hiddenLayersCount]; // elements except first and last = hidden layers
-	this->layers = new int*[hiddenLayersCount]; // Init all hidden layers (between input & output)
-	this->layerWeights = new int*[hiddenLayersCount]; // Init the weights of all hidden layers (between in- & output)
+	this->layers = new double*[hiddenLayersCount]; // Init all hidden layers (between input & output)
+	this->layerWeights = new double*[hiddenLayersCount]; // Init the weights of all hidden layers (between in- & output)
 
 	int hiddenIndex = 1; // index on input vector
 	for (int i = 0; hiddenIndex <= hiddenLayersCount; i++) // Loop from [1] to [last-1] (all hidden layers)
 	{
 		int layerSize = inputVector[hiddenIndex]; // Layer size of this layer (Containing neurons)
 		this->hiddenNeuronsCount[i] = layerSize; // Set neuron count on this hidden layer
-		this->layers[i] = new int[layerSize]; // Create layer with neuron size in hidden-layers array
-		this->layerWeights[i] = new int[layerSize]; // Init the layer weights for this layer
+		this->layers[i] = new double[layerSize]; // Create layer with neuron size in hidden-layers array
+		this->layerWeights[i] = new double[layerSize]; // Init the layer weights for this layer
 		for (int nI = 0; nI < layerSize; nI++) // loop through each neuron (nI = neuron index)
 		{
 			// Set all layer weights on this layer to a random number between 0 or 1 (2 digits precision)
@@ -75,40 +72,38 @@ double Network::Feed(vector<double>* inputValues, vector<double>* weights)
 	// `values` are last layer's values by now -> to output layer
 	// TODO ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-
-	//// Calculate the sum of all input values
-	//for (int current = 0; current < size; current++)
-	//{
-	//	double sum = 0; // sum of inputValues
-
- //       // Loop NEURON_LAYER_COMBINE times (default: 2)
-	//	for (int i = 0; i < NEURON_LAYER_COMBINE; i++)
-	//	{
-	//		int next = current + i; // next layer index to add to (can be current aswell)
-	//		int index = next == size // check for out of bounds
-	//			? 0 // current is last element, go back to first
-	//			: next; // use current/next element (current+1 | current+0)
-
-	//					// Add to the sum and include neuron weight
-	//		sum += inputValues->at(index) * weights->at(index);
-	//	}
-
-	//	// Squash the sum of input values
-	//	double flattened = Squash(sum);
-
-	//	sums->push_back(flattened); // add to final layer sum
-	//}
-
 	double sum = Sum(sums); // sum of all individual neuron sums
 	delete sums; // Cleanup
 	delete values;
 	return sum; // Return "result" (last output node)
 }
 
+// This function focuses on only one layer, so in theory we have 1 input layer, the layer we focus on, and 1 output
 vector<double>* Network::ToNextLayer(vector<double>* inputValues, int layerIndex)
 {
-	this->layers[layerIndex];
-	// TODO:
+	int iSize = inputValues->size(); // Input values count/size
+	int nCount = this->hiddenNeuronsCount[layerIndex]; // Count of neurons in the given layer (w/ layerIndex)
+	double* layer = this->layers[layerIndex]; // ptr to neurons in this layer
+	double* weights = this->layerWeights[layerIndex]; // ptr to weights of neurons in this layer
+	vector<double>* output = new vector<double>();
+
+	// Loop through each neuron on the given layer
+	for (int li = 0; li < nCount; li++) // li = layer index
+	{
+		layer[li] = 0; // Reset layer's neuron at index li
+
+		// Loop through each value in the inputs (every input broadcasts to all neurons in this layer)
+		for (int ii = 0; ii < iSize; ii++) // ii = input index
+		{
+			layer[li] += inputValues->at(ii) * weights[li]; // Add Value * Weight to that neuron
+		}
+
+		double neuron = layer[li]; // The current neuron's value
+		neuron = Squash(neuron);
+		output->push_back(neuron); // Add value to output layer
+	}
+
+	return output;
 }
 
 

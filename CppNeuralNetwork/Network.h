@@ -40,9 +40,9 @@ private:
 	// Count of Neurons in Output Layer
 	int outputNeuronsCount;
 	// Actual Hidden layers
-	int** layers;
+	double** layers;
 	// Weight of each hidden layer
-	int** layerWeights;
+	double** layerWeights;
 
 
 	////////////////
