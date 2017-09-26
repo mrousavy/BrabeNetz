@@ -3,6 +3,11 @@
 using namespace std;
 
 
+
+
+// TODO: REMOVE
+#include <iostream>
+
 // ctor
 Network::Network(initializer_list<int> initializerList)
 {
@@ -96,11 +101,51 @@ double* Network::ToNextLayer(double* inputValues, int inputLength, int layerInde
 
 void Network::RandomizeWeights()
 {
-	topology = new NetworkTopology();
+	this->topology = new NetworkTopology();
+	
+	for (int l = 0; l < hiddenLayersCount; l++) // Loop through each layer
+	{
+		Layer* layer = new Layer();
+		
+		for (int n = 0; n < hiddenNeuronsCount[l]; n++) // Loop through each neuron
+		{
+			Neuron* neuron = new Neuron();
+
+			int nextNeurons = 0;
+			int next = l + 1;
+			if (next == hiddenLayersCount) // Check if out of bounds
+				nextNeurons = outputNeuronsCount; // It's last layer; Use output layer
+			else
+				nextNeurons = hiddenNeuronsCount[next]; // Use next layer
+
+			for (int c = 0; c < nextNeurons; c++) // Loop through each Connection
+			{
+				Connection* connection = new Connection();
+				/*connection->From = neuron;
+				connection->To = neuron;*/
+				connection->Weight = double(rand() % 100) / 100;
+
+				cout << "Adding Connection: " << connection;
+				neuron->AddConnection(connection); // Add Connection from neuron `n`
+				cout << " Y" << endl;
+			}
+
+			cout << "Adding Neuron: " << neuron;
+			layer->AddNeuron(neuron); // Add Neuron from layer `l`
+			cout << " Y" << endl;
+		}
+
+		cout << "Adding Layer: " << layer;
+		topology->AddLayer(layer); // Add Layer
+		cout << " Y" << endl;
+	}
+
+	FillWeights(this->topology);
 }
 
 void Network::FillWeights(NetworkTopology* topology)
 {
+	this->topology = topology;
 	// TODO: Check if this works
 
 	// layer weights has a reference on the heap
@@ -122,15 +167,8 @@ void Network::FillWeights(NetworkTopology* topology)
 
 		for (int ni = 0; ni < nextLayerNeuronCount; ni++) // Loop through each connection on that neuron
 		{
-			if (topology == nullptr)
-			{
-				// Set all layer weights on this layer to a random number between 0 or 1 (2 digits precision)
-				this->connectionWeights[0][i][ni] = double(rand() % 100) / 100;
-			} else
-			{
-				// Set all layer weights on this layer to the number on our network topology
-				this->connectionWeights[0][i][ni] = topology->Layers->at(0)->Neurons->at(i)->Connections->at(ni)->Weight;
-			}
+			// Set all layer weights on this layer to the number on our network topology
+			this->connectionWeights[0][i][ni] = topology->Layers->at(0).Neurons->at(i).Connections->at(ni).Weight;
 		}
 	}
 
@@ -153,15 +191,8 @@ void Network::FillWeights(NetworkTopology* topology)
 			this->connectionWeights[next][ni] = new double[neuronsCount]; // Init this neuron's connections []
 			for (int nni = 0; nni < nextNeuronsCount; nni++) // Loop through each connection on this neuron
 			{
-				if (topology == nullptr)
-				{
-					// Set all layer weights on this layer to a random number between 0 or 1 (2 digits precision)
-					this->connectionWeights[next][ni][nni] = double(rand() % 100) / 100;
-				} else
-				{
-					// Set all layer weights on this layer to the number on our network topology
-					this->connectionWeights[next][ni][nni] = topology->Layers->at(next)->Neurons->at(ni)->Connections->at(nni)->Weight;
-				}
+				// Set all layer weights on this layer to the number on our network topology
+				this->connectionWeights[next][ni][nni] = topology->Layers->at(next).Neurons->at(ni).Connections->at(nni).Weight;
 			}
 		}
 	}
