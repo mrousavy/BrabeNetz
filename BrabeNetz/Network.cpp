@@ -28,6 +28,7 @@ Network::~Network()
 	delete[] this->layers;
 	DeleteWeights();
 	delete[] this->hiddenNeuronsCount;
+	delete this->topology;
 }
 
 // Train network and adjust weights to expectedOutput
