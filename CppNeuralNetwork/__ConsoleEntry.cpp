@@ -13,14 +13,6 @@ using namespace std;
 
 int main()
 {
-	for (double weight = -16; weight <= 16; weight++)
-	{
-		// Test squashing
-		double x = Squash(weight);
-		cout << "Squashing " << weight << " = " << x << endl;
-	}
-	cout << endl << endl;
-
 	// boot up neuronal network
 	Network* net = new Network({ 2, 3, 1 });
 	// boot up neuronal network trainer

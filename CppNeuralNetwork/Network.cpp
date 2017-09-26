@@ -40,14 +40,15 @@ Network::~Network()
 }
 
 // Train network and adjust weights to expectedOutput
-void Network::Train(double* inputValues, int length, double expectedOutput)
+double Network::Train(double* inputValues, int length, double expectedOutput)
 {
 	double output = Feed(inputValues, length);
 
 	if (output == expectedOutput)
-		return; // it's trained good enough
+		return 0.0; // it's trained good enough
 
 	//TODO: Adjust network
+	return output;
 }
 
 // Feed the network information and return the output
@@ -63,15 +64,21 @@ double Network::Feed(double* inputValues, int length)
 		double* addr = values; // Cache temp variable
 		values = ToNextLayer(values, *valuesLength, hiddenIndex, *valuesLength);
 
-		if (&addr != &inputValues) // Don't delete parameter
+		if (addr != inputValues) // Don't delete parameter
 			delete addr; // Delete the old pointer
+	}
+
+	double sum = 0;
+	for (int i = 0; i < length; i++) // Loop through each neuron in output layer
+	{
+		double value = Rectify(values[i]); // ReLu it (keep if positive, 0 if negative; uint)
+		sum += Squash(value); // Squash the result (TODO: do I need to squash output?)
 	}
 
 	// TODO: OUTPUT
 
 	// Cleanup
-
-	return 0;
+	return sum;
 }
 
 // This function focuses on only one layer, so in theory we have 1 input layer, the layer we focus on, and 1 output
@@ -100,10 +107,6 @@ double* Network::ToNextLayer(double* inputValues, int inputLength, int layerInde
 		output[n] = neuron; // Add value to output layer
 	}
 
-	// TODO: is that safe to do?
-	delete layer;
-	delete weights;
-
 	outLength = nCount;
 	return output;
 }
@@ -118,7 +121,7 @@ void Network::RandomizeWeights()
 	}
 
 	int count = this->hiddenLayersCount + 1; // Count of layers with connections
-	this->connectionWeights = new double**[hiddenLayersCount];
+	this->connectionWeights = new double**[count]; // init first dimension; count of layers with connections
 
 	// Fill input layer weights
 	this->connectionWeights[0] = new double*[this->inputNeuronsCount]; // [0] is input layer
@@ -136,21 +139,28 @@ void Network::RandomizeWeights()
 
 
 	// Fill hidden layers weights
-	for (int i = 0; i < count; i++)
+	for (int i = 0; i < this->hiddenLayersCount; i++)
 	{
 		int neuronsCount = this->hiddenNeuronsCount[i]; // Count of neurons on that layer
-		// TODO: OUT OF BOUNDS?
-		int nextNeuronsCount = this->hiddenNeuronsCount[i + 1]; // Count of neurons in next layer
-		for (int ni = 0; ni < neuronsCount; ni++)
+		int next = i + 1; // effectively next layer, connections are between layers
+		int nextNeuronsCount;
+
+		if (next < this->hiddenLayersCount) // Check if we're on the last layer; if yes -> last to output connections
+			nextNeuronsCount = this->hiddenNeuronsCount[next]; // Count of neurons in next layer
+		else
+			nextNeuronsCount = this->outputNeuronsCount; // Count of neurons in next layer (output)
+
+		this->connectionWeights[next] = new double*[neuronsCount]; // Init this layer's neurons []
+		for (int ni = 0; ni < neuronsCount; ni++) // Loop through each neuron on this layer
 		{
-			for (int nni = 0; nni < nextNeuronsCount; nni++)
+			this->connectionWeights[next][ni] = new double[neuronsCount]; // Init this neuron's connections []
+			for (int nni = 0; nni < nextNeuronsCount; nni++) // Loop through each connection on this neuron
 			{
-				this->connectionWeights[i + 1][ni][nni] = double(rand() % 100) / 100;
+				this->connectionWeights[next][ni][nni] = double(rand() % 100) / 100; // Set to random val
 			}
 		}
 	}
 }
-
 
 void Network::Save(string path)
 {

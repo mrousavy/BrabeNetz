@@ -18,8 +18,8 @@ public:
 	////////////////
 	// functions  //
 	////////////////
-	// Feed the network information and train it to adjust to the expected output
-	void Train(double* inputValues, int length, double expectedOutput);
+	// Feed the network information and train it to adjust to the expected output (returns accuracy/error)
+	double Train(double* inputValues, int length, double expectedOutput);
 	// Feed the network information and return the output
 	double Feed(double* inputValues, int length);
 	// Save the network's state to disk by serializing weights
