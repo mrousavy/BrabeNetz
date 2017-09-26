@@ -62,5 +62,7 @@ private:
 	void FillWeights(NetworkTopology* topology);
 	// Init Network
 	void Init(initializer_list<int>* initializerList);
+	// Delete weights array
+	void DeleteWeights();
 };
 

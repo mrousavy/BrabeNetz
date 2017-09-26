@@ -47,6 +47,6 @@ void Trainer::TrainXor()
 		cout << "{ " << values[0] << ", " << values[1] << " }: " << result << endl;
 
 		// Cleanup
-		delete values;
+		delete[] values;
 	}
 }

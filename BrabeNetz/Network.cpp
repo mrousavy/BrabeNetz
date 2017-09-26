@@ -20,9 +20,14 @@ Network::Network(initializer_list<int> initializerList, NetworkTopology* topolog
 Network::~Network()
 {
 	// cleanup
-	delete this->hiddenNeuronsCount;
-	delete this->layers;
-	delete this->connectionWeights;
+	double* ref = this->layers[0];
+	for (int i = 0; i < hiddenLayersCount; i++)
+	{
+		delete[] this->layers[i];
+	}
+	delete[] this->layers;
+	DeleteWeights();
+	delete[] this->hiddenNeuronsCount;
 }
 
 // Train network and adjust weights to expectedOutput
@@ -44,14 +49,13 @@ double Network::Feed(double* inputValues, int length)
 
 	double* values = inputValues; // Values of current layer
 	int* valuesLength = &length;
-	// Go through each hidden layer
-	for (int hiddenIndex = 0; hiddenIndex < this->hiddenLayersCount; hiddenIndex++)
+	for (int hiddenIndex = 0; hiddenIndex < this->hiddenLayersCount; hiddenIndex++) // Loop through each hidden layer
 	{
-		double* addr = values; // Cache temp variable
-		values = ToNextLayer(values, *valuesLength, hiddenIndex, *valuesLength);
+		double* nextValues = ToNextLayer(values, *valuesLength, hiddenIndex, *valuesLength);
 
-		if (addr != inputValues) // Don't delete parameter
-			delete addr; // Delete the old pointer
+		if (values != inputValues)
+			delete[] values;
+		values = nextValues;
 	}
 
 	// TODO: Calculate correct output layer (Squashing, ReLU, ..)
@@ -114,12 +118,12 @@ void Network::RandomizeWeights()
 
 		this->topology->Layers->at(0)->AddNeuron(neuron); // Add the neuron with connections to first hidden layer
 	}
-	
+
 	// Fill all hidden layers
 	for (int l = 0; l < hiddenLayersCount; l++) // Loop through each layer
 	{
 		Layer* layer = new Layer();
-		
+
 		for (int n = 0; n < hiddenNeuronsCount[l]; n++) // Loop through each neuron
 		{
 			Neuron* neuron = new Neuron();
@@ -159,13 +163,13 @@ void Network::FillWeights(NetworkTopology* topology)
 	if (this->connectionWeights != nullptr)
 	{
 		// delete the reference
-		delete this->connectionWeights;
+		DeleteWeights();
 	}
 
 	int count = this->hiddenLayersCount + 1; // Count of layers with connections
 	this->connectionWeights = new double**[count]; // init first dimension; count of layers with connections
 
-												   // Fill input layer weights
+	// Fill input layer weights
 	this->connectionWeights[0] = new double*[this->inputNeuronsCount]; // [0] is input layer
 	int nextLayerNeuronCount = this->hiddenNeuronsCount[0]; // Count of neurons in first hidden layer
 	for (int i = 0; i < this->inputNeuronsCount; i++) // Loop through each neuron in input layer
@@ -181,7 +185,7 @@ void Network::FillWeights(NetworkTopology* topology)
 
 
 	// Fill hidden layers weights
-	for (int i = 0; i < this->hiddenLayersCount; i++)
+	for (int i = 0; i < this->hiddenLayersCount; i++) // Loop through each hidden layer
 	{
 		int neuronsCount = this->hiddenNeuronsCount[i]; // Count of neurons on that layer
 		int next = i + 1; // effectively next layer, connections are between layers
@@ -204,17 +208,6 @@ void Network::FillWeights(NetworkTopology* topology)
 		}
 	}
 }
-
-void Network::Save(string path)
-{
-	// TODO
-}
-
-void Network::Load(string path)
-{
-	// TODO
-}
-
 
 void Network::Init(initializer_list<int>* initializerList)
 {
@@ -239,4 +232,27 @@ void Network::Init(initializer_list<int>* initializerList)
 
 		hiddenIndex++;
 	}
+}
+
+void Network::Save(string path)
+{
+	// TODO: Serialize NetworkTopology and save it
+}
+
+void Network::Load(string path)
+{
+	// TODO: Deserialize NetworkTopology and load it
+}
+
+
+void Network::DeleteWeights()
+{
+	for (int i = 0; i < this->hiddenLayersCount; i++)
+	{
+		for (int j = 0; j < this->hiddenNeuronsCount[i]; j++)
+		{
+			delete[] this->connectionWeights[i + 1][j];
+		}
+	}
+	delete[] this->connectionWeights;
 }
