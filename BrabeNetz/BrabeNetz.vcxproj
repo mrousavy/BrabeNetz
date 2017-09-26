@@ -144,9 +144,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Connection.h" />
     <ClInclude Include="Extensions.h" />
     <ClInclude Include="Functions.h" />
+    <ClInclude Include="Layer.h" />
     <ClInclude Include="Network.h" />
+    <ClInclude Include="Neuron.h" />
     <ClInclude Include="NeuronFileIO.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -154,7 +157,10 @@
     <ClInclude Include="NetworkTopology.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Connection.cpp" />
     <ClCompile Include="Extensions.cpp" />
+    <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="Neuron.cpp" />
     <ClCompile Include="NeuronFileIO.cpp" />
     <ClCompile Include="NetworkTopology.cpp" />
     <ClCompile Include="__ConsoleEntry.cpp" />
