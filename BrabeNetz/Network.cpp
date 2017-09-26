@@ -102,32 +102,33 @@ double* Network::ToNextLayer(double* inputValues, int inputLength, int layerInde
 void Network::RandomizeWeights()
 {
 	this->topology = new NetworkTopology();
-	this->topology->AddLayer(new Layer()); // Add first layer (input layer)
+	Layer inputLayer;
+	this->topology->AddLayer(inputLayer); // Add first layer (input layer)
 
 	// Fill input layer -> first hidden layer
 	for (int n = 0; n < inputNeuronsCount; n++) // Loop through each neuron
 	{
-		Neuron* neuron = new Neuron();
+		Neuron neuron;
 		int nextn = this->hiddenNeuronsCount[0]; // Count of neurons in first hidden layer
 
 		for (int c = 0; c < nextn; c++)
 		{
-			Connection* connection = new Connection(); // Build up connection with random weight
-			connection->Weight = (double(rand() % 200) / 100) - 1; // Random number between 0 and 2, minus 1 (so between -1 and 1)
-			neuron->AddConnection(connection); // add connection
+			Connection connection; // Build up connection with random weight
+			connection.Weight = (double(rand() % 200) / 100) - 1; // Random number between 0 and 2, minus 1 (so between -1 and 1)
+			neuron.AddConnection(connection); // add connection
 		}
 
-		this->topology->Layers->at(0)->AddNeuron(neuron); // Add the neuron with connections to first hidden layer
+		this->topology->Layers.at(0).AddNeuron(neuron); // Add the neuron with connections to first hidden layer
 	}
 
 	// Fill all hidden layers
 	for (int l = 0; l < hiddenLayersCount; l++) // Loop through each layer
 	{
-		Layer* layer = new Layer();
+		Layer layer;
 
 		for (int n = 0; n < hiddenNeuronsCount[l]; n++) // Loop through each neuron
 		{
-			Neuron* neuron = new Neuron();
+			Neuron neuron;
 
 			int nextNeurons = 0;
 			int next = l + 1;
@@ -138,15 +139,15 @@ void Network::RandomizeWeights()
 
 			for (int c = 0; c < nextNeurons; c++) // Loop through each Connection
 			{
-				Connection* connection = new Connection();
+				Connection connection;
 				/*connection->From = neuron;
 				connection->To = neuron;*/
-				connection->Weight = (double(rand() % 200) / 100) - 1; // Random number between 0 and 2, minus 1 (so between -1 and 1)
+				connection.Weight = (double(rand() % 200) / 100) - 1; // Random number between 0 and 2, minus 1 (so between -1 and 1)
 
-				neuron->AddConnection(connection); // Add Connection from neuron `n`
+				neuron.AddConnection(connection); // Add Connection from neuron `n`
 			}
 
-			layer->AddNeuron(neuron); // Add Neuron from layer `l`
+			layer.AddNeuron(neuron); // Add Neuron from layer `l`
 		}
 
 		topology->AddLayer(layer); // Add Layer
@@ -180,7 +181,7 @@ void Network::FillWeights(NetworkTopology* topology)
 		for (int ni = 0; ni < nextLayerNeuronCount; ni++) // Loop through each connection on that neuron
 		{
 			// Set all layer weights on this layer to the number on our network topology
-			this->connectionWeights[0][i][ni] = topology->Layers->at(0)->Neurons->at(i)->Connections->at(ni)->Weight;
+			this->connectionWeights[0][i][ni] = topology->Layers.at(0).Neurons.at(i).Connections.at(ni).Weight;
 		}
 	}
 
@@ -204,7 +205,7 @@ void Network::FillWeights(NetworkTopology* topology)
 			for (int nni = 0; nni < nextNeuronsCount; nni++) // Loop through each connection on this neuron
 			{
 				// Set all layer weights on this layer to the number on our network topology
-				this->connectionWeights[next][ni][nni] = topology->Layers->at(next)->Neurons->at(ni)->Connections->at(nni)->Weight;
+				this->connectionWeights[next][ni][nni] = topology->Layers.at(next).Neurons.at(ni).Connections.at(nni).Weight;
 			}
 		}
 	}

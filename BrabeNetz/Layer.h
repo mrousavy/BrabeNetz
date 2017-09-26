@@ -7,6 +7,6 @@ class Layer
 public:
 	Layer();
 	~Layer();
-	std::vector<Neuron*>* Neurons;
-	void AddNeuron(Neuron* neuron);
+	std::vector<Neuron> Neurons;
+	void AddNeuron(Neuron neuron);
 };

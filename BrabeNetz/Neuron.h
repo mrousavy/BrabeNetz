@@ -12,7 +12,7 @@ class Neuron
 public:
 	Neuron();
 	~Neuron();
-	std::vector<Connection*>* Connections;
-	void AddConnection(Connection* connection);
+	std::vector<Connection> Connections;
+	void AddConnection(Connection connection);
 };
 #endif
