@@ -47,6 +47,8 @@ private:
 	double*** connectionWeights;
 	// Weight of each neuron in the Output layer
 	double* outputWeights;
+	// The network topology, only for logic representation and weights initialization
+	NetworkTopology* topology;
 
 
 	////////////////
