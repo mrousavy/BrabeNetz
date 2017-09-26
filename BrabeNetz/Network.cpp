@@ -6,27 +6,7 @@ using namespace std;
 // ctor
 Network::Network(initializer_list<int> initializerList)
 {
-	if (initializerList.size() < 3)
-		throw "Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
-
-	vector<int> inputVector; // clone initializer list to vector
-	inputVector.insert(inputVector.end(), initializerList.begin(), initializerList.end());
-
-	this->inputNeuronsCount = inputVector[0]; // First element in vector -> input
-	this->outputNeuronsCount = inputVector.back(); // Last element in vector -> output
-	this->hiddenLayersCount = inputVector.size() - 2; // Count of hidden layers = total items in vector minus end and start
-	this->hiddenNeuronsCount = new int[hiddenLayersCount]; // elements except first and last = hidden layers
-	this->layers = new double*[hiddenLayersCount]; // Init all hidden layers (between input & output)
-
-	int hiddenIndex = 1; // index on input vector
-	for (int i = 0; hiddenIndex <= hiddenLayersCount; i++) // Loop from [1] to [last-1] (all hidden layers)
-	{
-		int layerSize = inputVector[hiddenIndex]; // Layer size of this layer (Containing neurons)
-		this->hiddenNeuronsCount[i] = layerSize; // Set neuron count on this hidden layer
-		this->layers[i] = new double[layerSize]; // Create layer with neuron size in hidden-layers array
-
-		hiddenIndex++;
-	}
+	Init(&initializerList);
 	RandomizeWeights(); // Calculate weights
 }
 
@@ -167,4 +147,27 @@ void Network::Save(string path)
 void Network::Load(string path)
 {
 	// TODO
+void Network::Init(initializer_list<int>* initializerList)
+{
+	if (initializerList->size() < 3)
+		throw "Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
+
+	vector<int> inputVector; // clone initializer list to vector
+	inputVector.insert(inputVector.end(), initializerList->begin(), initializerList->end());
+
+	this->inputNeuronsCount = inputVector[0]; // First element in vector -> input
+	this->outputNeuronsCount = inputVector.back(); // Last element in vector -> output
+	this->hiddenLayersCount = inputVector.size() - 2; // Count of hidden layers = total items in vector minus end and start
+	this->hiddenNeuronsCount = new int[hiddenLayersCount]; // elements except first and last = hidden layers
+	this->layers = new double*[hiddenLayersCount]; // Init all hidden layers (between input & output)
+
+	int hiddenIndex = 1; // index on input vector
+	for (int i = 0; hiddenIndex <= hiddenLayersCount; i++) // Loop from [1] to [last-1] (all hidden layers)
+	{
+		int layerSize = inputVector[hiddenIndex]; // Layer size of this layer (Containing neurons)
+		this->hiddenNeuronsCount[i] = layerSize; // Set neuron count on this hidden layer
+		this->layers[i] = new double[layerSize]; // Create layer with neuron size in hidden-layers array
+
+		hiddenIndex++;
+	}
 }
