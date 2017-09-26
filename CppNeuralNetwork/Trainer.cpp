@@ -16,11 +16,10 @@ Trainer::~Trainer()
 
 void Trainer::TrainXor()
 {
-	vector<double>* values = new vector<double>{ 1, 0 };
-	vector<double>* weights = new vector<double>{ 0.75, 0.5 };
+	int size = 2;
+	double* values = new double[size] { 1, 1 };
 	int output = 1;
-	_net->Train(values, weights, output);
+	_net->Train(values, size, output);
 
 	delete values;
-	delete weights;
 }
