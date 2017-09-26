@@ -12,3 +12,15 @@ inline T* Extensions::ToArray(std::vector<T> input)
 	}
 	return t;
 }
+
+
+template<typedef T>
+inline std::vector<T> Extensions::ToVector(T* input, int length)
+{
+	std::vector<T> v = new std::vector<T>();
+	for (int i = 0; i < length; i++)
+	{
+		v.push_back(input[i]);
+	}
+	return t;
+}
