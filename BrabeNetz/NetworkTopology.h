@@ -18,6 +18,7 @@ public:
 	Neuron();
 	~Neuron();
 	std::vector<Connection>* Connections;
+	void AddConnection(Connection* connection);
 };
 
 class Layer
@@ -26,6 +27,7 @@ public:
 	Layer();
 	~Layer();
 	std::vector<Neuron>* Neurons;
+	void AddNeuron(Neuron* neuron);
 };
 
 
@@ -35,4 +37,5 @@ public:
 	NetworkTopology();
 	~NetworkTopology();
 	std::vector<Layer>* Layers;
+	void AddLayer(Layer* layer);
 };

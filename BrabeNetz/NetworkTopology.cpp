@@ -21,6 +21,11 @@ Neuron::Neuron()
 
 Neuron::~Neuron()
 {}
+
+void Neuron::AddConnection(Connection* connection)
+{
+	this->Connections->push_back(*connection);
+}
 #pragma endregion
 
 #pragma region Layer
@@ -31,6 +36,11 @@ Layer::Layer()
 
 Layer::~Layer()
 {}
+
+void Layer::AddNeuron(Neuron* neuron)
+{
+	this->Neurons->push_back(*neuron);
+}
 #pragma endregion
 
 #pragma region NetworkTopology
@@ -41,5 +51,10 @@ NetworkTopology::NetworkTopology()
 
 NetworkTopology::~NetworkTopology()
 {}
+
+void NetworkTopology::AddLayer(Layer* layer)
+{
+	this->Layers->push_back(*layer);
+}
 #pragma endregion
 
