@@ -19,9 +19,9 @@ public:
 	// functions  //
 	////////////////
 	// Feed the network information and train it to adjust to the expected output
-	void Train(vector<double>* inputValues, vector<double>* weights, double expectedOutput);
+	void Train(double* inputValues, int length, double expectedOutput);
 	// Feed the network information and return the output
-	double Feed(vector<double>* inputValues);
+	double Feed(double* inputValues, int length);
 	// Save the network's state to disk by serializing weights
 	void Save(string path);
 	// Load the network's state from disk by deserializing and loading weights
@@ -51,7 +51,7 @@ private:
 	// functions  //
 	////////////////
 	// Put inputValues into layer at given layerIndex with squashing, etc and return layer's values
-	double* ToNextLayer(double* inputValues, int inputLength, int layerIndex);
+	double* ToNextLayer(double* inputValues, int inputLength, int layerIndex, int& outLength);
 	// Fill neuron weights with random values
 	void RandomizeWeights();
 };

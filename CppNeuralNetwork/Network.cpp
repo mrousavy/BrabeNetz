@@ -14,7 +14,7 @@ Network::Network(initializer_list<int> initializerList)
 
 	this->inputNeuronsCount = inputVector[0]; // First element in vector -> input
 	this->outputNeuronsCount = inputVector.back(); // Last element in vector -> output
-	this->hiddenLayersCount = inputVector.size(); // Count of hidden layers = total items in vector minus end and start
+	this->hiddenLayersCount = inputVector.size() - 2; // Count of hidden layers = total items in vector minus end and start
 	this->hiddenNeuronsCount = new int[hiddenLayersCount]; // elements except first and last = hidden layers
 	this->layers = new double*[hiddenLayersCount]; // Init all hidden layers (between input & output)
 
@@ -40,9 +40,9 @@ Network::~Network()
 }
 
 // Train network and adjust weights to expectedOutput
-void Network::Train(vector<double>* inputValues, vector<double>* weights, double expectedOutput)
+void Network::Train(double* inputValues, int length, double expectedOutput)
 {
-	double output = Feed(inputValues);
+	double output = Feed(inputValues, length);
 
 	if (output == expectedOutput)
 		return; // it's trained good enough
@@ -51,48 +51,31 @@ void Network::Train(vector<double>* inputValues, vector<double>* weights, double
 }
 
 // Feed the network information and return the output
-double Network::Feed(vector<double>* inputValues)
+double Network::Feed(double* inputValues, int length)
 {
-	int size = inputValues->size(); // Length of inputValues (and eff. weights)
-	int lindex = size - 1; // Last index of inputValues (and eff. weights)
+	int lindex = length - 1; // Last index of inputValues (and eff. weights)
 
-	vector<double>* values = inputValues; // Values of current layer
+	double* values = inputValues; // Values of current layer
+	int* valuesLength = &length;
 	// Go through each hidden layer
 	for (int hiddenIndex = 0; hiddenIndex < this->hiddenLayersCount; hiddenIndex++)
 	{
-		vector<double>* addr = values; // Cache temp variable
-		values = ToNextLayer(values, hiddenIndex);
-		delete addr; // Delete the old pointer
+		double* addr = values; // Cache temp variable
+		values = ToNextLayer(values, *valuesLength, hiddenIndex, *valuesLength);
+
+		if (&addr != &inputValues) // Don't delete parameter
+			delete addr; // Delete the old pointer
 	}
 
 	// TODO: OUTPUT
 
-	// virtual output layer
-	vector<double>* output = new vector<double>();
-	double* weights = this->connectionWeights[this->hiddenLayersCount]; // ptr to weights of neurons in output layer
+	// Cleanup
 
-	// Loop through each neuron on the output layer
-	for (int li = 0; li < this->outputNeuronsCount; li++) // li = layer index
-	{
-		output->push_back(0.0); // push back an empty double
-		// Loop through each value in the inputs (every input broadcasts to all neurons in this layer)
-		for (int ii = 0; ii < values->size(); ii++) // ii = input index
-		{
-			output->at(li) += values->at(ii) * weights[li]; // Add Value * Weight to that neuron
-		}
-
-		output->at(li) = Squash(output->at(li)); // Add value to output layer
-	}
-
-	double sum = Sum(output); // sum of all individual neuron sums
-	delete values; // Cleanup
-	delete weights;
-	delete output;
-	return sum; // Return "result" (last output node)
+	return 0;
 }
 
 // This function focuses on only one layer, so in theory we have 1 input layer, the layer we focus on, and 1 output
-double* Network::ToNextLayer(double* inputValues, int inputLength, int layerIndex)
+double* Network::ToNextLayer(double* inputValues, int inputLength, int layerIndex, int& outLength)
 {
 	int nCount = this->hiddenNeuronsCount[layerIndex]; // Count of neurons in the given layer (w/ layerIndex)
 	double* layer = this->layers[layerIndex]; // ptr to neurons in this layer
@@ -121,6 +104,7 @@ double* Network::ToNextLayer(double* inputValues, int inputLength, int layerInde
 	delete layer;
 	delete weights;
 
+	outLength = nCount;
 	return output;
 }
 
