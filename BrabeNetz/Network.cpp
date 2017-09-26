@@ -10,6 +10,12 @@ Network::Network(initializer_list<int> initializerList)
 	RandomizeWeights(); // Calculate weights
 }
 
+Network::Network(initializer_list<int> initializerList, NetworkTopology* topology)
+{
+	Init(&initializerList);
+	FillWeights(topology); // Calculate weights
+}
+
 // dector
 Network::~Network()
 {
@@ -139,6 +145,59 @@ void Network::RandomizeWeights()
 	}
 }
 
+void Network::FillWeights(NetworkTopology* topology)
+{
+	// TODO: Check if this works
+
+	// layer weights has a reference on the heap
+	if (this->connectionWeights != nullptr)
+	{
+		// delete the reference
+		delete this->connectionWeights;
+	}
+
+	int count = this->hiddenLayersCount + 1; // Count of layers with connections
+	this->connectionWeights = new double**[count]; // init first dimension; count of layers with connections
+
+												   // Fill input layer weights
+	this->connectionWeights[0] = new double*[this->inputNeuronsCount]; // [0] is input layer
+	int nextLayerNeuronCount = this->hiddenNeuronsCount[0]; // Count of neurons in first hidden layer
+	for (int i = 0; i < this->inputNeuronsCount; i++) // Loop through each neuron in input layer
+	{
+		this->connectionWeights[0][i] = new double[nextLayerNeuronCount];
+
+		for (int ni = 0; ni < nextLayerNeuronCount; ni++) // Loop through each connection on that neuron
+		{
+			// Set all layer weights on this layer to a random number between 0 or 1 (2 digits precision)
+			this->connectionWeights[0][i][ni] = topology->Layers->at(0)->Neurons->at(i)->Connections->at(ni)->Weight;
+		}
+	}
+
+
+	// Fill hidden layers weights
+	for (int i = 0; i < this->hiddenLayersCount; i++)
+	{
+		int neuronsCount = this->hiddenNeuronsCount[i]; // Count of neurons on that layer
+		int next = i + 1; // effectively next layer, connections are between layers
+		int nextNeuronsCount;
+
+		if (next < this->hiddenLayersCount) // Check if we're on the last layer; if yes -> last to output connections
+			nextNeuronsCount = this->hiddenNeuronsCount[next]; // Count of neurons in next layer
+		else
+			nextNeuronsCount = this->outputNeuronsCount; // Count of neurons in next layer (output)
+
+		this->connectionWeights[next] = new double*[neuronsCount]; // Init this layer's neurons []
+		for (int ni = 0; ni < neuronsCount; ni++) // Loop through each neuron on this layer
+		{
+			this->connectionWeights[next][ni] = new double[neuronsCount]; // Init this neuron's connections []
+			for (int nni = 0; nni < nextNeuronsCount; nni++) // Loop through each connection on this neuron
+			{
+				this->connectionWeights[next][ni][nni] = topology->Layers->at(next)->Neurons->at(ni)->Connections->at(nni)->Weight; // Set to random val
+			}
+		}
+	}
+}
+
 void Network::Save(string path)
 {
 	// TODO
@@ -147,6 +206,9 @@ void Network::Save(string path)
 void Network::Load(string path)
 {
 	// TODO
+}
+
+
 void Network::Init(initializer_list<int>* initializerList)
 {
 	if (initializerList->size() < 3)

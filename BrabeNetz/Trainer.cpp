@@ -3,6 +3,7 @@
 #include <iostream>
 
 #define TRAIN_TIMES_EACH 1000
+#define TRAIN_POSSIBILITIES 4
 
 // Network instance
 Network* _net;
@@ -23,7 +24,7 @@ void Trainer::TrainXor()
 	double* values;
 	int output = 1;
 
-	for (int i = 0; i < TRAIN_TIMES_EACH * 4; i++) // Clean TRAIN_TIMES times possibilities
+	for (int i = 0; i < TRAIN_TIMES_EACH * TRAIN_POSSIBILITIES; i++) // Loop TRAIN_TIMES_EACH (1000) * TRAIN_POSSIBILITIES (4)
 	{
 		int TEMPORARY_VALUE = i % 4; // TODO: REMOVE
 		switch (i % 4) // Train all 4 cases alternately

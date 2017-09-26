@@ -1,5 +1,6 @@
 #pragma once
 #include "Functions.h"
+#include "NetworkTopology.h"
 #include <algorithm>
 #include <vector>
 using namespace std;
@@ -12,6 +13,8 @@ public:
 	////////////////
 	// initializerList: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output
 	Network(initializer_list<int> initializerList);
+	// initializerList: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output
+	Network(initializer_list<int> initializerList, NetworkTopology* topology);
 	~Network();
 
 	////////////////
@@ -53,5 +56,9 @@ private:
 	double* ToNextLayer(double* inputValues, int inputLength, int layerIndex, int& outLength);
 	// Fill neuron weights with random values
 	void RandomizeWeights();
+	// Fill neuron weights with given values
+	void FillWeights(NetworkTopology* topology);
+	// Init Network
+	void Init(initializer_list<int>* initializerList);
 };
 
