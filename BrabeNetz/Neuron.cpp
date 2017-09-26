@@ -3,7 +3,7 @@
 
 Neuron::Neuron()
 {
-	this->Connections = new std::vector<Connection>();
+	this->Connections = new std::vector<Connection*>();
 }
 
 Neuron::~Neuron()
@@ -13,5 +13,5 @@ Neuron::~Neuron()
 
 void Neuron::AddConnection(Connection* connection)
 {
-	this->Connections->push_back(*connection);
+	this->Connections->push_back(connection);
 }

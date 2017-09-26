@@ -3,7 +3,7 @@
 
 Layer::Layer()
 {
-	this->Neurons = new std::vector<Neuron>();
+	this->Neurons = new std::vector<Neuron*>();
 }
 
 Layer::~Layer()
@@ -13,5 +13,5 @@ Layer::~Layer()
 
 void Layer::AddNeuron(Neuron* neuron)
 {
-	this->Neurons->push_back(*neuron);
+	this->Neurons->push_back(neuron);
 }

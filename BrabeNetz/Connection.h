@@ -14,7 +14,7 @@ public:
 	~Connection();
 	/*Neuron* From;
 	Neuron* To;*/
-	int to;
+	int To;
 	double Weight;
 };
 
