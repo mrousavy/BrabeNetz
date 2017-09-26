@@ -152,6 +152,20 @@ void Network::RandomizeWeights()
 	}
 
 
+	// Fill hidden layers weights
+	for (int i = 0; i < count; i++)
+	{
+		int neuronsCount = this->hiddenNeuronsCount[i]; // Count of neurons on that layer
+		// TODO: OUT OF BOUNDS?
+		int nextNeuronsCount = this->hiddenNeuronsCount[i + 1]; // Count of neurons in next layer
+		for (int ni = 0; ni < neuronsCount; ni++)
+		{
+			for (int nni = 0; nni < nextNeuronsCount; nni++)
+			{
+				this->connectionWeights[i + 1][ni][nni] = double(rand() % 100) / 100;
+			}
+		}
+	}
 }
 
 
