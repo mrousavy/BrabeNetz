@@ -151,10 +151,12 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Trainer.h" />
+    <ClInclude Include="NetworkTopology.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Extensions.cpp" />
     <ClCompile Include="NeuronFileIO.cpp" />
+    <ClCompile Include="NetworkTopology.cpp" />
     <ClCompile Include="__ConsoleEntry.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Network.cpp" />
