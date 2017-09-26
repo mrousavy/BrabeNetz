@@ -52,5 +52,7 @@ private:
 	////////////////
 	// Put inputValues into layer at given layerIndex with squashing, etc and return layer's values
 	vector<double>* ToNextLayer(vector<double>* inputValues, int layerIndex);
+	// Fill neuron weights with random values
+	void RandomizeWeights();
 };
 

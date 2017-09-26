@@ -125,6 +125,35 @@ vector<double>* Network::ToNextLayer(vector<double>* inputValues, int layerIndex
 	return output;
 }
 
+void Network::RandomizeWeights()
+{
+	// layer weights has a reference on the heap
+	if (this->connectionWeights != nullptr)
+	{
+		// delete the reference
+		delete this->connectionWeights;
+	}
+
+	int count = this->hiddenLayersCount + 1; // Count of layers with connections
+	this->connectionWeights = new double**[hiddenLayersCount];
+
+	// Fill input layer weights
+	this->connectionWeights[0] = new double*[this->inputNeuronsCount]; // [0] is input layer
+	int nextLayerNeuronCount = this->hiddenNeuronsCount[0]; // Count of neurons in first hidden layer
+	for (int i = 0; i < this->inputNeuronsCount; i++) // Loop through each neuron in input layer
+	{
+		this->connectionWeights[0][i] = new double[nextLayerNeuronCount];
+
+		for (int ni = 0; ni < nextLayerNeuronCount; ni++) // Loop through each connection on that neuron
+		{
+			// Set all layer weights on this layer to a random number between 0 or 1 (2 digits precision)
+			this->connectionWeights[0][i][ni] = double(rand() % 100) / 100;
+		}
+	}
+
+
+}
+
 
 void Network::Save(string path)
 {
