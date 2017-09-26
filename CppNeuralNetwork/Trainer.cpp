@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Trainer.h"
+#include <iostream>
 
-#define TRAIN_TIMES_EACH 2000
+#define TRAIN_TIMES_EACH 1000
 
 // Network instance
 Network* _net;

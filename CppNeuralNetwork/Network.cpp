@@ -68,14 +68,13 @@ double Network::Feed(double* inputValues, int length)
 			delete addr; // Delete the old pointer
 	}
 
+	// TODO: Calculate correct output layer (Squashing, ReLU, ..)
 	double sum = 0;
 	for (int i = 0; i < length; i++) // Loop through each neuron in output layer
 	{
-		double value = Rectify(values[i]); // ReLu it (keep if positive, 0 if negative; uint)
-		sum += Squash(value); // Squash the result (TODO: do I need to squash output?)
+		double value = Rectify(values[i]); // ReLU it (keep if positive, 0 if negative; uint)
+		sum += Squash(value); // Squash the result
 	}
-
-	// TODO: OUTPUT
 
 	// Cleanup
 	return sum;
@@ -88,8 +87,6 @@ double* Network::ToNextLayer(double* inputValues, int inputLength, int layerInde
 	double* layer = this->layers[layerIndex]; // ptr to neurons in this layer
 	double** weights = this->connectionWeights[layerIndex]; // ptr to weights of neurons in this layer
 	double* output = new double[nCount];
-
-	// TODO: FEED WITH correct weights
 
 	// Loop through each neuron on the given layer
 	for (int n = 0; n < nCount; n++) // n = neuron
