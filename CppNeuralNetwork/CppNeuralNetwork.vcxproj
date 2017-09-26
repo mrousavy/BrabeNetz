@@ -146,6 +146,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Extensions.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="NeuronFileIO.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="Trainer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Extensions.cpp" />
     <ClCompile Include="NeuronFileIO.cpp" />
     <ClCompile Include="__ConsoleEntry.cpp" />
     <ClCompile Include="Functions.cpp" />
