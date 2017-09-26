@@ -39,7 +39,7 @@ double Network::Train(double* inputValues, int length, double expectedOutput)
 	if (output == expectedOutput)
 		return 0.0; // it's trained good enough
 
-	//TODO: Adjust network
+	//TODO: Adjust weights after expected output != actual
 	return output;
 }
 
@@ -155,10 +155,10 @@ void Network::RandomizeWeights()
 	FillWeights(this->topology);
 }
 
+// TODO: Check if this works
 void Network::FillWeights(NetworkTopology* topology)
 {
 	this->topology = topology;
-	// TODO: Check if this works
 
 	// layer weights has a reference on the heap
 	if (this->connectionWeights != nullptr)
@@ -244,7 +244,6 @@ void Network::Load(string path)
 {
 	// TODO: Deserialize NetworkTopology and load it
 }
-
 
 void Network::DeleteWeights()
 {
