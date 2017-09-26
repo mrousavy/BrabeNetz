@@ -41,8 +41,8 @@ private:
 	int outputNeuronsCount;
 	// Actual Hidden layers
 	double** layers;
-	// Weight of each hidden layer
-	double** layerWeights;
+	// Weight of each neuron's connection, 3D Array: [layer][neuron][connection]
+	double*** connectionWeights;
 	// Weight of each neuron in the Output layer
 	double* outputWeights;
 
