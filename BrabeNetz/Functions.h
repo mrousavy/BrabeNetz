@@ -13,14 +13,21 @@
 /// function (https://en.wikipedia.org/wiki/Sigmoid_function) using
 /// doubles (because doubles are being Hardware-implemented -> faster)
 /// </summary>
-decimal Squash(decimal);
+decimal Squash(decimal input);
 
 /// <summary>
 /// Rectify a value with the rectified linear unit (ReLU)
 /// function (https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) using
 /// doubles (because doubles are being Hardware-implemented -> faster)
 /// </summary>
-decimal Rectify(decimal);
+decimal Rectify(decimal input);
+
+
+/// <summary>
+/// Calculate the Error of the neural network
+/// by given expected output and actual output
+/// </summary>
+decimal GetError(decimal expected, decimal actual);
 
 /// <summary>
 /// Sums up a vector
