@@ -47,7 +47,7 @@ void Trainer::TrainXor()
 				break;
 		}
 		double result = _net->Train(values, size, expected);
-		//cout << "{ " << values[0] << ", " << values[1] << " }: " << expected << " | " << result << endl;
+		cout << "{ " << values[0] << ", " << values[1] << " }: " << expected << " | " << result << endl;
 
 		// Cleanup
 		delete[] values;

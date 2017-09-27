@@ -6,12 +6,14 @@ using namespace std;
 // ctor
 Network::Network(initializer_list<int> initializerList)
 {
+	srand(time(NULL));
 	Init(initializerList);
 	RandomizeWeights(); // Calculate weights
 }
 
 Network::Network(initializer_list<int> initializerList, NetworkTopology& topology)
 {
+	srand(time(NULL));
 	Init(initializerList);
 	FillWeights(topology); // Calculate weights
 }
