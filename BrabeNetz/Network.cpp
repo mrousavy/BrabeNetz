@@ -76,7 +76,7 @@ double* Network::ToNextLayer(double* inputValues, int inputLength, int layerInde
 {
 	int nCount = this->hiddenNeuronsCount[layerIndex]; // Count of neurons in the given layer (w/ layerIndex)
 	double* layer = this->layers[layerIndex]; // ptr to neurons in this layer
-	double** weights = this->connectionWeights[layerIndex]; // ptr to weights of neurons in this layer
+	double** weights = this->weights[layerIndex]; // ptr to weights of neurons in this layer
 	double* output = new double[nCount];
 
 	for (int n = 0; n < nCount; n++) // Loop through each neuron "n" on the following layer
@@ -162,50 +162,31 @@ void Network::FillWeights(NetworkTopology& topology)
 	this->topology = &topology;
 
 	// layer weights has a reference on the heap
-	if (this->connectionWeights != nullptr)
+	if (this->weights != nullptr)
 	{
 		// delete the reference
 		DeleteWeights();
 	}
 
 	int count = this->hiddenLayersCount + 1; // Count of layers with connections
-	this->connectionWeights = new double**[count]; // init first dimension; count of layers with connections
+	this->weights = new double**[count]; // init first dimension; count of layers with connections
 
-	// Fill input layer weights
-	this->connectionWeights[0] = new double*[this->inputNeuronsCount]; // [0] is input layer
-	int nextLayerNeuronCount = this->hiddenNeuronsCount[0]; // Count of neurons in first hidden layer
-	for (int i = 0; i < this->inputNeuronsCount; i++) // Loop through each neuron in input layer
+	
+	int lcount = topology.Layers.size(); // Count of layers
+	this->weights = new double**[lcount];
+	for (int l = 0; l < lcount; l++) // Loop through each layer
 	{
-		this->connectionWeights[0][i] = new double[nextLayerNeuronCount];
-
-		for (int ni = 0; ni < nextLayerNeuronCount; ni++) // Loop through each connection on that neuron
+		Layer* layer = &topology.Layers.at(l);
+		int ncount = layer->Neurons.size(); // Count of neurons in this layer
+		this->weights[l] = new double*[ncount];
+		for (int n = 0; n < ncount; n++) // Loop through each neuron in this layer
 		{
-			// Set all layer weights on this layer to the number on our network topology
-			this->connectionWeights[0][i][ni] = topology.Layers.at(0).Neurons.at(i).Connections.at(ni).Weight;
-		}
-	}
-
-
-	// Fill hidden layers weights
-	for (int i = 0; i < this->hiddenLayersCount; i++) // Loop through each hidden layer
-	{
-		int neuronsCount = this->hiddenNeuronsCount[i]; // Count of neurons on that layer
-		int next = i + 1; // effectively next layer, connections are between layers
-		int nextNeuronsCount;
-
-		if (next < this->hiddenLayersCount) // Check if we're on the last layer; if yes -> last to output connections
-			nextNeuronsCount = this->hiddenNeuronsCount[next]; // Count of neurons in next layer
-		else
-			nextNeuronsCount = this->outputNeuronsCount; // Count of neurons in next layer (output)
-
-		this->connectionWeights[next] = new double*[neuronsCount]; // Init this layer's neurons []
-		for (int ni = 0; ni < neuronsCount; ni++) // Loop through each neuron on this layer
-		{
-			this->connectionWeights[next][ni] = new double[neuronsCount]; // Init this neuron's connections []
-			for (int nni = 0; nni < nextNeuronsCount; nni++) // Loop through each connection on this neuron
+			Neuron* neuron = &layer->Neurons.at(n);
+			int ccount = neuron->Connections.size(); // Count of connection on this neuron
+			this->weights[l][n] = new double[ccount];
+			for (int c = 0; c < neuron->Connections.size(); c++) // Loop through each connection on this neuron
 			{
-				// Set all layer weights on this layer to the number on our network topology
-				this->connectionWeights[next][ni][nni] = topology.Layers.at(next).Neurons.at(ni).Connections.at(nni).Weight;
+				this->weights[l][n][c] = neuron->Connections.at(c).Weight;
 			}
 		}
 	}
@@ -253,9 +234,9 @@ void Network::DeleteWeights()
 		for (int j = 0; j < this->hiddenNeuronsCount[i]; j++)
 		{
 			// TODO: [DeleteWeights()] Fix out of bounds
-			delete[] this->connectionWeights[i][j];
+			delete[] this->weights[i][j];
 		}
-		delete[] this->connectionWeights[i];
+		delete[] this->weights[i];
 	}
-	delete[] this->connectionWeights;
+	delete[] this->weights;
 }
