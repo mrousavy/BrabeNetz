@@ -79,15 +79,14 @@ double* Network::ToNextLayer(double* inputValues, int inputLength, int layerInde
 	double** weights = this->connectionWeights[layerIndex]; // ptr to weights of neurons in this layer
 	double* output = new double[nCount];
 
-	// Loop through each neuron on the given layer
-	for (int n = 0; n < nCount; n++) // n = neuron
+	for (int n = 0; n < nCount; n++) // Loop through each neuron "n" on the following layer
 	{
 		layer[n] = 0; // Reset layer's neuron at index n
 
 		// Loop through each value in the inputs (every input broadcasts to all neurons in this layer)
 		for (int ii = 0; ii < inputLength; ii++) // ii = input index
 		{
-			layer[n] += inputValues[ii] * weights[layerIndex][n]; // Add Value * Weight to that neuron
+			layer[n] += inputValues[ii] * weights[ii][n]; // Add Value * Weight to that neuron
 		}
 
 		double neuron = layer[n]; // The current neuron's value
@@ -99,6 +98,7 @@ double* Network::ToNextLayer(double* inputValues, int inputLength, int layerInde
 	return output;
 }
 
+// TODO: Randomizing should not respect input layer, just go from 0 to hiddenlayercount+1
 void Network::RandomizeWeights()
 {
 	this->topology = new NetworkTopology();
@@ -252,8 +252,10 @@ void Network::DeleteWeights()
 	{
 		for (int j = 0; j < this->hiddenNeuronsCount[i]; j++)
 		{
-			delete[] this->connectionWeights[i + 1][j];
+			// TODO: [DeleteWeights()] Fix out of bounds
+			delete[] this->connectionWeights[i][j];
 		}
+		delete[] this->connectionWeights[i];
 	}
 	delete[] this->connectionWeights;
 }
