@@ -102,24 +102,26 @@ double* Network::ToNextLayer(double* inputValues, int inputLength, int layerInde
 void Network::RandomizeWeights()
 {
 	this->topology = new NetworkTopology();
-	Layer inputLayer;
-	this->topology->AddLayer(inputLayer); // Add first layer (input layer)
 
+	int totalLayerCount = hiddenLayersCount + 2; // Input Layer + Hidden Layers + Output Layer
+
+
+	Layer inputLayer;
 	// Fill input layer -> first hidden layer
-	for (int n = 0; n < inputNeuronsCount; n++) // Loop through each neuron
+	for (int n = 0; n < inputNeuronsCount; n++) // Loop through each neuron "n" on input layer
 	{
 		Neuron neuron;
 		int nextn = this->hiddenNeuronsCount[0]; // Count of neurons in first hidden layer
-
-		for (int c = 0; c < nextn; c++)
+		for (int c = 0; c < nextn; c++) // Loop through each connection "c" of this neuron
 		{
 			Connection connection; // Build up connection with random weight
 			connection.Weight = (double(rand() % 200) / 100) - 1; // Random number between 0 and 2, minus 1 (so between -1 and 1)
 			neuron.AddConnection(connection); // add connection
 		}
 
-		this->topology->Layers.at(0).AddNeuron(neuron); // Add the neuron with connections to first hidden layer
+		inputLayer.AddNeuron(neuron); // Add the neuron with connections to first hidden layer
 	}
+	this->topology->AddLayer(inputLayer);
 
 	// Fill all hidden layers
 	for (int l = 0; l < hiddenLayersCount; l++) // Loop through each layer
@@ -130,18 +132,16 @@ void Network::RandomizeWeights()
 		{
 			Neuron neuron;
 
-			int nextNeurons = 0;
+			int nextNeurons;
 			int next = l + 1;
 			if (next == hiddenLayersCount) // Check if out of bounds
 				nextNeurons = outputNeuronsCount; // It's last layer; Use output layer
 			else
-				nextNeurons = hiddenNeuronsCount[next]; // Use next layer
+				nextNeurons = hiddenNeuronsCount[next]; // Just use next layer
 
 			for (int c = 0; c < nextNeurons; c++) // Loop through each Connection
 			{
 				Connection connection;
-				/*connection->From = neuron;
-				connection->To = neuron;*/
 				connection.Weight = (double(rand() % 200) / 100) - 1; // Random number between 0 and 2, minus 1 (so between -1 and 1)
 
 				neuron.AddConnection(connection); // Add Connection from neuron `n`
