@@ -25,8 +25,7 @@ const decimal MaxValue = 1;
 /// </summary>
 decimal Squash(decimal value)
 {
-	// Squash via BRAH function (squash to -1 .. +1)
-	return (value - MinValue) / (MaxValue - MinValue);
+	return 1 / (1 + exp(-value));
 }
 
 /// <summary>
