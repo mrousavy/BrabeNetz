@@ -229,14 +229,19 @@ void Network::Load(string path)
 
 void Network::DeleteWeights()
 {
-	for (int i = 0; i < this->hiddenLayersCount; i++)
+	for (int i = 0; i < this->hiddenLayersCount + 1; i++) // Loop through each layer
 	{
-		for (int j = 0; j < this->hiddenNeuronsCount[i]; j++)
+		int lneurons = i; // Layer neurons
+		if (lneurons == 0)
+			lneurons = inputNeuronsCount; // First element; input neuron count
+		else
+			lneurons = this->hiddenNeuronsCount[i]; // Else; neuron count from size array
+
+		for (int n = 0; n < lneurons; n++) // Loop through each neuron in this layer
 		{
-			// TODO: [DeleteWeights()] Fix out of bounds
-			delete[] this->weights[i][j];
+			delete[] this->weights[i][n]; // Delete all connections on this neuron
 		}
-		delete[] this->weights[i];
+		delete[] this->weights[i]; // Delete all neurons on this layer
 	}
-	delete[] this->weights;
+	delete[] this->weights; // Delete layer
 }
