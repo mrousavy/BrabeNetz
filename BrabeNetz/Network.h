@@ -14,7 +14,7 @@ public:
 	// initializerList: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output
 	Network(initializer_list<int> initializerList);
 	// initializerList: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output
-	Network(initializer_list<int> initializerList, NetworkTopology* topology);
+	Network(initializer_list<int> initializerList, NetworkTopology& topology);
 	~Network();
 
 	////////////////
@@ -59,7 +59,7 @@ private:
 	// Fill neuron weights with random values
 	void RandomizeWeights();
 	// Fill neuron weights with given values
-	void FillWeights(NetworkTopology* topology);
+	void FillWeights(NetworkTopology& topology);
 	// Init Network
 	void Init(initializer_list<int>* initializerList);
 	// Delete weights array
