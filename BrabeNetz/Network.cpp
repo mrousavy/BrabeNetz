@@ -6,13 +6,13 @@ using namespace std;
 // ctor
 Network::Network(initializer_list<int> initializerList)
 {
-	Init(&initializerList);
+	Init(initializerList);
 	RandomizeWeights(); // Calculate weights
 }
 
 Network::Network(initializer_list<int> initializerList, NetworkTopology& topology)
 {
-	Init(&initializerList);
+	Init(initializerList);
 	FillWeights(topology); // Calculate weights
 }
 
@@ -67,6 +67,7 @@ double* Network::ToNextLayer(double* inputValues, int inputLength, int layerInde
 {
 	int nCount = this->hiddenNeuronsCount[layerIndex]; // Count of neurons in the given layer (w/ layerIndex)
 	double** weights = this->weights[layerIndex]; // ptr to weights of neurons in this layer
+	double* biases = this->biases[layerIndex]; // ptr to biases of neurons in the layer before this
 	double* output = new double[nCount];
 
 	for (int n = 0; n < nCount; n++) // Loop through each neuron "n" on the following layer
@@ -76,12 +77,11 @@ double* Network::ToNextLayer(double* inputValues, int inputLength, int layerInde
 		// Loop through each value in the inputs (every input broadcasts to all neurons in this layer)
 		for (int ii = 0; ii < inputLength; ii++) // ii = input index
 		{
-			double weight = weights[ii][n];
-			double in = inputValues[ii];
-			value += inputValues[ii] * weights[ii][n]; // Add Value * Weight to that neuron
+			value += (inputValues[ii] * weights[ii][n]) + biases[n]; // Add Value * Weight to that neuron
 		}
 
 		double squashed = Squash(value); // The final squashed neuron's value
+		this->layers[layerIndex][n] = squashed;
 		output[n] = squashed; // Add value to output layer
 	}
 
@@ -102,6 +102,7 @@ void Network::RandomizeWeights()
 	for (int n = 0; n < inputNeuronsCount; n++) // Loop through each neuron "n" on input layer
 	{
 		Neuron neuron;
+		neuron.Bias = (double(rand() % 200) / 100) - 1; // Random number between 0 and 2, minus 1 (so between -1 and 1)
 		int nextn = this->hiddenNeuronsCount[0]; // Count of neurons in first hidden layer
 		for (int c = 0; c < nextn; c++) // Loop through each connection "c" of this neuron
 		{
@@ -122,6 +123,7 @@ void Network::RandomizeWeights()
 		for (int n = 0; n < hiddenNeuronsCount[l]; n++) // Loop through each neuron
 		{
 			Neuron neuron;
+			neuron.Bias = (double(rand() % 200) / 100) - 1; // Random number between 0 and 2, minus 1 (so between -1 and 1)
 
 			int nextNeurons;
 			int next = l + 1;
@@ -164,46 +166,33 @@ void Network::FillWeights(NetworkTopology& topology)
 
 	
 	int lcount = topology.Size; // Count of layers
+	this->biases = new double*[lcount];
 	this->weights = new double**[lcount];
 	for (int l = 0; l < lcount; l++) // Loop through each layer
 	{
-		Layer* layer = &topology.LayerAt(l);
-		int ncount = layer->Size; // Count of neurons in this layer
+		Layer& layer = topology.LayerAt(l);
+		int ncount = layer.Size; // Count of neurons in this layer
+		this->biases[l] = new double[ncount];
 		this->weights[l] = new double*[ncount];
 		for (int n = 0; n < ncount; n++) // Loop through each neuron in this layer
 		{
-			Neuron* neuron = &layer->NeuronAt(n);
-			int ccount = neuron->Size; // Count of connection on this neuron
+			Neuron& neuron = layer.NeuronAt(n);
+
+			this->biases[l][n] = neuron.Bias;
+			int ccount = neuron.Size; // Count of connection on this neuron
 			this->weights[l][n] = new double[ccount];
-			for (int c = 0; c < neuron->Size; c++) // Loop through each connection on this neuron
+			for (int c = 0; c < neuron.Size; c++) // Loop through each connection on this neuron
 			{
-				this->weights[l][n][c] = neuron->ConnectionAt(c).Weight;
+				this->weights[l][n][c] = neuron.ConnectionAt(c).Weight;
 			}
 		}
 	}
 }
 
-void Network::Init(initializer_list<int>* initializerList)
+void Network::Adjust(double expected, double actual)
 {
-	if (initializerList->size() < 3)
-		throw "Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
+	double error = GetError(expected, actual); // Error on output layer
 
-	vector<int> inputVector; // clone initializer list to vector
-	inputVector.insert(inputVector.end(), initializerList->begin(), initializerList->end());
-
-	this->inputNeuronsCount = inputVector[0]; // First element in vector -> input
-	this->outputNeuronsCount = inputVector.back(); // Last element in vector -> output
-	this->hiddenLayersCount = inputVector.size() - 2; // Count of hidden layers = total items in vector minus end and start
-	this->hiddenNeuronsCount = new int[hiddenLayersCount]; // elements except first and last = hidden layers
-
-	int hiddenIndex = 1; // index on input vector
-	for (int i = 0; hiddenIndex <= hiddenLayersCount; i++) // Loop from [1] to [last-1] (all hidden layers)
-	{
-		int layerSize = inputVector[hiddenIndex]; // Layer size of this layer (Containing neurons)
-		this->hiddenNeuronsCount[i] = layerSize; // Set neuron count on this hidden layer
-
-		hiddenIndex++;
-	}
 }
 
 void Network::Save(string path)
@@ -214,6 +203,31 @@ void Network::Save(string path)
 void Network::Load(string path)
 {
 	// TODO: Deserialize NetworkTopology and load it
+}
+
+void Network::Init(initializer_list<int>& initializerList)
+{
+	if (initializerList.size() < 3)
+		throw "Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
+
+	vector<int> inputVector; // clone initializer list to vector
+	inputVector.insert(inputVector.end(), initializerList.begin(), initializerList.end());
+
+	this->inputNeuronsCount = inputVector[0]; // First element in vector -> input
+	this->outputNeuronsCount = inputVector.back(); // Last element in vector -> output
+	this->hiddenLayersCount = inputVector.size() - 2; // Count of hidden layers = total items in vector minus end and start
+	this->layers = new double*[hiddenLayersCount];
+	this->hiddenNeuronsCount = new int[hiddenLayersCount]; // elements except first and last = hidden layers
+
+	int hiddenIndex = 1; // index on input vector
+	for (int i = 0; hiddenIndex <= hiddenLayersCount; i++) // Loop from [1] to [last-1] (all hidden layers)
+	{
+		int layerSize = inputVector[hiddenIndex]; // Layer size of this layer (Containing neurons)
+		this->hiddenNeuronsCount[i] = layerSize; // Set neuron count on this hidden layer
+		this->layers[i] = new double[layerSize];
+
+		hiddenIndex++;
+	}
 }
 
 void Network::DeleteWeights()

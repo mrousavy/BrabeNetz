@@ -46,10 +46,15 @@ private:
 	int outputNeuronsCount;
 	// Weight of each neuron's connection, 3D Array: [layer][neuron][connection]
 	double*** weights;
+	// Actual layers that contain nodes with their values
+	double** layers;
+	// Each neuron's bias
+	double** biases;
+	// Each neuron's error values
+	double** errors;
 	// The network topology, only for logic representation and weights initialization
 	NetworkTopology* topology;
 
-	// TODO: add Bias double***
 
 	////////////////
 	// functions  //
@@ -61,8 +66,10 @@ private:
 	// Fill neuron weights with given values
 	void FillWeights(NetworkTopology& topology);
 	// Init Network
-	void Init(initializer_list<int>* initializerList);
+	void Init(initializer_list<int>& initializerList);
 	// Delete weights array
 	void DeleteWeights();
+	// Adjust Network's weights and Biases
+	void Adjust(double expected, double actual);
 };
 

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "NetworkTopology.h"
 
+
 NetworkTopology::NetworkTopology()
 {
 	this->Size = 0;

@@ -14,10 +14,10 @@ public:
 	~Neuron();
 	void AddConnection(Connection connection);
 	Connection& ConnectionAt(int index);
-	int Size;
-	// TODO: Neuron.h Bias/Error
-	double Error;
-	double Bias;
+	int Size = 0;
+	double Value = 0;
+	double Error = 0;
+	double Bias = 0;
 private:
 	std::vector<Connection> _connections;
 };

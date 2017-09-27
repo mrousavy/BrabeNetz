@@ -2,9 +2,7 @@
 #include "Neuron.h"
 
 Neuron::Neuron()
-{
-	this->Size = 0;
-}
+{}
 
 Neuron::~Neuron()
 {}
