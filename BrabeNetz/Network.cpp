@@ -30,10 +30,7 @@ double Network::Train(double* inputValues, int length, double expectedOutput)
 {
 	double output = Feed(inputValues, length);
 
-	/*int count = this->hiddenLayersCount + 1;
-	for (int i = count; i > -1; i++)
-	{
-	}*/
+	// TODO: Adjust weights and biasses here
 
 	return output;
 }

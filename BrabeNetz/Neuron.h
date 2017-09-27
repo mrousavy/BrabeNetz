@@ -15,6 +15,9 @@ public:
 	void AddConnection(Connection connection);
 	Connection& ConnectionAt(int index);
 	int Size;
+	// TODO: Neuron.h Bias/Error
+	double Error;
+	double Bias;
 private:
 	std::vector<Connection> _connections;
 };

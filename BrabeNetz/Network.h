@@ -49,6 +49,7 @@ private:
 	// The network topology, only for logic representation and weights initialization
 	NetworkTopology* topology;
 
+	// TODO: add Bias double***
 
 	////////////////
 	// functions  //
