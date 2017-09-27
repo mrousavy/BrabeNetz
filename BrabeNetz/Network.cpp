@@ -30,10 +30,7 @@ double Network::Train(double* inputValues, int length, double expectedOutput)
 {
 	double output = Feed(inputValues, length);
 
-	if (output == expectedOutput)
-		return 0.0; // it's trained good enough
 
-	//TODO: Adjust weights after expected output != actual
 	return output;
 }
 
@@ -53,7 +50,6 @@ double Network::Feed(double* inputValues, int length)
 		values = nextValues;
 	}
 
-	// TODO: Calculate correct output layer (Squashing, ReLU, ..)
 	double sum = 0;
 	for (int i = 0; i < length; i++) // Loop through each neuron in output layer
 	{
@@ -166,21 +162,21 @@ void Network::FillWeights(NetworkTopology& topology)
 	this->weights = new double**[count]; // init first dimension; count of layers with connections
 
 	
-	int lcount = topology.Layers.size(); // Count of layers
+	int lcount = topology.Size; // Count of layers
 	this->weights = new double**[lcount];
 	for (int l = 0; l < lcount; l++) // Loop through each layer
 	{
-		Layer* layer = &topology.Layers.at(l);
-		int ncount = layer->Neurons.size(); // Count of neurons in this layer
+		Layer* layer = &topology.LayerAt(l);
+		int ncount = layer->Size; // Count of neurons in this layer
 		this->weights[l] = new double*[ncount];
 		for (int n = 0; n < ncount; n++) // Loop through each neuron in this layer
 		{
-			Neuron* neuron = &layer->Neurons.at(n);
-			int ccount = neuron->Connections.size(); // Count of connection on this neuron
+			Neuron* neuron = &layer->NeuronAt(n);
+			int ccount = neuron->Size; // Count of connection on this neuron
 			this->weights[l][n] = new double[ccount];
-			for (int c = 0; c < neuron->Connections.size(); c++) // Loop through each connection on this neuron
+			for (int c = 0; c < neuron->Size; c++) // Loop through each connection on this neuron
 			{
-				this->weights[l][n][c] = neuron->Connections.at(c).Weight;
+				this->weights[l][n][c] = neuron->ConnectionAt(c).Weight;
 			}
 		}
 	}

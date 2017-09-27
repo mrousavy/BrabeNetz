@@ -5,6 +5,9 @@
 #include <vector>
 using namespace std;
 
+// Specifies the value each weight gets adjusted by on training
+#define ADJUST_WEIGHTS_BY 0.002
+
 class Network
 {
 public:

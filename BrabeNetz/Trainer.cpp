@@ -22,7 +22,7 @@ void Trainer::TrainXor()
 {
 	int size = 2;
 	double* values;
-	int output;
+	int expected;
 
 	for (int i = 0; i < TRAIN_TIMES_EACH * TRAIN_POSSIBILITIES; i++) // Loop TRAIN_TIMES_EACH (1000) * TRAIN_POSSIBILITIES (4)
 	{
@@ -30,24 +30,24 @@ void Trainer::TrainXor()
 		{
 			case 0:
 				values = new double[size] { 0, 0 };
-				output = 0;
+				expected = 0;
 				break;
 			case 1:
 				values = new double[size] { 1, 0 };
-				output = 1;
+				expected = 1;
 				break;
 			case 2:
 				values = new double[size] { 0, 1 };
-				output = 1;
+				expected = 1;
 				break;
 			case 3:
 			default:
 				values = new double[size] { 1, 1 };
-				output = 0;
+				expected = 0;
 				break;
 		}
-		double result = _net->Train(values, size, output);
-		cout << "{ " << values[0] << ", " << values[1] << " }: " << result << endl;
+		double result = _net->Train(values, size, expected);
+		cout << "{ " << values[0] << ", " << values[1] << " }: " << expected << " | " << result << endl;
 
 		// Cleanup
 		delete[] values;

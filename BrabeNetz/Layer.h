@@ -7,6 +7,9 @@ class Layer
 public:
 	Layer();
 	~Layer();
-	std::vector<Neuron> Neurons;
 	void AddNeuron(Neuron neuron);
+	Neuron& NeuronAt(int index);
+	int Size;
+private:
+	std::vector<Neuron> _neurons;
 };

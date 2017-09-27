@@ -7,6 +7,9 @@ class NetworkTopology
 public:
 	NetworkTopology();
 	~NetworkTopology();
-	std::vector<Layer> Layers;
 	void AddLayer(Layer layer);
+	Layer& LayerAt(int index);
+	int Size;
+private:
+	std::vector<Layer> _layers;
 };
