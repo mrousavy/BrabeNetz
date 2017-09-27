@@ -44,6 +44,11 @@ decimal GetError(decimal expected, decimal actual)
 	return actual * (1 - actual) * (expected - actual);
 }
 
+decimal GetError(decimal outputError, decimal neuronValue, decimal totalWeights)
+{
+	return neuronValue * (1 - neuronValue) * totalWeights;
+}
+
 /// <summary>
 /// Rectify a value with the rectified linear unit (ReLU)
 /// function (https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) using

@@ -22,12 +22,19 @@ decimal Squash(decimal input);
 /// </summary>
 decimal Rectify(decimal input);
 
-
 /// <summary>
-/// Calculate the Error of the neural network
-/// by given expected output and actual output
+/// Calculate the Error of the output layer 
+///	in the neural network by given expected 
+/// output and actual output
 /// </summary>
 decimal GetError(decimal expected, decimal actual);
+
+/// <summary>
+/// Calculate the Error of any layer
+///	in the neural network by given expected 
+/// output and actual output
+/// </summary>
+decimal GetError(decimal neuronValue, decimal totalWeights);
 
 /// <summary>
 /// Sums up a vector
