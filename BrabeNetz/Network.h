@@ -41,12 +41,8 @@ private:
 	int* hiddenNeuronsCount;
 	// Count of Neurons in Output Layer
 	int outputNeuronsCount;
-	// Actual Hidden layers
-	double** layers;
 	// Weight of each neuron's connection, 3D Array: [layer][neuron][connection]
 	double*** weights;
-	// Weight of each neuron in the Output layer
-	double* outputWeights;
 	// The network topology, only for logic representation and weights initialization
 	NetworkTopology* topology;
 

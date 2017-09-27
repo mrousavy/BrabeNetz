@@ -14,9 +14,9 @@ using namespace std;
 // The Euler's constant (e) calculated with exp(1)
 const decimal EulerConstant = std::exp(1.0);
 // Minimum value that's possible as a Squash(..) input parameter
-const decimal MinValue = -100;
+const decimal MinValue = 0;
 // Maximum value that's possible as a Squash(..) input parameter
-const decimal MaxValue = 100;
+const decimal MaxValue = 1;
 
 /// <summary>
 /// Squash a value with the Sigmoid
