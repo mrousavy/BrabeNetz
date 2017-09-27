@@ -27,11 +27,11 @@ inline T* Extensions::ToArray(std::vector<T> input)
 template<typename T>
 inline std::vector<T> Extensions::ToVector(T* input, int length)
 {
-	std::vector<T> v = new std::vector<T>();
+	std::vector<T> v;
 	for (int i = 0; i < length; i++)
 	{
 		v.push_back(input[i]);
 	}
-	return t;
+	return v;
 }
 
