@@ -9,8 +9,8 @@ neuron::~neuron()
 
 std::ostream& operator<<(std::ostream& os, neuron& n)
 {
-	os << n.size;
-	os << n.bias;
+	os.write(reinterpret_cast<const char*>(&n.size), sizeof(n.size));
+	os.write(reinterpret_cast<const char*>(&n.bias), sizeof(n.bias));
 	for (int i = 0; i < n.size; i++) // From 0 to last index
 		os << n.connection_at(i);
 	return os;
@@ -18,8 +18,8 @@ std::ostream& operator<<(std::ostream& os, neuron& n)
 
 std::istream& operator>> (std::istream& is, neuron& n)
 {
-	is >> n.size;
-	is >> n.bias;
+	is.read(reinterpret_cast<char*>(&n.size), sizeof(n.size));
+	is.read(reinterpret_cast<char*>(&n.bias), sizeof(n.bias));
 	for (int i = 0; i < n.size; i++) // From last index to 0
 		n.add_connection(neuron::read_connection(is));
 	return is;

@@ -14,12 +14,12 @@ connection::~connection()
 
 std::ostream& operator<<(std::ostream& os, const connection& c)
 {
-	os << c.weight;
+	os.write(reinterpret_cast<const char*>(&c.weight), sizeof(c.weight));
 	return os;
 }
 
 std::istream& operator>> (std::istream& is, connection& c)
 {
-	is >> c.weight;
+	is.read(reinterpret_cast<char*>(&c.weight), sizeof(c.weight));
 	return is;
 }

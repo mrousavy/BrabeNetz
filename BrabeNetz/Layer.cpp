@@ -11,7 +11,7 @@ layer::~layer()
 
 std::ostream& operator<<(std::ostream& os, layer& l)
 {
-	os << l.size;
+	os.write(reinterpret_cast<const char*>(&l.size), sizeof(l.size));
 	for (int i = 0; i < l.size; i++) // From 0 to last index
 		os << l.neuron_at(i);
 	return os;
@@ -19,7 +19,7 @@ std::ostream& operator<<(std::ostream& os, layer& l)
 
 std::istream& operator>> (std::istream& is, layer& l)
 {
-	is >> l.size;
+	is.read(reinterpret_cast<char*>(&l.size), sizeof(l.size));
 	for (int i = 0; i < l.size; i++) // From last index to 0
 		l.add_neuron(layer::read_neuron(is));
 	return is;
