@@ -54,42 +54,46 @@ Network::~Network()
 // Train network and adjust weights to expectedOutput
 double Network::Train(double* inputValues, int length, double expectedOutput)
 {
-	double output = Feed(inputValues, length);
-	return output; // TODO: REMOVE
+	int* outputLength = new int;
+	double* outputLayer = Feed(inputValues, length, *outputLength);
 
-	double delta = abs(output - expectedOutput);
+	vector<double> vec = Extensions::ToVector<double>(outputLayer, *outputLength); // TODO: REMOVE TOVECTOR
 
-	if (delta > MAX_DELTA)
-		Adjust(expectedOutput, output);
+	double sum = 0;
+	for (int i = 0; i < *outputLength; i++) // Loop through each neuron in output layer
+	{
+		sum += Squash(Rectify(outputLayer[i])); // Squash and ReLU it (keep if positive, 0 if negative; uint)
+	}
 
-	return delta;
+	// TODO: RETURN LAST ERROR
+	return vec.at(0);
 }
 
 // Feed the network information and return the output
-double Network::Feed(double* inputValues, int length)
+double* Network::Feed(double* inputValues, int length, int& outLength)
 {
 	double* values = inputValues; // Values of current layer
 	int* valuesLength = new int(length); // Copy input length to variable
 	for (int hiddenIndex = 1; hiddenIndex < this->layersCount; hiddenIndex++) // Loop through each hidden layer
 	{
 		values = ToNextLayer(values, *valuesLength, hiddenIndex, *valuesLength);
-		vector<double> vec = Extensions::ToVector<double>(values, *valuesLength);
+		vector<double> vec = Extensions::ToVector<double>(values, *valuesLength); // TODO: REMOVE TOVECTOR
 	}
 
 	double sum = 0;
 	for (int i = 0; i < *valuesLength; i++) // Loop through each neuron in output layer
 	{
-		double value = Rectify(values[i]); // ReLU it (keep if positive, 0 if negative; uint)
-		sum += Squash(value); // Squash the result
+		sum += Squash(Rectify(values[i])); // Squash and ReLU it (keep if positive, 0 if negative; uint)
 	}
 
-
-	return sum;
+	outLength = *valuesLength;
+	return values;
 }
 
 // This function focuses on only one layer, so in theory we have 1 input layer, the layer we focus on, and 1 output
 double* Network::ToNextLayer(double* inputValues, int inputLength, int layerIndex, int& outLength)
 {
+	vector<double> vec = Extensions::ToVector<double>(inputValues, inputLength); // TODO: REMOVE TOVECTOR
 	int nCount = this->neuronsCount[layerIndex]; // Count of neurons in the next layer (w/ layerIndex)
 	double** weights = this->weights[layerIndex - 1]; // ptr to weights of neurons in this layer
 	double* biases = this->biases[layerIndex]; // ptr to biases of neurons in the next layer
