@@ -8,7 +8,8 @@ network_topology::network_topology()
 }
 
 network_topology::~network_topology()
-{}
+{
+}
 
 void network_topology::add_layer(const layer layer)
 {
@@ -44,7 +45,8 @@ network_topology network_topology::random(std::vector<int> layers)
 			for (int c = 0; c < nextNeurons; c++) // Loop through each Connection
 			{
 				connection connection;
-				connection.weight = (double(rand() % 200) / 100) - 1; // Random number between 0 and 2, minus 1 (so between -1 and 1)
+				connection.weight = (double(rand() % 200) / 100) - 1;
+				// Random number between 0 and 2, minus 1 (so between -1 and 1)
 				neuron.add_connection(connection); // Add Connection from neuron `n`
 			}
 

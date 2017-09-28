@@ -2,10 +2,12 @@
 #include "Neuron.h"
 
 neuron::neuron()
-{}
+{
+}
 
 neuron::~neuron()
-{}
+{
+}
 
 void neuron::add_connection(const connection connection)
 {

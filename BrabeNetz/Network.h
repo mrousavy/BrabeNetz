@@ -66,4 +66,3 @@ private:
 	// Delete weights array
 	void delete_weights() const;
 };
-

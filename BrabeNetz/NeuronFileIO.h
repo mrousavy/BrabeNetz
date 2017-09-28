@@ -10,4 +10,3 @@ public:
 	// Write Neuron weights 2D array ([][]) to file
 	static void write(std::string path, int** weights);
 };
-

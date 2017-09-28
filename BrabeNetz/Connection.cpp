@@ -17,4 +17,5 @@ connection::connection()
 //}
 
 connection::~connection()
-{}
+{
+}

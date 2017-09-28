@@ -7,7 +7,8 @@ layer::layer()
 }
 
 layer::~layer()
-{}
+{
+}
 
 void layer::add_neuron(const neuron neuron)
 {

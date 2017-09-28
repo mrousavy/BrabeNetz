@@ -12,8 +12,8 @@ public:
 	static std::vector<T> to_vector(T* input, const int length);
 };
 
-template<typename T>
-inline T* extensions::to_array(std::vector<T> input)
+template <typename T>
+T* extensions::to_array(std::vector<T> input)
 {
 	T* t = new T[input->size()];
 	for (int i = 0; i < input->size(); i++)
@@ -24,8 +24,8 @@ inline T* extensions::to_array(std::vector<T> input)
 }
 
 
-template<typename T>
-inline std::vector<T> extensions::to_vector(T* input, const int length)
+template <typename T>
+std::vector<T> extensions::to_vector(T* input, const int length)
 {
 	std::vector<T> v;
 	for (int i = 0; i < length; i++)
@@ -34,4 +34,3 @@ inline std::vector<T> extensions::to_vector(T* input, const int length)
 	}
 	return v;
 }
-

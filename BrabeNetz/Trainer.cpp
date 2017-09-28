@@ -11,27 +11,28 @@ void trainer::train_xor(network& net)
 	double* values;
 	int expected;
 
-	for (int i = 0; i < TRAIN_TIMES_EACH * TRAIN_POSSIBILITIES; i++) // Loop TRAIN_TIMES_EACH (1000) * TRAIN_POSSIBILITIES (4)
+	for (int i = 0; i < TRAIN_TIMES_EACH * TRAIN_POSSIBILITIES; i++)
+		// Loop TRAIN_TIMES_EACH (1000) * TRAIN_POSSIBILITIES (4)
 	{
 		switch (i % 4) // Train all 4 cases alternately
 		{
-			case 0:
-				values = new double[size] { 0, 0 };
-				expected = 0;
-				break;
-			case 1:
-				values = new double[size] { 1, 0 };
-				expected = 1;
-				break;
-			case 2:
-				values = new double[size] { 0, 1 };
-				expected = 1;
-				break;
-			case 3:
-			default:
-				values = new double[size] { 1, 1 };
-				expected = 0;
-				break;
+		case 0:
+			values = new double[size] {0, 0};
+			expected = 0;
+			break;
+		case 1:
+			values = new double[size] {1, 0};
+			expected = 1;
+			break;
+		case 2:
+			values = new double[size] {0, 1};
+			expected = 1;
+			break;
+		case 3:
+		default:
+			values = new double[size] {1, 1};
+			expected = 0;
+			break;
 		}
 		const double result = net.train(values, size, expected);
 		cout << "{ " << values[0] << ", " << values[1] << " }: " << expected << " | " << result << endl;

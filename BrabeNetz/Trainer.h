@@ -11,4 +11,3 @@ public:
 	// Teach the network XOR switches
 	static void train_xor(network& net);
 };
-

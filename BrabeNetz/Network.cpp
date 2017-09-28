@@ -13,7 +13,8 @@ network::network(initializer_list<int> initializer_list)
 	srand(time(nullptr));
 
 	if (initializer_list.size() < 3)
-		throw "Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
+		throw
+			"Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
 
 	vector<int> inputVector; // clone initializer list to vector
 	inputVector.insert(inputVector.end(), initializer_list.begin(), initializer_list.end());
@@ -93,7 +94,8 @@ double* network::feed(double* input_values, const int length, int& out_length)
 }
 
 // This function focuses on only one layer, so in theory we have 1 input layer, the layer we focus on, and 1 output
-double* network::to_next_layer(double* input_values, const int input_length, const int layer_index, int& out_length) const
+double* network::to_next_layer(double* input_values, const int input_length, const int layer_index,
+                               int& out_length) const
 {
 	vector<double> vec = extensions::to_vector<double>(input_values, input_length); // TODO: REMOVE TOVECTOR
 	const int n_count = this->neurons_count_[layer_index]; // Count of neurons in the next layer (w/ layerIndex)
@@ -157,7 +159,6 @@ void network::fill_weights(network_topology& topology)
 void network::adjust(const double expected, const double actual)
 {
 	double error = get_error(expected, actual); // Error on output layer
-
 }
 
 void network::save(string path)
