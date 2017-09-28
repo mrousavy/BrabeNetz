@@ -1,6 +1,7 @@
 #pragma once
 #include "NetworkTopology.h"
 #include <vector>
+#include <fstream>
 using namespace std;
 
 // Specifies the value each weight gets adjusted by on training
@@ -18,6 +19,8 @@ public:
 	network(initializer_list<int> initializer_list);
 	// initializerList: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output
 	explicit network(network_topology& topology);
+	// initializerList: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output
+	explicit network(string state_path);
 	~network();
 
 	////////////////
@@ -28,11 +31,12 @@ public:
 	// Feed the network information and return the output layer
 	double* feed(double* input_values, int length, int& out_length) const;
 	// Save the network's state to disk by serializing weights
-	void save(string path);
+	void save(string path = "state.nn");
 	// Load the network's state from disk by deserializing and loading weights
-	void load(string path);
+	void load(string path = "state.nn");
 
 private:
+	network();
 	////////////////
 	// properties //
 	////////////////
@@ -61,8 +65,8 @@ private:
 	double* to_next_layer(double* input_values, int input_length, int layer_index, int& out_length) const;
 	// Adjust Network's weights and Biases
 	static void adjust(double expected, double actual);
-	// Fill neuron weights with given values
-	void fill_weights(network_topology& topology);
+	// Fill neuron weights with this topology
+	void fill_weights();
 	// Delete weights array
 	void delete_weights() const;
 };

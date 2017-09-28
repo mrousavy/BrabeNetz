@@ -8,10 +8,13 @@ using namespace std;
 #include "Extensions.h"
 
 // ctor
-network::network(initializer_list<int> initializer_list)
+network::network()
 {
 	srand(time(nullptr));
+}
 
+network::network(initializer_list<int> initializer_list) : network()
+{
 	if (initializer_list.size() < 3)
 		throw
 			"Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
@@ -21,19 +24,21 @@ network::network(initializer_list<int> initializer_list)
 
 	this->topology_ = network_topology::random(input_vector);
 	init(this->topology_);
-	fill_weights(this->topology_);
 }
 
-network::network(network_topology& topology)
+network::network(network_topology& topology) : network()
 {
-	srand(time(nullptr));
-
 	init(topology);
-	fill_weights(topology);
+}
+
+network::network(string path) : network()
+{
+	load(path);
 }
 
 void network::init(network_topology& topology)
 {
+	this->topology_ = topology;
 	this->layers_count_ = topology.size; // Count of layers = input (1) + hidden + output (1)
 	this->layers_ = new double*[this->layers_count_];
 	this->neurons_count_ = new int[this->layers_count_];
@@ -44,6 +49,7 @@ void network::init(network_topology& topology)
 		this->neurons_count_[i] = layer_size; // Set neuron count on this hidden layer
 		this->layers_[i] = new double[layer_size];
 	}
+	fill_weights();
 }
 
 // dector
@@ -57,21 +63,33 @@ network::~network()
 // Train network and adjust weights to expectedOutput
 double network::train(double* input_values, const int length, double* expected_output, int expected_length)
 {
-	int* output_length = new int;
-	double* output_layer = feed(input_values, length, *output_length);
-
-	vector<double> vec = extensions::to_vector<double>(output_layer, *output_length); // TODO: REMOVE TOVECTOR
-
-	double sum = 0;
-	for (int i = 0; i < *output_length; i++) // Loop through each neuron in output layer
+	double* values = input_values; // Values of current layer
+	int* values_length = new int(length); // Copy input length to variable
+	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++) // Loop through each hidden layer
 	{
-		sum += squash(rectify(output_layer[i])); // Squash and ReLU it (keep if positive, 0 if negative; uint)
+		values = to_next_layer(values, *values_length, hidden_index, *values_length);
+		vector<double> vec = extensions::to_vector<double>(values, *values_length); // TODO: REMOVE TOVECTOR
+		double* arr = extensions::to_array(vec);
 	}
+	double cost = cost_func(expected_output, values, *values_length);
+	
+	return cost;
 
-	double distance = euclidean_dist(output_layer, expected_output, *output_length);
+	//int* output_length = new int;
+	//double* output_layer = feed(input_values, length, *output_length);
 
-	// TODO: RETURN LAST ERROR
-	return vec.at(0);
+	//vector<double> vec = extensions::to_vector<double>(output_layer, *output_length); // TODO: REMOVE TOVECTOR
+
+	//double sum = 0;
+	//for (int i = 0; i < *output_length; i++) // Loop through each neuron in output layer
+	//{
+	//	sum += squash(rectify(output_layer[i])); // Squash and ReLU it (keep if positive, 0 if negative; uint)
+	//}
+
+	//double distance = euclidean_dist(output_layer, expected_output, *output_length);
+
+	//// TODO: RETURN LAST ERROR
+	//return vec.at(0);
 }
 
 // Feed the network information and return the output
@@ -83,12 +101,6 @@ double* network::feed(double* input_values, const int length, int& out_length) c
 	{
 		values = to_next_layer(values, *values_length, hidden_index, *values_length);
 		vector<double> vec = extensions::to_vector<double>(values, *values_length); // TODO: REMOVE TOVECTOR
-	}
-
-	double sum = 0;
-	for (int i = 0; i < *values_length; i++) // Loop through each neuron in output layer
-	{
-		sum += squash(rectify(values[i])); // Squash and ReLU it (keep if positive, 0 if negative; uint)
 	}
 
 	out_length = *values_length;
@@ -123,10 +135,8 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 }
 
 // TODO: Check if this works
-void network::fill_weights(network_topology& topology)
+void network::fill_weights()
 {
-	this->topology_ = topology;
-
 	// layer weights has a reference on the heap
 	if (this->weights_ != nullptr)
 		delete_weights();
@@ -134,12 +144,12 @@ void network::fill_weights(network_topology& topology)
 	const int count = this->layers_count_ - 1; // Count of layers with connections
 	this->weights_ = new double**[count]; // init first dimension; count of layers with connections
 
-	const int lcount = topology.size; // Count of layers
+	const int lcount = this->topology_.size; // Count of layers
 	this->biases_ = new double*[lcount];
 	this->weights_ = new double**[lcount];
 	for (int l = 0; l < lcount; l++) // Loop through each layer
 	{
-		layer& layer = topology.layer_at(l);
+		layer& layer = this->topology_.layer_at(l);
 		const int ncount = layer.size; // Count of neurons in this layer
 		this->biases_[l] = new double[ncount];
 		this->weights_[l] = new double*[ncount];
@@ -165,12 +175,12 @@ void network::adjust(const double expected, const double actual)
 
 void network::save(string path)
 {
-	// TODO: Serialize NetworkTopology and save it
+	network_topology::save(this->topology_, path);
 }
 
 void network::load(string path)
 {
-	// TODO: Deserialize NetworkTopology and load it
+	init(network_topology::load(path));
 }
 
 void network::delete_weights() const

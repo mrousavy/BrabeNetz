@@ -31,6 +31,8 @@ int main()
 		<< "ms | Total: " << boot_time + train_time
 		<< "ms" << endl;
 
+	net.save();
+
 	// Exit on user input
 	string _ = "";
 	cin >> _;
