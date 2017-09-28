@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <fstream>
 #include "Layer.h"
 
 class network_topology
@@ -14,6 +15,8 @@ public:
 	int size;
 
 	static network_topology random(std::vector<int> layers);
+	static network_topology load(std::string path);
+	static void save(network_topology& topology, std::string path);
 private:
 	std::vector<layer> layers_;
 	static layer read_layer(std::istream& is);

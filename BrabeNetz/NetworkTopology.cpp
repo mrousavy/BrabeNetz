@@ -80,3 +80,23 @@ network_topology network_topology::random(std::vector<int> layers)
 
 	return topology;
 }
+
+network_topology network_topology::load(std::string path)
+{
+	network_topology topology;
+
+	std::ifstream file;
+	file.open(path); // Open the file
+	file >> topology; // Deserialize network topology with operator>>
+	file.close();
+
+	return topology;
+}
+
+void network_topology::save(network_topology& topology, std::string path)
+{
+	std::ofstream file;
+	file.open(path); // Open the file
+	file << topology; // Serialize network topology with operator<<
+	file.close();
+}
