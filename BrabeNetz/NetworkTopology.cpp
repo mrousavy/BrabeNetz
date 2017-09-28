@@ -22,7 +22,7 @@ std::istream& operator>>(std::istream& is, network_topology& nt)
 {
 	is.read(reinterpret_cast<char*>(&nt.size), sizeof(nt.size));
 	for (int i = 0; i < nt.size; i++)
-		nt.add_layer(network_topology::read_layer(is));
+		nt.layers_.push_back(network_topology::read_layer(is));
 	return is;
 }
 
@@ -36,7 +36,7 @@ layer network_topology::read_layer(std::istream& is)
 void network_topology::add_layer(const layer layer)
 {
 	this->layers_.push_back(layer);
-	this->size++;
+	this->size = layers_.size();
 }
 
 layer& network_topology::layer_at(const int index)

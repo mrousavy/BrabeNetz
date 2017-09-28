@@ -21,7 +21,7 @@ std::istream& operator>> (std::istream& is, layer& l)
 {
 	is.read(reinterpret_cast<char*>(&l.size), sizeof(l.size));
 	for (int i = 0; i < l.size; i++) // From last index to 0
-		l.add_neuron(layer::read_neuron(is));
+		l.neurons_.push_back(layer::read_neuron(is));
 	return is;
 }
 
@@ -36,7 +36,7 @@ neuron layer::read_neuron(std::istream& is)
 void layer::add_neuron(const neuron neuron)
 {
 	this->neurons_.push_back(neuron);
-	this->size++;
+	this->size = neurons_.size();
 }
 
 neuron& layer::neuron_at(const int index)

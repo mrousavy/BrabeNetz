@@ -21,7 +21,7 @@ std::istream& operator>> (std::istream& is, neuron& n)
 	is.read(reinterpret_cast<char*>(&n.size), sizeof(n.size));
 	is.read(reinterpret_cast<char*>(&n.bias), sizeof(n.bias));
 	for (int i = 0; i < n.size; i++) // From last index to 0
-		n.add_connection(neuron::read_connection(is));
+		n.connections_.push_back(neuron::read_connection(is));
 	return is;
 }
 
@@ -35,7 +35,7 @@ connection neuron::read_connection(std::istream& is)
 void neuron::add_connection(const connection connection)
 {
 	this->connections_.push_back(connection);
-	this->size++;
+	this->size = connections_.size();
 }
 
 connection& neuron::connection_at(const int index)
