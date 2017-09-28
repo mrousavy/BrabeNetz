@@ -150,7 +150,6 @@
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="Neuron.h" />
-    <ClInclude Include="NeuronFileIO.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Trainer.h" />
@@ -161,7 +160,6 @@
     <ClCompile Include="Extensions.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Neuron.cpp" />
-    <ClCompile Include="NeuronFileIO.cpp" />
     <ClCompile Include="NetworkTopology.cpp" />
     <ClCompile Include="__ConsoleEntry.cpp" />
     <ClCompile Include="Functions.cpp" />

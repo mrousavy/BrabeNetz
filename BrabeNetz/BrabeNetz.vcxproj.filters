@@ -30,9 +30,6 @@
     <ClInclude Include="Trainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NeuronFileIO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Extensions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -63,9 +60,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="__ConsoleEntry.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NeuronFileIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Extensions.cpp">
