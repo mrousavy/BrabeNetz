@@ -62,7 +62,7 @@ double Network::Train(double* inputValues, int length, double expectedOutput)
 	double sum = 0;
 	for (int i = 0; i < *outputLength; i++) // Loop through each neuron in output layer
 	{
-		sum += Squash(Rectify(outputLayer[i])); // Squash and ReLU it (keep if positive, 0 if negative; uint)
+		sum += squash(rectify(outputLayer[i])); // Squash and ReLU it (keep if positive, 0 if negative; uint)
 	}
 
 	// TODO: RETURN LAST ERROR
@@ -83,7 +83,7 @@ double* Network::Feed(double* inputValues, int length, int& outLength)
 	double sum = 0;
 	for (int i = 0; i < *valuesLength; i++) // Loop through each neuron in output layer
 	{
-		sum += Squash(Rectify(values[i])); // Squash and ReLU it (keep if positive, 0 if negative; uint)
+		sum += squash(rectify(values[i])); // Squash and ReLU it (keep if positive, 0 if negative; uint)
 	}
 
 	outLength = *valuesLength;
@@ -109,7 +109,7 @@ double* Network::ToNextLayer(double* inputValues, int inputLength, int layerInde
 		}
 
 		double result = layer[n] + biases[n];
-		layer[n] = Squash(result); // Squash result
+		layer[n] = squash(result); // Squash result
 	}
 
 	outLength = nCount;
@@ -154,7 +154,7 @@ void Network::FillWeights(NetworkTopology& topology)
 
 void Network::Adjust(double expected, double actual)
 {
-	double error = GetError(expected, actual); // Error on output layer
+	double error = get_error(expected, actual); // Error on output layer
 
 }
 

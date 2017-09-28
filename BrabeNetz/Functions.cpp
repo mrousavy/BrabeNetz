@@ -4,26 +4,19 @@
 #include <vector>
 using namespace std;
 
-#if _X86_ || _M_IX86 || _M_IA64 || _M_ARM || _WIN64 || _WIN32
-// On CPUs with DOUBLE_PRECISION Hardware-Implementation:
-#define decimal double
-#else
-#define decimal float
-#endif
-
 // The Euler's constant (e) calculated with exp(1)
-const decimal EulerConstant = std::exp(1.0);
+const DECIMAL euler_constant = exp(1.0);
 // Minimum value that's possible as a Squash(..) input parameter
-const decimal MinValue = 0;
+const DECIMAL min_value = 0;
 // Maximum value that's possible as a Squash(..) input parameter
-const decimal MaxValue = 1;
+const DECIMAL max_value = 1;
 
 /// <summary>
 /// Squash a value with the Sigmoid
 /// function (https://en.wikipedia.org/wiki/Sigmoid_function) using
 /// doubles or floats (depending on compile-architecture)
 /// </summary>
-decimal Squash(decimal value)
+DECIMAL squash(const DECIMAL value)
 {
 	return 1 / (1 + exp(-value));
 }
@@ -33,19 +26,19 @@ decimal Squash(decimal value)
 /// function (https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) using
 /// doubles or floats (depending on compile-architecture)
 /// </summary>
-decimal Rectify(decimal value)
+DECIMAL rectify(const DECIMAL value)
 {
 	return fmax(value, 0);
 }
 
-decimal GetError(decimal expected, decimal actual)
+DECIMAL get_error(const DECIMAL expected, const DECIMAL actual)
 {
 	return actual * (1 - actual) * (expected - actual);
 }
 
-decimal GetError(decimal outputError, decimal neuronValue, decimal totalWeights)
+DECIMAL get_error(const DECIMAL output_error, const DECIMAL neuron_value, const DECIMAL total_weights)
 {
-	return neuronValue * (1 - neuronValue) * totalWeights;
+	return neuron_value * (1 - neuron_value) * total_weights;
 }
 
 /// <summary>
@@ -53,9 +46,9 @@ decimal GetError(decimal outputError, decimal neuronValue, decimal totalWeights)
 /// function (https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) using
 /// doubles (because doubles are being Hardware-implemented -> faster)
 /// </summary>
-decimal Sum(vector<decimal>* values)
+DECIMAL sum(vector<DECIMAL>* values)
 {
-	decimal sum = 0;
+	DECIMAL sum = 0;
 	for (int i = 0; i < values->size(); i++)
 	{
 		sum += values->at(i);

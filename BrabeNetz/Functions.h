@@ -3,9 +3,9 @@
 
 #if _X86_ || _M_IX86 || _M_IA64 || _M_ARM || _WIN64 || _WIN32
 // On CPUs with DOUBLE_PRECISION Hardware-Implementation:
-#define decimal double
+#define DECIMAL double
 #else
-#define decimal float
+#define DECIMAL float
 #endif
 
 /// <summary>
@@ -13,30 +13,30 @@
 /// function (https://en.wikipedia.org/wiki/Sigmoid_function) using
 /// doubles (because doubles are being Hardware-implemented -> faster)
 /// </summary>
-decimal Squash(decimal input);
+DECIMAL squash(const DECIMAL input);
 
 /// <summary>
 /// Rectify a value with the rectified linear unit (ReLU)
 /// function (https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) using
 /// doubles (because doubles are being Hardware-implemented -> faster)
 /// </summary>
-decimal Rectify(decimal input);
+DECIMAL rectify(const DECIMAL input);
 
 /// <summary>
 /// Calculate the Error of the output layer 
 ///	in the neural network by given expected 
 /// output and actual output
 /// </summary>
-decimal GetError(decimal expected, decimal actual);
+DECIMAL get_error(const DECIMAL expected, const DECIMAL actual);
 
 /// <summary>
 /// Calculate the Error of any layer
 ///	in the neural network by given expected 
 /// output and actual output
 /// </summary>
-decimal GetError(decimal neuronValue, decimal totalWeights);
+DECIMAL get_error(const DECIMAL neuron_value, const DECIMAL total_weights);
 
 /// <summary>
 /// Sums up a vector
 /// </summary>
-decimal Sum(std::vector<decimal>*);
+DECIMAL sum(std::vector<DECIMAL>*);
