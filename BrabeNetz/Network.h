@@ -34,7 +34,6 @@ public:
 	void save(string path = "state.nn");
 	// Load the network's state from disk by deserializing and loading weights
 	void load(string path = "state.nn");
-
 private:
 	network();
 	////////////////

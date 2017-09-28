@@ -14,12 +14,18 @@ int main()
 {
 	// boot up neuronal network
 	const auto boot_start = chrono::high_resolution_clock::now();
-	network net{2,3,1};
+
+	network* net;
+	if(std::ifstream("state.nn"))
+		net = new network("state.nn");
+	else
+		net = new network(network_topology::random({ 2,3,1 }));
+	
 	const auto boot_finish = chrono::high_resolution_clock::now();
 
 	// Train neural network with trainer
 	const auto train_start = chrono::high_resolution_clock::now();
-	trainer::train_xor(net);
+	trainer::train_xor(*net);
 	const auto train_finish = chrono::high_resolution_clock::now();
 
 
@@ -31,7 +37,7 @@ int main()
 		<< "ms | Total: " << boot_time + train_time
 		<< "ms" << endl;
 
-	net.save();
+	net->save();
 
 	// Exit on user input
 	string _ = "";
