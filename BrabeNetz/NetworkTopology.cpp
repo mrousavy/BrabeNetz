@@ -86,7 +86,7 @@ network_topology network_topology::load(std::string path)
 	network_topology topology;
 
 	std::ifstream file;
-	file.open(path); // Open the file
+	file.open(path, std::ifstream::in | std::ifstream::binary); // Open the file
 	file >> topology; // Deserialize network topology with operator>>
 	file.close();
 
@@ -96,7 +96,7 @@ network_topology network_topology::load(std::string path)
 void network_topology::save(network_topology& topology, std::string path)
 {
 	std::ofstream file;
-	file.open(path); // Open the file
+	file.open(path, std::ofstream::out | std::ofstream::binary); // Open the file
 	file << topology; // Serialize network topology with operator<<
 	file.close();
 }
