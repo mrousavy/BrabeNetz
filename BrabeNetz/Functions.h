@@ -29,6 +29,11 @@ DECIMAL rectify(const DECIMAL input);
 DECIMAL euclidean_dist(DECIMAL* x, DECIMAL* y, int length);
 
 /// <summary>
+/// Calculate the cost/loss of two input arrays (using euclidean_dist)
+/// </summary>
+DECIMAL cost_func(DECIMAL* x, DECIMAL* y, int length);
+
+/// <summary>
 /// Calculate the Error of the output layer 
 ///	in the neural network by given expected 
 /// output and actual output
@@ -43,6 +48,11 @@ DECIMAL get_error(const DECIMAL expected, const DECIMAL actual);
 DECIMAL get_error(const DECIMAL neuron_value, const DECIMAL total_weights);
 
 /// <summary>
-/// Sums up a vector
+/// Sums up values in a vector
 /// </summary>
-DECIMAL sum(std::vector<DECIMAL>*);
+DECIMAL sum(std::vector<DECIMAL>& values);
+
+/// <summary>
+/// Sums up values in an array with size `length`
+/// </summary>
+DECIMAL sum(DECIMAL* values, const int length);

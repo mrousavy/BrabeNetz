@@ -24,11 +24,16 @@ DECIMAL rectify(const DECIMAL value)
 DECIMAL euclidean_dist(DECIMAL* x, DECIMAL* y, const int length)
 {
 	DECIMAL result = 0.0;
-	for(int i = 0; i < length; i++)
+	for (int i = 0; i < length; i++)
 	{
 		result += pow(x[i] - y[i], 2);
 	}
 	return sqrt(result);
+}
+
+DECIMAL cost_func(DECIMAL* x, DECIMAL* y, const int length)
+{
+	return 1 / 2 * pow(euclidean_dist(x, y, length), 2);
 }
 
 DECIMAL get_error(const DECIMAL expected, const DECIMAL actual)
@@ -41,15 +46,26 @@ DECIMAL get_error(const DECIMAL output_error, const DECIMAL neuron_value, const 
 	return neuron_value * (1 - neuron_value) * total_weights;
 }
 
-DECIMAL sum(vector<DECIMAL>* values)
+DECIMAL sum(vector<DECIMAL>& values)
 {
 	DECIMAL sum = 0;
-	for (int i = 0; i < values->size(); i++)
+	for (int i = 0; i < values.size(); i++)
 	{
-		sum += values->at(i);
+		sum += values.at(i);
 	}
 	return sum;
 }
+
+DECIMAL sum(DECIMAL* values, const int length)
+{
+	DECIMAL sum = 0;
+	for (int i = 0; i < length; i++)
+	{
+		sum += values[i];
+	}
+	return sum;
+}
+
 
 
 // LOGISTIC:
