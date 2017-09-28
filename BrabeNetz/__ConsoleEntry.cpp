@@ -16,7 +16,7 @@ int main()
 	const auto boot_start = chrono::high_resolution_clock::now();
 
 	network* net;
-	if(std::ifstream("state.nn", std::ifstream::in | ::ifstream::binary))
+	if(std::ifstream("state.nn", std::fstream::in | ::fstream::binary))
 		net = new network("state.nn");
 	else
 		net = new network(network_topology::random({ 2,3,1 }));
