@@ -23,6 +23,12 @@ DECIMAL squash(const DECIMAL input);
 DECIMAL rectify(const DECIMAL input);
 
 /// <summary>
+/// Calculate the distance between two input arrays
+/// via the Euclidean distance function
+/// </summary>
+DECIMAL euclidean_dist(DECIMAL* x, DECIMAL* y, int length);
+
+/// <summary>
 /// Calculate the Error of the output layer 
 ///	in the neural network by given expected 
 /// output and actual output

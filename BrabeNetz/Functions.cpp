@@ -11,24 +11,24 @@ const DECIMAL min_value = 0;
 // Maximum value that's possible as a Squash(..) input parameter
 const DECIMAL max_value = 1;
 
-/// <summary>
-/// Squash a value with the Sigmoid
-/// function (https://en.wikipedia.org/wiki/Sigmoid_function) using
-/// doubles or floats (depending on compile-architecture)
-/// </summary>
 DECIMAL squash(const DECIMAL value)
 {
 	return 1 / (1 + exp(-value));
 }
 
-/// <summary>
-/// Rectify a value with the rectified linear unit (ReLU)
-/// function (https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) using
-/// doubles or floats (depending on compile-architecture)
-/// </summary>
 DECIMAL rectify(const DECIMAL value)
 {
 	return fmax(value, 0);
+}
+
+DECIMAL euclidean_dist(DECIMAL* x, DECIMAL* y, const int length)
+{
+	DECIMAL result = 0.0;
+	for(int i = 0; i < length; i++)
+	{
+		result += pow(x[i] - y[i], 2);
+	}
+	return sqrt(result);
 }
 
 DECIMAL get_error(const DECIMAL expected, const DECIMAL actual)
@@ -41,11 +41,6 @@ DECIMAL get_error(const DECIMAL output_error, const DECIMAL neuron_value, const 
 	return neuron_value * (1 - neuron_value) * total_weights;
 }
 
-/// <summary>
-/// Rectify a value with the rectified linear unit (ReLU)
-/// function (https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) using
-/// doubles (because doubles are being Hardware-implemented -> faster)
-/// </summary>
 DECIMAL sum(vector<DECIMAL>* values)
 {
 	DECIMAL sum = 0;
