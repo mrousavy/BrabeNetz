@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <ostream>
 #include "Connection.h"
 
 #ifndef NEURON_INCLUDED
@@ -9,6 +10,8 @@ class connection;
 
 class neuron
 {
+	friend std::ostream& operator<<(std::ostream& os, neuron& n);
+	friend std::istream& operator>>(std::istream& is, neuron& n);
 public:
 	neuron();
 	~neuron();
@@ -20,5 +23,6 @@ public:
 	double bias = 0;
 private:
 	std::vector<connection> connections_;
+	static connection read_connection(std::istream& is);
 };
 #endif

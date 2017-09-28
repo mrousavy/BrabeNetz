@@ -4,6 +4,8 @@
 
 class network_topology
 {
+	friend std::ostream& operator<<(std::ostream& os, network_topology& nt);
+	friend std::istream& operator>>(std::istream& is, network_topology& nt);
 public:
 	network_topology();
 	~network_topology();
@@ -14,4 +16,5 @@ public:
 	static network_topology random(std::vector<int> layers);
 private:
 	std::vector<layer> layers_;
+	static layer read_layer(std::istream& is);
 };

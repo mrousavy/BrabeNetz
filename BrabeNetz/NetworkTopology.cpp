@@ -8,7 +8,29 @@ network_topology::network_topology()
 }
 
 network_topology::~network_topology()
+{}
+
+std::ostream& operator<<(std::ostream& os, network_topology& nt)
 {
+	for (int i = 0; i < nt.size; i++)
+		os << nt.layer_at(i);
+	os << nt.size;
+	return os;
+}
+
+std::istream& operator>>(std::istream& is, network_topology& nt)
+{
+	is >> nt.size;
+	for (int i = nt.size - 1; i > -1; i++)
+		nt.add_layer(network_topology::read_layer(is));
+	return is;
+}
+
+layer network_topology::read_layer(std::istream& is)
+{
+	layer l;
+	is >> l;
+	return l;
 }
 
 void network_topology::add_layer(const layer layer)
