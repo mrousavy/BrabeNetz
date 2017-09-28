@@ -33,7 +33,12 @@ DECIMAL euclidean_dist(DECIMAL* x, DECIMAL* y, const int length)
 
 DECIMAL cost_func(DECIMAL* x, DECIMAL* y, const int length)
 {
-	return 1 / 2 * pow(euclidean_dist(x, y, length), 2);
+	DECIMAL sum = 0.0;
+	for (int i = 0; i < length; i++)
+	{
+		sum += 0.5 * pow(x[i] - y[i], 2);
+	}
+	return sum;
 }
 
 DECIMAL get_error(const DECIMAL expected, const DECIMAL actual)

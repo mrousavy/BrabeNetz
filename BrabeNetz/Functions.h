@@ -24,7 +24,10 @@ DECIMAL rectify(const DECIMAL input);
 
 /// <summary>
 /// Calculate the distance between two input arrays
-/// via the Euclidean distance function
+/// via the Euclidean distance function. For the neural
+/// network this function takes the expected output as 'x',
+/// and the actual output as 'y', length being the size of
+/// those arrays.
 /// </summary>
 DECIMAL euclidean_dist(DECIMAL* x, DECIMAL* y, int length);
 
