@@ -8,6 +8,8 @@ using namespace std;
 #define ADJUST_WEIGHTS_BY 0.002
 // Maximum delta of actual and expected values until stop training
 #define MAX_DELTA 0.01
+// Filename for the state file
+#define STATE_FILE "state.nn"
 
 class network
 {
@@ -31,9 +33,9 @@ public:
 	// Feed the network information and return the output layer
 	double* feed(double* input_values, int length, int& out_length) const;
 	// Save the network's state to disk by serializing weights
-	void save(string path = "state.nn");
+	void save(string path = STATE_FILE);
 	// Load the network's state from disk by deserializing and loading weights
-	void load(string path = "state.nn");
+	void load(string path = STATE_FILE);
 private:
 	network();
 	////////////////

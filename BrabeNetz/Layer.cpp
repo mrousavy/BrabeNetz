@@ -11,16 +11,16 @@ layer::~layer()
 
 std::ostream& operator<<(std::ostream& os, layer& l)
 {
+	os << l.size;
 	for (int i = 0; i < l.size; i++) // From 0 to last index
 		os << l.neuron_at(i);
-	os << l.size;
 	return os;
 }
 
 std::istream& operator>> (std::istream& is, layer& l)
 {
 	is >> l.size;
-	for (int i = l.size - 1; i > -1; i++) // From last index to 0
+	for (int i = 0; i < l.size; i++) // From last index to 0
 		l.add_neuron(layer::read_neuron(is));
 	return is;
 }
