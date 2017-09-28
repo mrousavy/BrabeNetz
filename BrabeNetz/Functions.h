@@ -16,6 +16,13 @@
 DECIMAL squash(const DECIMAL input);
 
 /// <summary>
+/// Squash a value with the derivative of the Sigmoid
+/// function (https://en.wikipedia.org/wiki/Sigmoid_function) using
+/// doubles (because doubles are being Hardware-implemented -> faster)
+/// </summary>
+DECIMAL squash_prime(const DECIMAL input);
+
+/// <summary>
 /// Rectify a value with the rectified linear unit (ReLU)
 /// function (https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) using
 /// doubles (because doubles are being Hardware-implemented -> faster)

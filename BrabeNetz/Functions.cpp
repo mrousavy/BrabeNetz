@@ -16,6 +16,11 @@ DECIMAL squash(const DECIMAL value)
 	return 1 / (1 + exp(-value));
 }
 
+DECIMAL squash_prime(const DECIMAL value)
+{
+	return exp(-value) / (pow((1 + exp(-value)), 2));
+}
+
 DECIMAL rectify(const DECIMAL value)
 {
 	return fmax(value, 0);
