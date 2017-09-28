@@ -16,10 +16,10 @@ network::network(initializer_list<int> initializer_list)
 		throw
 			"Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
 
-	vector<int> inputVector; // clone initializer list to vector
-	inputVector.insert(inputVector.end(), initializer_list.begin(), initializer_list.end());
+	vector<int> input_vector; // clone initializer list to vector
+	input_vector.insert(input_vector.end(), initializer_list.begin(), initializer_list.end());
 
-	this->topology_ = network_topology::random(inputVector);
+	this->topology_ = network_topology::random(input_vector);
 	init(this->topology_);
 	fill_weights(this->topology_);
 }
@@ -55,7 +55,7 @@ network::~network()
 }
 
 // Train network and adjust weights to expectedOutput
-double network::train(double* input_values, const int length, double expected_output)
+double network::train(double* input_values, const int length, double* expected_output, int expected_length)
 {
 	int* output_length = new int;
 	double* output_layer = feed(input_values, length, *output_length);
@@ -68,12 +68,14 @@ double network::train(double* input_values, const int length, double expected_ou
 		sum += squash(rectify(output_layer[i])); // Squash and ReLU it (keep if positive, 0 if negative; uint)
 	}
 
+	double distance = euclidean_dist(output_layer, expected_output, *output_length);
+
 	// TODO: RETURN LAST ERROR
 	return vec.at(0);
 }
 
 // Feed the network information and return the output
-double* network::feed(double* input_values, const int length, int& out_length)
+double* network::feed(double* input_values, const int length, int& out_length) const
 {
 	double* values = input_values; // Values of current layer
 	int* values_length = new int(length); // Copy input length to variable

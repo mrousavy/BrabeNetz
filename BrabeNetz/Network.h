@@ -24,9 +24,9 @@ public:
 	// functions  //
 	////////////////
 	// Feed the network information and train it to adjust to the expected output (returns output error)
-	double train(double* input_values, int length, double expected_output);
+	double train(double* input_values, int length, double* expected_output, int expected_length);
 	// Feed the network information and return the output layer
-	double* feed(double* input_values, int length, int& out_length);
+	double* feed(double* input_values, int length, int& out_length) const;
 	// Save the network's state to disk by serializing weights
 	void save(string path);
 	// Load the network's state from disk by deserializing and loading weights
