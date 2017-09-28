@@ -20,7 +20,7 @@ public:
 	// initializerList: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output
 	Network(initializer_list<int> initializerList);
 	// initializerList: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output
-	Network(initializer_list<int> initializerList, NetworkTopology& topology);
+	Network(NetworkTopology& topology);
 	~Network();
 
 	////////////////
@@ -58,17 +58,15 @@ private:
 	////////////////
 	// functions  //
 	////////////////
+	// Init Network
+	void Init(NetworkTopology& topology);
 	// Put inputValues into layer at given layerIndex with squashing, etc and return layer's values
 	double* ToNextLayer(double* inputValues, int inputLength, int layerIndex, int& outLength);
-	// Fill neuron weights with random values
-	void RandomizeWeights();
-	// Fill neuron weights with given values
-	void FillWeights(NetworkTopology& topology);
-	// Init Network
-	void Init(initializer_list<int>& initializerList);
-	// Delete weights array
-	void DeleteWeights();
 	// Adjust Network's weights and Biases
 	void Adjust(double expected, double actual);
+	// Fill neuron weights with given values
+	void FillWeights(NetworkTopology& topology);
+	// Delete weights array
+	void DeleteWeights();
 };
 
