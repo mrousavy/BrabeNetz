@@ -2,23 +2,23 @@
 #include <vector>
 #include "Connection.h"
 
-#ifndef Neuron_Included
-#define Neuron_Included
+#ifndef NEURON_INCLUDED
+#define NEURON_INCLUDED
 
-class Connection;
+class connection;
 
-class Neuron
+class neuron
 {
 public:
-	Neuron();
-	~Neuron();
-	void AddConnection(Connection connection);
-	Connection& ConnectionAt(int index);
-	int Size = 0;
-	double Value = 0;
-	double Error = 0;
-	double Bias = 0;
+	neuron();
+	~neuron();
+	void add_connection(connection connection);
+	connection& connection_at(int index);
+	int size = 0;
+	double value = 0;
+	double error = 0;
+	double bias = 0;
 private:
-	std::vector<Connection> _connections;
+	std::vector<connection> connections_;
 };
 #endif

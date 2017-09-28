@@ -2,11 +2,11 @@
 #include "Connection.h"
 
 
-Connection::Connection()
+connection::connection()
 {
 	//this->From = NULL;
-	this->To = NULL;
-	this->Weight = NULL;
+	this->to = NULL;
+	this->weight = NULL;
 }
 
 //Connection::Connection(Neuron* from, Neuron* to, double initialWeight)
@@ -16,5 +16,5 @@ Connection::Connection()
 //	this->Weight = initialWeight;
 //}
 
-Connection::~Connection()
+connection::~connection()
 {}

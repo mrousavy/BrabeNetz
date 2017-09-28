@@ -2,16 +2,16 @@
 #include <vector>
 #include "Layer.h"
 
-class NetworkTopology
+class network_topology
 {
 public:
-	NetworkTopology();
-	~NetworkTopology();
-	void AddLayer(Layer layer);
-	Layer& LayerAt(int index);
-	int Size;
+	network_topology();
+	~network_topology();
+	void add_layer(layer layer);
+	layer& layer_at(int index);
+	int size;
 
-	static NetworkTopology Random(std::vector<int> layers);
+	static network_topology random(std::vector<int> layers);
 private:
-	std::vector<Layer> _layers;
+	std::vector<layer> layers_;
 };

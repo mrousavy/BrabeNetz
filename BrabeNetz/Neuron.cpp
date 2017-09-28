@@ -1,19 +1,19 @@
 #include "stdafx.h"
 #include "Neuron.h"
 
-Neuron::Neuron()
+neuron::neuron()
 {}
 
-Neuron::~Neuron()
+neuron::~neuron()
 {}
 
-void Neuron::AddConnection(Connection connection)
+void neuron::add_connection(connection connection)
 {
-	this->_connections.push_back(connection);
-	this->Size++;
+	this->connections_.push_back(connection);
+	this->size++;
 }
 
-Connection& Neuron::ConnectionAt(int index)
+connection& neuron::connection_at(int index)
 {
-	return this->_connections.at(index);
+	return this->connections_.at(index);
 }

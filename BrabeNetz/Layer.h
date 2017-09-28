@@ -2,14 +2,14 @@
 #include <vector>
 #include "Neuron.h"
 
-class Layer
+class layer
 {
 public:
-	Layer();
-	~Layer();
-	void AddNeuron(Neuron neuron);
-	Neuron& NeuronAt(int index);
-	int Size;
+	layer();
+	~layer();
+	void add_neuron(neuron neuron);
+	neuron& neuron_at(int index);
+	int size;
 private:
-	std::vector<Neuron> _neurons;
+	std::vector<neuron> neurons_;
 };

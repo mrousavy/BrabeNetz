@@ -16,12 +16,12 @@ Network::Network(initializer_list<int> initializerList)
 	vector<int> inputVector; // clone initializer list to vector
 	inputVector.insert(inputVector.end(), initializerList.begin(), initializerList.end());
 
-	this->topology = NetworkTopology::Random(inputVector);
+	this->topology = network_topology::random(inputVector);
 	Init(this->topology);
 	FillWeights(this->topology);
 }
 
-Network::Network(NetworkTopology& topology)
+Network::Network(network_topology& topology)
 {
 	srand(time(NULL));
 
@@ -29,15 +29,15 @@ Network::Network(NetworkTopology& topology)
 	FillWeights(topology);
 }
 
-void Network::Init(NetworkTopology& topology)
+void Network::Init(network_topology& topology)
 {
-	this->layersCount = topology.Size; // Count of layers = input (1) + hidden + output (1)
+	this->layersCount = topology.size; // Count of layers = input (1) + hidden + output (1)
 	this->layers = new double*[this->layersCount];
 	this->neuronsCount = new int[this->layersCount];
 
 	for (int i = 0; i < this->layersCount; i++)
 	{
-		int layerSize = topology.LayerAt(i).Size; // Size of this layer (Neurons count)
+		int layerSize = topology.layer_at(i).size; // Size of this layer (Neurons count)
 		this->neuronsCount[i] = layerSize; // Set neuron count on this hidden layer
 		this->layers[i] = new double[layerSize];
 	}
@@ -57,7 +57,7 @@ double Network::Train(double* inputValues, int length, double expectedOutput)
 	int* outputLength = new int;
 	double* outputLayer = Feed(inputValues, length, *outputLength);
 
-	vector<double> vec = Extensions::ToVector<double>(outputLayer, *outputLength); // TODO: REMOVE TOVECTOR
+	vector<double> vec = extensions::to_vector<double>(outputLayer, *outputLength); // TODO: REMOVE TOVECTOR
 
 	double sum = 0;
 	for (int i = 0; i < *outputLength; i++) // Loop through each neuron in output layer
@@ -77,7 +77,7 @@ double* Network::Feed(double* inputValues, int length, int& outLength)
 	for (int hiddenIndex = 1; hiddenIndex < this->layersCount; hiddenIndex++) // Loop through each hidden layer
 	{
 		values = ToNextLayer(values, *valuesLength, hiddenIndex, *valuesLength);
-		vector<double> vec = Extensions::ToVector<double>(values, *valuesLength); // TODO: REMOVE TOVECTOR
+		vector<double> vec = extensions::to_vector<double>(values, *valuesLength); // TODO: REMOVE TOVECTOR
 	}
 
 	double sum = 0;
@@ -93,7 +93,7 @@ double* Network::Feed(double* inputValues, int length, int& outLength)
 // This function focuses on only one layer, so in theory we have 1 input layer, the layer we focus on, and 1 output
 double* Network::ToNextLayer(double* inputValues, int inputLength, int layerIndex, int& outLength)
 {
-	vector<double> vec = Extensions::ToVector<double>(inputValues, inputLength); // TODO: REMOVE TOVECTOR
+	vector<double> vec = extensions::to_vector<double>(inputValues, inputLength); // TODO: REMOVE TOVECTOR
 	int nCount = this->neuronsCount[layerIndex]; // Count of neurons in the next layer (w/ layerIndex)
 	double** weights = this->weights[layerIndex - 1]; // ptr to weights of neurons in this layer
 	double* biases = this->biases[layerIndex]; // ptr to biases of neurons in the next layer
@@ -117,7 +117,7 @@ double* Network::ToNextLayer(double* inputValues, int inputLength, int layerInde
 }
 
 // TODO: Check if this works
-void Network::FillWeights(NetworkTopology& topology)
+void Network::FillWeights(network_topology& topology)
 {
 	this->topology = topology;
 
@@ -128,25 +128,25 @@ void Network::FillWeights(NetworkTopology& topology)
 	int count = this->layersCount - 1; // Count of layers with connections
 	this->weights = new double**[count]; // init first dimension; count of layers with connections
 
-	int lcount = topology.Size; // Count of layers
+	int lcount = topology.size; // Count of layers
 	this->biases = new double*[lcount];
 	this->weights = new double**[lcount];
 	for (int l = 0; l < lcount; l++) // Loop through each layer
 	{
-		Layer& layer = topology.LayerAt(l);
-		int ncount = layer.Size; // Count of neurons in this layer
+		layer& layer = topology.layer_at(l);
+		int ncount = layer.size; // Count of neurons in this layer
 		this->biases[l] = new double[ncount];
 		this->weights[l] = new double*[ncount];
 		for (int n = 0; n < ncount; n++) // Loop through each neuron in this layer
 		{
-			Neuron& neuron = layer.NeuronAt(n);
+			neuron& neuron = layer.neuron_at(n);
 
-			this->biases[l][n] = neuron.Bias;
-			int ccount = neuron.Size; // Count of connection on this neuron
+			this->biases[l][n] = neuron.bias;
+			int ccount = neuron.size; // Count of connection on this neuron
 			this->weights[l][n] = new double[ccount];
-			for (int c = 0; c < neuron.Size; c++) // Loop through each connection on this neuron
+			for (int c = 0; c < neuron.size; c++) // Loop through each connection on this neuron
 			{
-				this->weights[l][n][c] = neuron.ConnectionAt(c).Weight;
+				this->weights[l][n][c] = neuron.connection_at(c).weight;
 			}
 		}
 	}

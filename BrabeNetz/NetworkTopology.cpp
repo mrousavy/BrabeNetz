@@ -2,38 +2,38 @@
 #include "NetworkTopology.h"
 
 
-NetworkTopology::NetworkTopology()
+network_topology::network_topology()
 {
-	this->Size = 0;
+	this->size = 0;
 }
 
-NetworkTopology::~NetworkTopology()
+network_topology::~network_topology()
 {}
 
-void NetworkTopology::AddLayer(Layer layer)
+void network_topology::add_layer(layer layer)
 {
-	this->_layers.push_back(layer);
-	this->Size++;
+	this->layers_.push_back(layer);
+	this->size++;
 }
 
-Layer& NetworkTopology::LayerAt(int index)
+layer& network_topology::layer_at(int index)
 {
-	return this->_layers.at(index);
+	return this->layers_.at(index);
 }
 
-NetworkTopology NetworkTopology::Random(std::vector<int> layers)
+network_topology network_topology::random(std::vector<int> layers)
 {
-	NetworkTopology topology;
+	network_topology topology;
 
 	for (int l = 0; l < layers.size(); l++) // Loop through each layer
 	{
-		Layer layer;
+		layer layer;
 
 		int lsize = layers.at(l); // Count of neurons in this layer
 		for (int n = 0; n < lsize; n++) // Loop through each neuron
 		{
-			Neuron neuron;
-			neuron.Bias = (double(rand() % 200) / 100) - 1; // Random number between 0 and 2, minus 1 (so between -1 and 1)
+			neuron neuron;
+			neuron.bias = (double(rand() % 200) / 100) - 1; // Random number between 0 and 2, minus 1 (so between -1 and 1)
 
 			int nextNeurons; // Count of neurons in the next layer
 			if (l + 1 == layers.size())
@@ -43,15 +43,15 @@ NetworkTopology NetworkTopology::Random(std::vector<int> layers)
 
 			for (int c = 0; c < nextNeurons; c++) // Loop through each Connection
 			{
-				Connection connection;
-				connection.Weight = (double(rand() % 200) / 100) - 1; // Random number between 0 and 2, minus 1 (so between -1 and 1)
-				neuron.AddConnection(connection); // Add Connection from neuron `n`
+				connection connection;
+				connection.weight = (double(rand() % 200) / 100) - 1; // Random number between 0 and 2, minus 1 (so between -1 and 1)
+				neuron.add_connection(connection); // Add Connection from neuron `n`
 			}
 
-			layer.AddNeuron(neuron); // Add Neuron from layer `l`
+			layer.add_neuron(neuron); // Add Neuron from layer `l`
 		}
 
-		topology.AddLayer(layer); // Add Layer
+		topology.add_layer(layer); // Add Layer
 	}
 
 	return topology;

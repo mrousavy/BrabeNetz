@@ -1,21 +1,21 @@
 #pragma once
 #include "Neuron.h"
 
-#ifndef Connection_Included
-#define Connection_Included
+#ifndef CONNECTION_INCLUDED
+#define CONNECTION_INCLUDED
 
-class Neuron;
+class neuron;
 
-class Connection
+class connection
 {
 public:
-	Connection();
+	connection();
 	//Connection(Neuron* from, Neuron* to, double initialWeight);
-	~Connection();
+	~connection();
 	/*Neuron* From;
 	Neuron* To;*/
-	int To;
-	double Weight;
+	int to;
+	double weight;
 };
 
 #endif

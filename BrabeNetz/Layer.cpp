@@ -1,21 +1,21 @@
 #include "stdafx.h"
 #include "Layer.h"
 
-Layer::Layer()
+layer::layer()
 {
-	this->Size = 0;
+	this->size = 0;
 }
 
-Layer::~Layer()
+layer::~layer()
 {}
 
-void Layer::AddNeuron(Neuron neuron)
+void layer::add_neuron(neuron neuron)
 {
-	this->_neurons.push_back(neuron);
-	this->Size++;
+	this->neurons_.push_back(neuron);
+	this->size++;
 }
 
-Neuron& Layer::NeuronAt(int index)
+neuron& layer::neuron_at(int index)
 {
-	return this->_neurons.at(index);
+	return this->neurons_.at(index);
 }
