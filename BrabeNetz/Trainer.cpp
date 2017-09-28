@@ -5,22 +5,9 @@
 #define TRAIN_TIMES_EACH 1000
 #define TRAIN_POSSIBILITIES 4
 
-// Network instance
-network* _net;
-
-
-trainer::trainer(network* net)
+void trainer::train_xor(network& net)
 {
-	_net = net;
-}
-
-
-trainer::~trainer()
-{}
-
-void trainer::train_xor()
-{
-	int size = 2;
+	const int size = 2;
 	double* values;
 	int expected;
 
@@ -46,7 +33,7 @@ void trainer::train_xor()
 				expected = 0;
 				break;
 		}
-		double result = _net->train(values, size, expected);
+		const double result = net.train(values, size, expected);
 		cout << "{ " << values[0] << ", " << values[1] << " }: " << expected << " | " << result << endl;
 
 		// Cleanup

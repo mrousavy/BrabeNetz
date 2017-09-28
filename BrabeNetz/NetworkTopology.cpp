@@ -10,13 +10,13 @@ network_topology::network_topology()
 network_topology::~network_topology()
 {}
 
-void network_topology::add_layer(layer layer)
+void network_topology::add_layer(const layer layer)
 {
 	this->layers_.push_back(layer);
 	this->size++;
 }
 
-layer& network_topology::layer_at(int index)
+layer& network_topology::layer_at(const int index)
 {
 	return this->layers_.at(index);
 }

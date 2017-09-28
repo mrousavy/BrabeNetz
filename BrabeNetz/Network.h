@@ -58,12 +58,12 @@ private:
 	// Init Network
 	void init(network_topology& topology);
 	// Put inputValues into layer at given layerIndex with squashing, etc and return layer's values
-	double* to_next_layer(double* input_values, int input_length, int layer_index, int& out_length);
+	double* to_next_layer(double* input_values, int input_length, int layer_index, int& out_length) const;
 	// Adjust Network's weights and Biases
-	void adjust(double expected, double actual);
+	static void adjust(double expected, double actual);
 	// Fill neuron weights with given values
 	void fill_weights(network_topology& topology);
 	// Delete weights array
-	void delete_weights();
+	void delete_weights() const;
 };
 
