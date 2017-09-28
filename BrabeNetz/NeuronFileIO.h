@@ -2,12 +2,12 @@
 #include <string>
 
 // Helper class for Neuron Weights file on the disk
-static class NeuronFileIO
+static class neuron_file_io
 {
 public:
 	// Read Neuron weights 2D array ([][]) from file
-	int** Read(std::string path);
+	int** read(std::string path);
 	// Write Neuron weights 2D array ([][]) to file
-	void Write(std::string path, int** weights);
+	void write(std::string path, int** weights);
 };
 

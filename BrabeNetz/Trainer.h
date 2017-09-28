@@ -5,13 +5,13 @@
 /// <summary>
 /// A Neuronal Network Trainer supporting bools
 /// </summary>
-class Trainer
+class trainer
 {
 public:
-	Trainer(Network*);
-	~Trainer();
+	explicit trainer(network*);
+	~trainer();
 
 	// Teach the network XOR switches
-	void TrainXor();
+	void train_xor();
 };
 

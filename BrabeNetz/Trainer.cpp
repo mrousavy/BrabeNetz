@@ -6,19 +6,19 @@
 #define TRAIN_POSSIBILITIES 4
 
 // Network instance
-Network* _net;
+network* _net;
 
 
-Trainer::Trainer(Network* net)
+trainer::trainer(network* net)
 {
 	_net = net;
 }
 
 
-Trainer::~Trainer()
+trainer::~trainer()
 {}
 
-void Trainer::TrainXor()
+void trainer::train_xor()
 {
 	int size = 2;
 	double* values;
@@ -46,7 +46,7 @@ void Trainer::TrainXor()
 				expected = 0;
 				break;
 		}
-		double result = _net->Train(values, size, expected);
+		double result = _net->train(values, size, expected);
 		cout << "{ " << values[0] << ", " << values[1] << " }: " << expected << " | " << result << endl;
 
 		// Cleanup

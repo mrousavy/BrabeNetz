@@ -3,7 +3,6 @@
 #include "stdafx.h"
 #include <iostream>
 #include <string>
-#include "Functions.h"
 #include "Network.h"
 #include "Trainer.h"
 #include <chrono>
@@ -14,28 +13,28 @@ using namespace std;
 int main()
 {
 	// boot up neuronal network
-	auto bootStart = std::chrono::high_resolution_clock::now();
-	Network* net = new Network({ 2, 3, 1 });
-	auto bootFinish = std::chrono::high_resolution_clock::now();
+	const auto boot_start = std::chrono::high_resolution_clock::now();
+	network* net = new network({ 2, 3, 1 });
+	const auto boot_finish = std::chrono::high_resolution_clock::now();
 
 	// boot up neuronal network trainer
-	Trainer* trainer = new Trainer(net);
+	trainer* coach = new trainer(net);
 
 	// Train neural network with trainer
-	auto trainStart = std::chrono::high_resolution_clock::now();
-	trainer->TrainXor();
-	auto trainFinish = std::chrono::high_resolution_clock::now();
+	const auto train_start = std::chrono::high_resolution_clock::now();
+	coach->train_xor();
+	const auto train_finish = std::chrono::high_resolution_clock::now();
 
 	// cleanup
 	delete net;
-	delete trainer;
+	delete coach;
 
-	auto bootTime = std::chrono::duration_cast<std::chrono::milliseconds>(bootFinish - bootStart).count();
-	auto trainTime = std::chrono::duration_cast<std::chrono::milliseconds>(trainFinish - trainStart).count();
+	const auto boot_time = std::chrono::duration_cast<std::chrono::milliseconds>(boot_finish - boot_start).count();
+	const auto train_time = std::chrono::duration_cast<std::chrono::milliseconds>(train_finish - train_start).count();
 
-	cout << "Bootup time: " << bootTime 
-		<< "ms | Train time: " << trainTime 
-		<< "ms | Total: " << bootTime + trainTime 
+	cout << "Bootup time: " << boot_time 
+		<< "ms | Train time: " << train_time 
+		<< "ms | Total: " << boot_time + train_time 
 		<< "ms" << endl;
 
 	// Exit on user input

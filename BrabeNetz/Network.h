@@ -1,9 +1,6 @@
 #pragma once
-#include "Functions.h"
 #include "NetworkTopology.h"
-#include <algorithm>
 #include <vector>
-#include <time.h>
 using namespace std;
 
 // Specifies the value each weight gets adjusted by on training
@@ -11,62 +8,62 @@ using namespace std;
 // Maximum delta of actual and expected values until stop training
 #define MAX_DELTA 0.01
 
-class Network
+class network
 {
 public:
 	////////////////
 	//    ctor    //
 	////////////////
 	// initializerList: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output
-	Network(initializer_list<int> initializerList);
+	network(initializer_list<int> initializer_list);
 	// initializerList: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output
-	Network(network_topology& topology);
-	~Network();
+	explicit network(network_topology& topology);
+	~network();
 
 	////////////////
 	// functions  //
 	////////////////
 	// Feed the network information and train it to adjust to the expected output (returns output error)
-	double Train(double* inputValues, int length, double expectedOutput);
+	double train(double* input_values, int length, double expected_output);
 	// Feed the network information and return the output layer
-	double* Feed(double* inputValues, int length, int& outLength);
+	double* feed(double* input_values, int length, int& out_length);
 	// Save the network's state to disk by serializing weights
-	void Save(string path);
+	void save(string path);
 	// Load the network's state from disk by deserializing and loading weights
-	void Load(string path);
+	void load(string path);
 
 private:
 	////////////////
 	// properties //
 	////////////////
 	// Count of Layers in this network
-	int layersCount;
+	int layers_count_;
 	// Count of Neurons in Layers (Left to right in Topology)
-	int* neuronsCount;
+	int* neurons_count_;
 	// Actual layers that contain nodes with their values
-	double** layers;
+	double** layers_;
 	// Each neuron's bias
-	double** biases;
+	double** biases_;
 	// Each neuron's error values
-	double** errors;
+	double** errors_;
 	// Weight of each neuron's connection, 3D Array: [layer][neuron][connection]
-	double*** weights;
+	double*** weights_;
 	// The network topology, only for logic representation and weights initialization
-	network_topology topology;
+	network_topology topology_;
 
 
 	////////////////
 	// functions  //
 	////////////////
 	// Init Network
-	void Init(network_topology& topology);
+	void init(network_topology& topology);
 	// Put inputValues into layer at given layerIndex with squashing, etc and return layer's values
-	double* ToNextLayer(double* inputValues, int inputLength, int layerIndex, int& outLength);
+	double* to_next_layer(double* input_values, int input_length, int layer_index, int& out_length);
 	// Adjust Network's weights and Biases
-	void Adjust(double expected, double actual);
+	void adjust(double expected, double actual);
 	// Fill neuron weights with given values
-	void FillWeights(network_topology& topology);
+	void fill_weights(network_topology& topology);
 	// Delete weights array
-	void DeleteWeights();
+	void delete_weights();
 };
 

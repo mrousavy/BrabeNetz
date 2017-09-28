@@ -1,19 +1,19 @@
 #pragma once
 #include <vector>
 
-class Extensions
+class extensions
 {
 public:
 	// Convert a vector to an array of type T
 	template <typename T>
-	static T* ToArray(std::vector<T> input);
+	static T* to_array(std::vector<T> input);
 	// Convert an array to a vector of type T
 	template <typename T>
-	static std::vector<T> ToVector(T* input, int length);
+	static std::vector<T> to_vector(T* input, const int length);
 };
 
 template<typename T>
-inline T* Extensions::ToArray(std::vector<T> input)
+inline T* extensions::to_array(std::vector<T> input)
 {
 	T* t = new T[input->size()];
 	for (int i = 0; i < input->size(); i++)
@@ -25,7 +25,7 @@ inline T* Extensions::ToArray(std::vector<T> input)
 
 
 template<typename T>
-inline std::vector<T> Extensions::ToVector(T* input, int length)
+inline std::vector<T> extensions::to_vector(T* input, const int length)
 {
 	std::vector<T> v;
 	for (int i = 0; i < length; i++)

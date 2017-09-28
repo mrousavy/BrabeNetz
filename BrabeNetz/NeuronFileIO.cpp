@@ -6,7 +6,7 @@
 #include <vector>
 using namespace std;
 
-int** NeuronFileIO::Read(string path)
+int** neuron_file_io::read(string path)
 {
 	ifstream input(path, ios::binary | ios::ate); // Neuron weight inputfile stream
 	int length = input.tellg(); // total length of file
@@ -22,7 +22,7 @@ int** NeuronFileIO::Read(string path)
 	return weights;
 }
 
-void NeuronFileIO::Write(string path, int** weights)
+void neuron_file_io::write(string path, int** weights)
 {
 	ofstream output(path, ios::binary); // Neuron weight outputfile stream
 	
