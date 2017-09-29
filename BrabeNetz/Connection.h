@@ -11,7 +11,7 @@ class neuron;
 class connection
 {
 	friend std::ostream& operator<<(std::ostream& os, const connection& c);
-	friend std::istream& operator>> (std::istream& is, connection& c);
+	friend std::istream& operator>>(std::istream& is, connection& c);
 public:
 	connection();
 	~connection();

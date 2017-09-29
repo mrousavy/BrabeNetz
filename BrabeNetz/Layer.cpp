@@ -7,7 +7,8 @@ layer::layer()
 }
 
 layer::~layer()
-{}
+{
+}
 
 std::ostream& operator<<(std::ostream& os, layer& l)
 {
@@ -17,7 +18,7 @@ std::ostream& operator<<(std::ostream& os, layer& l)
 	return os;
 }
 
-std::istream& operator>> (std::istream& is, layer& l)
+std::istream& operator>>(std::istream& is, layer& l)
 {
 	is.read(reinterpret_cast<char*>(&l.size), sizeof(l.size));
 	for (int i = 0; i < l.size; i++) // From last index to 0

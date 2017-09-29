@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "NetworkTopology.h"
+#include <fstream>
 
 
 network_topology::network_topology()
@@ -8,7 +9,8 @@ network_topology::network_topology()
 }
 
 network_topology::~network_topology()
-{}
+{
+}
 
 std::ostream& operator<<(std::ostream& os, network_topology& nt)
 {
@@ -52,19 +54,19 @@ network_topology network_topology::random(std::vector<int> layers)
 	{
 		layer layer;
 
-		int lsize = layers.at(l); // Count of neurons in this layer
+		const int lsize = layers.at(l); // Count of neurons in this layer
 		for (int n = 0; n < lsize; n++) // Loop through each neuron
 		{
 			neuron neuron;
 			neuron.bias = (double(rand() % 200) / 100) - 1; // Random number between 0 and 2, minus 1 (so between -1 and 1)
 
-			int nextNeurons; // Count of neurons in the next layer
+			int next_neurons; // Count of neurons in the next layer
 			if (l + 1 == layers.size())
-				nextNeurons = 0; // Last layer has no connections (no next layer)
+				next_neurons = 0; // Last layer has no connections (no next layer)
 			else
-				nextNeurons = layers.at(l + 1); // Next layer's neurons
+				next_neurons = layers.at(l + 1); // Next layer's neurons
 
-			for (int c = 0; c < nextNeurons; c++) // Loop through each Connection
+			for (int c = 0; c < next_neurons; c++) // Loop through each Connection
 			{
 				connection connection;
 				connection.weight = (double(rand() % 200) / 100) - 1;
@@ -81,7 +83,7 @@ network_topology network_topology::random(std::vector<int> layers)
 	return topology;
 }
 
-network_topology network_topology::load(std::string path)
+network_topology network_topology::load(const std::string path)
 {
 	network_topology topology;
 
@@ -93,7 +95,7 @@ network_topology network_topology::load(std::string path)
 	return topology;
 }
 
-void network_topology::save(network_topology& topology, std::string path)
+void network_topology::save(network_topology& topology, const std::string path)
 {
 	std::ofstream file;
 	file.open(path, std::fstream::out | std::fstream::binary | std::fstream::trunc); // Open the file

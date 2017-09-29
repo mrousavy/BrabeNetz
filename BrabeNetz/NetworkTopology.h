@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include <fstream>
 #include "Layer.h"
 
 class network_topology

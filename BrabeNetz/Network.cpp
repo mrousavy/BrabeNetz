@@ -31,7 +31,7 @@ network::network(network_topology& topology) : network()
 	init(topology);
 }
 
-network::network(string path) : network()
+network::network(const string path) : network()
 {
 	load(path);
 }
@@ -71,9 +71,8 @@ double network::train(double* input_values, const int length, double* expected_o
 		vector<double> vec = extensions::to_vector<double>(values, *values_length); // TODO: REMOVE TOVECTOR
 		double* arr = extensions::to_array(vec);
 	}
-	double cost = cost_func(expected_output, values, *values_length);
-	
-	return cost;
+	const double cost = cost_func(expected_output, values, *values_length);
+
 
 	//int* output_length = new int;
 	//double* output_layer = feed(input_values, length, *output_length);
@@ -88,8 +87,10 @@ double network::train(double* input_values, const int length, double* expected_o
 
 	//double distance = euclidean_dist(output_layer, expected_output, *output_length);
 
+	delete values_length;
 	//// TODO: RETURN LAST ERROR
 	//return vec.at(0);
+	return cost;
 }
 
 // Feed the network information and return the output
@@ -173,12 +174,12 @@ void network::adjust(const double expected, const double actual)
 	double error = get_error(expected, actual); // Error on output layer
 }
 
-void network::save(string path)
+void network::save(const string path)
 {
 	network_topology::save(this->topology_, path);
 }
 
-void network::load(string path)
+void network::load(const string path)
 {
 	init(network_topology::load(path));
 }

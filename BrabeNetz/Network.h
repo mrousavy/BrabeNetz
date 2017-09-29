@@ -1,7 +1,5 @@
 #pragma once
 #include "NetworkTopology.h"
-#include <vector>
-#include <fstream>
 using namespace std;
 
 // Specifies the value each weight gets adjusted by on training

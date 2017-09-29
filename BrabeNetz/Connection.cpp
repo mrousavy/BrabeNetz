@@ -10,7 +10,8 @@ connection::connection()
 }
 
 connection::~connection()
-{}
+{
+}
 
 std::ostream& operator<<(std::ostream& os, const connection& c)
 {
@@ -18,7 +19,7 @@ std::ostream& operator<<(std::ostream& os, const connection& c)
 	return os;
 }
 
-std::istream& operator>> (std::istream& is, connection& c)
+std::istream& operator>>(std::istream& is, connection& c)
 {
 	is.read(reinterpret_cast<char*>(&c.weight), sizeof(c.weight));
 	return is;

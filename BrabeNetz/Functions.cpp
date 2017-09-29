@@ -77,7 +77,6 @@ DECIMAL sum(DECIMAL* values, const int length)
 }
 
 
-
 // LOGISTIC:
 //   float exp = std::pow(EulerConstant, value);
 //   return exp / (exp + 1);

@@ -6,6 +6,7 @@
 #include "Network.h"
 #include "Trainer.h"
 #include <chrono>
+#include <fstream>
 
 using namespace std;
 
@@ -16,11 +17,11 @@ int main()
 	const auto boot_start = chrono::high_resolution_clock::now();
 
 	network* net;
-	if(std::ifstream("state.nn", std::fstream::in | ::fstream::binary))
+	if (ifstream("state.nn", fstream::in | fstream::binary))
 		net = new network("state.nn");
 	else
-		net = new network(network_topology::random({ 2,3,1 }));
-	
+		net = new network(network_topology::random({2,3,1}));
+
 	const auto boot_finish = chrono::high_resolution_clock::now();
 
 	// Train neural network with trainer
@@ -38,6 +39,8 @@ int main()
 		<< "ms" << endl;
 
 	net->save();
+
+	delete net;
 
 	// Exit on user input
 	string _ = "";

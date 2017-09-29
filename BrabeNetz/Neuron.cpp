@@ -2,10 +2,12 @@
 #include "Neuron.h"
 
 neuron::neuron()
-{}
+{
+}
 
 neuron::~neuron()
-{}
+{
+}
 
 std::ostream& operator<<(std::ostream& os, neuron& n)
 {
@@ -16,7 +18,7 @@ std::ostream& operator<<(std::ostream& os, neuron& n)
 	return os;
 }
 
-std::istream& operator>> (std::istream& is, neuron& n)
+std::istream& operator>>(std::istream& is, neuron& n)
 {
 	is.read(reinterpret_cast<char*>(&n.size), sizeof(n.size));
 	is.read(reinterpret_cast<char*>(&n.bias), sizeof(n.bias));
