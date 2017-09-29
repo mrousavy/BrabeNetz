@@ -70,7 +70,7 @@ double network::train(double* input_values, const int length, double* expected_o
 		vector<double> vec = extensions::to_vector<double>(values, *values_length); // TODO: REMOVE TOVECTOR
 	}
 
-	const double error =  adjust(expected_output, *values_length);
+	const double error = adjust(expected_output, values, *values_length);
 	delete values_length;
 	return error;
 }
@@ -151,22 +151,39 @@ void network::fill_weights()
 	}
 }
 
-double network::adjust(double* expected_output, const int length) const
+double network::adjust(double* expected_output, double* actual_output, const int length) const
 {
-	const int l = this->layers_count_ - 1; // Last index
-	const double final_cost = cost_derivative(expected_output, layers_[l], length);
-	double delta = final_cost;
+	const int l = this->layers_count_ - 2; // Last hidden layer index
 
-	for(int i = l; i > -1; i--)
+	double* errors = new double[length];
+
+	for (int i = 0; i < length; i++) // Loop through each output neuron (mostly 1)
 	{
-		// TODO: Fix formula
-		//delta = (delta * this->weights_[i][0][9]) * squash_derivative(expand(layers_[i]));
-		// TODO: dJ/dW = X.T * delta
+		const double error = get_error(expected_output[i], actual_output[i]);
+		errors[i] = error;
 	}
 
-	// TODO: Use Gradient descend here, loop through each this->layers_
+	for (int i = l; i > -1; i--) // Reverse-loop through each layer
+	{
+		const int neurons = this->neurons_count_[i]; // Count of neurons in this layer
+		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
+		double* layer_errors = new double[neurons];
 
-	return delta;
+		for (int n = 0; n < neurons; n++)
+		{
+			for (int c = 0; c < next_neurons; c++)
+			{
+				layer_errors[n] = get_error(layers_[i][n], errors, weights_[i][n], next_neurons);
+			}
+		}
+
+		delete[] errors;
+		errors = layer_errors;
+	}
+
+	delete[] errors;
+
+	return -1;
 }
 
 void network::save(const string path)

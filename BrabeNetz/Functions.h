@@ -63,9 +63,10 @@ DECIMAL get_error(const DECIMAL expected, const DECIMAL actual);
 /// <summary>
 /// Calculate the Error of any layer
 ///	in the neural network by given expected 
-/// output and actual output
+/// output, actual output
 /// </summary>
-DECIMAL get_error(const DECIMAL neuron_value, const DECIMAL total_weights);
+DECIMAL get_error(const DECIMAL neuron_value, const DECIMAL* next_errors,
+				  const DECIMAL* next_weights, const DECIMAL next_layer_size);
 
 /// <summary>
 /// Sums up values in a vector

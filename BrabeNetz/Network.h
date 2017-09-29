@@ -6,6 +6,8 @@ using namespace std;
 #define ADJUST_WEIGHTS_BY 0.002
 // Maximum delta of actual and expected values until stop training
 #define MAX_DELTA 0.01
+// Learning rate for the backpropagation weights/bias adjusting
+#define LEARNING_RATE 0.01
 // Filename for the state file
 #define STATE_FILE "state.nn"
 
@@ -62,7 +64,7 @@ private:
 	// Put inputValues into layer at given layerIndex with squashing, etc and return layer's values
 	double* to_next_layer(double* input_values, int input_length, int layer_index, int& out_length) const;
 	// Adjust Network's weights and Biases, return delta/error
-	double adjust(double* expected_output, const int length) const;
+	double adjust(double* expected_output, double* actual_output, const int length) const;
 	// Fill neuron weights with this topology
 	void fill_weights();
 	// Delete weights array

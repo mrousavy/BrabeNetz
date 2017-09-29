@@ -14,7 +14,7 @@ network_topology::~network_topology()
 
 std::ostream& operator<<(std::ostream& os, network_topology& nt)
 {
-	os.write(reinterpret_cast<const char*>(&nt.size), sizeof(nt.size));
+	os.write(reinterpret_cast<const char*>(&nt.size), sizeof nt.size);
 	for (int i = 0; i < nt.size; i++)
 		os << nt.layer_at(i);
 	return os;
@@ -22,7 +22,7 @@ std::ostream& operator<<(std::ostream& os, network_topology& nt)
 
 std::istream& operator>>(std::istream& is, network_topology& nt)
 {
-	is.read(reinterpret_cast<char*>(&nt.size), sizeof(nt.size));
+	is.read(reinterpret_cast<char*>(&nt.size), sizeof nt.size);
 	for (int i = 0; i < nt.size; i++)
 		nt.layers_.push_back(network_topology::read_layer(is));
 	return is;
