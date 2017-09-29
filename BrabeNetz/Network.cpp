@@ -59,9 +59,15 @@ network::~network()
 	delete[] this->neurons_count_;
 }
 
+void network::set_learnrate(const double value)
+{
+	learn_rate_ = value;
+}
+
 // Train network and adjust weights to expectedOutput
 double network::train(double* input_values, const int length, double* expected_output) const
 {
+	this->layers_[0] = input_values;
 	double* values = input_values; // Values of current layer
 	int* values_length = new int(length); // Copy input length to variable
 	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++) // Loop through each hidden layer + output
@@ -72,7 +78,7 @@ double network::train(double* input_values, const int length, double* expected_o
 
 	const double error = adjust(expected_output, values, *values_length);
 	delete values_length;
-	return error;
+	return values[0];
 }
 
 // Feed the network information and return the output
@@ -174,6 +180,7 @@ double network::adjust(double* expected_output, double* actual_output, const int
 			for (int c = 0; c < next_neurons; c++)
 			{
 				layer_errors[n] = get_error(layers_[i][n], errors, weights_[i][n], next_neurons);
+				weights_[i][n][c] += learn_rate_ * layer_errors[n] * layers_[i][n];
 			}
 		}
 

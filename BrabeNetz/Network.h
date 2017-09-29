@@ -36,10 +36,14 @@ public:
 	void save(string path = STATE_FILE);
 	// Load the network's state from disk by deserializing and loading weights
 	void load(string path = STATE_FILE);
+	// Set the network's learning rate (should be 1/i, where i = train iterations so far)
+	void set_learnrate(double value);
 private:
 	////////////////
 	// properties //
 	////////////////
+	// Learning rate of this network (1/i, where i = train iterations so far)
+	double learn_rate_;
 	// Count of Layers in this network
 	int layers_count_;
 	// Count of Neurons in Layers (Left to right in Topology)
