@@ -160,7 +160,7 @@ double network::adjust(double* expected_output, const int length) const
 	for(int i = l; i > -1; i--)
 	{
 		// TODO: Fix formula
-		delta = (delta * this->weights_[i][0][9]) * squash_derivative(expand(layers_[i]));
+		//delta = (delta * this->weights_[i][0][9]) * squash_derivative(expand(layers_[i]));
 		// TODO: dJ/dW = X.T * delta
 	}
 
