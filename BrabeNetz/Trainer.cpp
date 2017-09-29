@@ -34,7 +34,7 @@ void trainer::train_xor(network& net)
 			expected[0] = 0;
 			break;
 		}
-		const double result = net.train(values, size, expected, 1);
+		const double result = net.train(values, size, expected);
 		cout << "{ " << values[0] << ", " << values[1] << " }: " << expected[0] << " | " << result << endl;
 
 		// Cleanup

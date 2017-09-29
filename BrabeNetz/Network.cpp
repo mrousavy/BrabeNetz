@@ -8,13 +8,10 @@ using namespace std;
 #include "Extensions.h"
 
 // ctor
-network::network()
+network::network(initializer_list<int> initializer_list)
 {
 	srand(time(nullptr));
-}
 
-network::network(initializer_list<int> initializer_list) : network()
-{
 	if (initializer_list.size() < 3)
 		throw
 			"Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
@@ -26,13 +23,15 @@ network::network(initializer_list<int> initializer_list) : network()
 	init(this->topology_);
 }
 
-network::network(network_topology& topology) : network()
+network::network(network_topology& topology)
 {
+	srand(time(nullptr));
 	init(topology);
 }
 
-network::network(const string path) : network()
+network::network(const string path)
 {
+	srand(time(nullptr));
 	load(path);
 }
 
@@ -61,7 +60,7 @@ network::~network()
 }
 
 // Train network and adjust weights to expectedOutput
-double network::train(double* input_values, const int length, double* expected_output, int expected_length)
+double network::train(double* input_values, const int length, double* expected_output) const
 {
 	double* values = input_values; // Values of current layer
 	int* values_length = new int(length); // Copy input length to variable
@@ -69,28 +68,12 @@ double network::train(double* input_values, const int length, double* expected_o
 	{
 		values = to_next_layer(values, *values_length, hidden_index, *values_length);
 		vector<double> vec = extensions::to_vector<double>(values, *values_length); // TODO: REMOVE TOVECTOR
-		double* arr = extensions::to_array(vec);
 	}
-	const double cost = cost_func(expected_output, values, *values_length);
 
-
-	//int* output_length = new int;
-	//double* output_layer = feed(input_values, length, *output_length);
-
-	//vector<double> vec = extensions::to_vector<double>(output_layer, *output_length); // TODO: REMOVE TOVECTOR
-
-	//double sum = 0;
-	//for (int i = 0; i < *output_length; i++) // Loop through each neuron in output layer
-	//{
-	//	sum += squash(rectify(output_layer[i])); // Squash and ReLU it (keep if positive, 0 if negative; uint)
-	//}
-
-	//double distance = euclidean_dist(output_layer, expected_output, *output_length);
-
+	const double error =  adjust(values, expected_output, *values_length);
 	delete values_length;
-	//// TODO: RETURN LAST ERROR
-	//return vec.at(0);
-	return cost;
+	// TODO: RETURN LAST ERROR
+	return error;
 }
 
 // Feed the network information and return the output
@@ -169,9 +152,13 @@ void network::fill_weights()
 	}
 }
 
-void network::adjust(const double expected, const double actual)
+double network::adjust(double* expected, double* actual, const int length)
 {
-	double error = get_error(expected, actual); // Error on output layer
+	const double cost = cost_func(expected, actual, length);
+
+	// TODO: Use Gradient descend here
+
+	return cost;
 }
 
 void network::save(const string path)

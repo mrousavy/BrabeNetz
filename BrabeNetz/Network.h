@@ -27,7 +27,7 @@ public:
 	// functions  //
 	////////////////
 	// Feed the network information and train it to adjust to the expected output (returns output error)
-	double train(double* input_values, int length, double* expected_output, int expected_length);
+	double train(double* input_values, int length, double* expected_output) const;
 	// Feed the network information and return the output layer
 	double* feed(double* input_values, int length, int& out_length) const;
 	// Save the network's state to disk by serializing weights
@@ -35,7 +35,6 @@ public:
 	// Load the network's state from disk by deserializing and loading weights
 	void load(string path = STATE_FILE);
 private:
-	network();
 	////////////////
 	// properties //
 	////////////////
@@ -62,8 +61,8 @@ private:
 	void init(network_topology& topology);
 	// Put inputValues into layer at given layerIndex with squashing, etc and return layer's values
 	double* to_next_layer(double* input_values, int input_length, int layer_index, int& out_length) const;
-	// Adjust Network's weights and Biases
-	static void adjust(double expected, double actual);
+	// Adjust Network's weights and Biases, return delta/error
+	static double adjust(double* expected, double* actual, const int length);
 	// Fill neuron weights with this topology
 	void fill_weights();
 	// Delete weights array
