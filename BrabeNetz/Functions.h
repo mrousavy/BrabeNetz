@@ -16,6 +16,11 @@
 DECIMAL squash(const DECIMAL input);
 
 /// <summary>
+/// Undo the squash(..) function
+/// </summary>
+DECIMAL expand(const DECIMAL squashed);
+
+/// <summary>
 /// Squash a value with the derivative of the Sigmoid
 /// function (https://en.wikipedia.org/wiki/Sigmoid_function) using
 /// doubles (because doubles are being Hardware-implemented -> faster)
@@ -46,7 +51,7 @@ DECIMAL cost_func(DECIMAL* expected, DECIMAL* actual, int length);
 /// <summary>
 /// Calculate the first derivative of the cost/loss function
 /// </summary>
-DECIMAL cost_derivative(DECIMAL* expected, DECIMAL* actual, DECIMAL* actual_raw, int length);
+DECIMAL cost_derivative(DECIMAL* expected, DECIMAL* actual, int length);
 
 /// <summary>
 /// Calculate the Error of the output layer 

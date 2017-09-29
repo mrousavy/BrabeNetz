@@ -16,6 +16,11 @@ DECIMAL squash(const DECIMAL value)
 	return 1 / (1 + exp(-value));
 }
 
+DECIMAL expand(const DECIMAL squashed)
+{
+	return log(squashed / (1 - squashed));
+}
+
 DECIMAL squash_derivative(const DECIMAL value)
 {
 	return exp(-value) / (pow((1 + exp(-value)), 2));
@@ -46,12 +51,12 @@ DECIMAL cost_func(DECIMAL* expected, DECIMAL* actual, const int length)
 	return sum;
 }
 
-DECIMAL cost_derivative(DECIMAL* expected, DECIMAL* actual, DECIMAL* actual_raw, const int length)
+DECIMAL cost_derivative(DECIMAL* expected, DECIMAL* actual, const int length)
 {
 	DECIMAL sum = 0.0;
 	for (int i = 0; i < length; i++)
 	{
-		sum += (expected[i] - actual[i]) * squash_derivative(actual_raw[i]);
+		sum += -(expected[i] - actual[i]) * squash_derivative(expand(actual[i]));
 	}
 	return sum;
 }
