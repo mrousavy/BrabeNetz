@@ -62,7 +62,7 @@ private:
 	// Put inputValues into layer at given layerIndex with squashing, etc and return layer's values
 	double* to_next_layer(double* input_values, int input_length, int layer_index, int& out_length) const;
 	// Adjust Network's weights and Biases, return delta/error
-	static double adjust(double* expected, double* actual, const int length);
+	double adjust(double* expected_output, const int length);
 	// Fill neuron weights with this topology
 	void fill_weights();
 	// Delete weights array

@@ -70,11 +70,8 @@ double network::train(double* input_values, const int length, double* expected_o
 		vector<double> vec = extensions::to_vector<double>(values, *values_length); // TODO: REMOVE TOVECTOR
 	}
 
-	return values[0];
-
-	const double error = adjust(values, expected_output, *values_length);
+	const double error =  adjust(expected_output, *values_length);
 	delete values_length;
-	// TODO: RETURN LAST ERROR
 	return error;
 }
 
@@ -154,13 +151,22 @@ void network::fill_weights()
 	}
 }
 
-double network::adjust(double* expected, double* actual, const int length)
+double network::adjust(double* expected_output, const int length) const
 {
-	const double cost = cost_func(expected, actual, length);
+	const int l = this->layers_count_ - 1; // Last index
+	const double final_cost = cost_derivative(expected_output, layers_[l], length);
+	double delta = final_cost;
 
-	// TODO: Use Gradient descend here
+	for(int i = l; i > -1; i--)
+	{
+		// TODO: Fix formula
+		delta = (delta * this->weights_[i][0][9]) * squash_derivative(expand(layers_[i]));
+		// TODO: dJ/dW = X.T * delta
+	}
 
-	return cost;
+	// TODO: Use Gradient descend here, loop through each this->layers_
+
+	return delta;
 }
 
 void network::save(const string path)
@@ -170,6 +176,7 @@ void network::save(const string path)
 
 void network::load(const string path)
 {
+	// ReSharper disable once CppMsExtBindingRValueToLvalueReference
 	init(network_topology::load(path));
 }
 
