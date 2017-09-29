@@ -43,7 +43,7 @@ private:
 	// properties //
 	////////////////
 	// Learning rate of this network (1/i, where i = train iterations so far)
-	double learn_rate_;
+	double learn_rate_ = LEARNING_RATE;
 	// Count of Layers in this network
 	int layers_count_;
 	// Count of Neurons in Layers (Left to right in Topology)

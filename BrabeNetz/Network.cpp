@@ -180,7 +180,7 @@ double network::adjust(double* expected_output, double* actual_output, const int
 			for (int c = 0; c < next_neurons; c++)
 			{
 				layer_errors[n] = get_error(layers_[i][n], errors, weights_[i][n], next_neurons);
-				weights_[i][n][c] += learn_rate_ * layer_errors[n] * layers_[i][n];
+				weights_[i][n][c] += learn_rate_ * (layer_errors[n] * layers_[i][n]);
 			}
 		}
 
