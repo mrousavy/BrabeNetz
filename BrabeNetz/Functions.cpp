@@ -16,7 +16,7 @@ DECIMAL squash(const DECIMAL value)
 	return 1 / (1 + exp(-value));
 }
 
-DECIMAL squash_prime(const DECIMAL value)
+DECIMAL squash_derivative(const DECIMAL value)
 {
 	return exp(-value) / (pow((1 + exp(-value)), 2));
 }
@@ -36,12 +36,22 @@ DECIMAL euclidean_dist(DECIMAL* x, DECIMAL* y, const int length)
 	return sqrt(result);
 }
 
-DECIMAL cost_func(DECIMAL* x, DECIMAL* y, const int length)
+DECIMAL cost_func(DECIMAL* expected, DECIMAL* actual, const int length)
 {
 	DECIMAL sum = 0.0;
 	for (int i = 0; i < length; i++)
 	{
-		sum += 0.5 * pow(x[i] - y[i], 2);
+		sum += 0.5 * pow(expected[i] - actual[i], 2);
+	}
+	return sum;
+}
+
+DECIMAL cost_derivative(DECIMAL* expected, DECIMAL* actual, DECIMAL* actual_raw, const int length)
+{
+	DECIMAL sum = 0.0;
+	for (int i = 0; i < length; i++)
+	{
+		sum += (expected[i] - actual[i]) * squash_derivative(actual_raw[i]);
 	}
 	return sum;
 }

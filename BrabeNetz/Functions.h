@@ -20,7 +20,7 @@ DECIMAL squash(const DECIMAL input);
 /// function (https://en.wikipedia.org/wiki/Sigmoid_function) using
 /// doubles (because doubles are being Hardware-implemented -> faster)
 /// </summary>
-DECIMAL squash_prime(const DECIMAL input);
+DECIMAL squash_derivative(const DECIMAL input);
 
 /// <summary>
 /// Rectify a value with the rectified linear unit (ReLU)
@@ -39,9 +39,14 @@ DECIMAL rectify(const DECIMAL input);
 DECIMAL euclidean_dist(DECIMAL* x, DECIMAL* y, int length);
 
 /// <summary>
-/// Calculate the cost/loss of two input arrays (using euclidean_dist)
+/// Calculate the cost/loss of two input arrays
 /// </summary>
-DECIMAL cost_func(DECIMAL* x, DECIMAL* y, int length);
+DECIMAL cost_func(DECIMAL* expected, DECIMAL* actual, int length);
+
+/// <summary>
+/// Calculate the first derivative of the cost/loss function
+/// </summary>
+DECIMAL cost_derivative(DECIMAL* expected, DECIMAL* actual, DECIMAL* actual_raw, int length);
 
 /// <summary>
 /// Calculate the Error of the output layer 

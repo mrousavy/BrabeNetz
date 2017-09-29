@@ -14,7 +14,7 @@ network::network(initializer_list<int> initializer_list)
 
 	if (initializer_list.size() < 3)
 		throw
-			"Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
+		"Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
 
 	vector<int> input_vector; // clone initializer list to vector
 	input_vector.insert(input_vector.end(), initializer_list.begin(), initializer_list.end());
@@ -64,13 +64,15 @@ double network::train(double* input_values, const int length, double* expected_o
 {
 	double* values = input_values; // Values of current layer
 	int* values_length = new int(length); // Copy input length to variable
-	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++) // Loop through each hidden layer
+	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++) // Loop through each hidden layer + output
 	{
 		values = to_next_layer(values, *values_length, hidden_index, *values_length);
 		vector<double> vec = extensions::to_vector<double>(values, *values_length); // TODO: REMOVE TOVECTOR
 	}
 
-	const double error =  adjust(values, expected_output, *values_length);
+	return values[0];
+
+	const double error = adjust(values, expected_output, *values_length);
 	delete values_length;
 	// TODO: RETURN LAST ERROR
 	return error;
@@ -93,7 +95,7 @@ double* network::feed(double* input_values, const int length, int& out_length) c
 
 // This function focuses on only one layer, so in theory we have 1 input layer, the layer we focus on, and 1 output
 double* network::to_next_layer(double* input_values, const int input_length, const int layer_index,
-                               int& out_length) const
+							   int& out_length) const
 {
 	vector<double> vec = extensions::to_vector<double>(input_values, input_length); // TODO: REMOVE TOVECTOR
 	const int n_count = this->neurons_count_[layer_index]; // Count of neurons in the next layer (w/ layerIndex)
