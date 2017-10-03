@@ -67,7 +67,7 @@ DECIMAL get_error(const DECIMAL expected, const DECIMAL actual)
 }
 
 DECIMAL get_error(const DECIMAL neuron_value, const DECIMAL* next_errors, 
-				  const DECIMAL* next_weights, const DECIMAL next_layer_size)
+				  const DECIMAL* next_weights, const int next_layer_size)
 {
 	double sum = 0;
 	for(int i = 0; i < next_layer_size; i++)

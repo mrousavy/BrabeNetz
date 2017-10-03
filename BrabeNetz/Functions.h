@@ -66,7 +66,7 @@ DECIMAL get_error(const DECIMAL expected, const DECIMAL actual);
 /// output, actual output
 /// </summary>
 DECIMAL get_error(const DECIMAL neuron_value, const DECIMAL* next_errors,
-				  const DECIMAL* next_weights, const DECIMAL next_layer_size);
+				  const DECIMAL* next_weights, const int next_layer_size);
 
 /// <summary>
 /// Sums up values in a vector
