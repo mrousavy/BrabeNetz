@@ -174,6 +174,7 @@ double network::adjust(double* expected_output, double* actual_output, const int
 		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
 		double* layer_errors = new double[neurons];
 
+		// TODO: Something's not right here
 		for (int n = 0; n < neurons; n++)
 		{
 			for (int c = 0; c < next_neurons; c++)
