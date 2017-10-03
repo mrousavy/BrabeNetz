@@ -165,8 +165,7 @@ double network::adjust(double* expected_output, double* actual_output, const int
 
 	for (int i = 0; i < length; i++) // Loop through each output neuron (mostly 1)
 	{
-		const double error = get_error(expected_output[i], actual_output[i]);
-		errors[i] = error;
+		errors[i] = get_error(expected_output[i], actual_output[i]);
 	}
 
 	for (int i = l; i > -1; i--) // Reverse-loop through each layer
