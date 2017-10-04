@@ -6,6 +6,7 @@ using namespace std;
 
 // TODO: REMOVE INCLUDES
 #include "Extensions.h"
+#include <iostream>
 
 // ctor
 network::network(initializer_list<int> initializer_list)
@@ -171,21 +172,28 @@ double network::adjust(double* expected_output, double* actual_output, const int
 	for (int i = l; i > -1; i--) // Reverse-loop through each layer
 	{
 		const int neurons = this->neurons_count_[i]; // Count of neurons in this layer
-		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
+		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in the next layer
 		double* layer_errors = new double[neurons];
 
 		// TODO: Something's not right here
 		for (int n = 0; n < neurons; n++)
 		{
-			for (int c = 0; c < next_neurons; c++)
+			// Calculate layer errors on this neuron with weights from this neuron to next layer
+			layer_errors[n] = get_error(layers_[i][n], errors, weights_[i][n], next_neurons);
+
+			for (int pn = 0; pn < neurons_count_[i - 1]; pn++) // Loop through each neuron in previous layer
 			{
-				layer_errors[n] = get_error(layers_[i][n], errors, weights_[i][n], next_neurons);
-				weights_[i][n][c] += learn_rate_ * (layer_errors[n] * layers_[i][n]);
+				for (int c = 0; c < neurons; c++) // Loop through each connection of neuron pn to next neurons
+				{
+					// Adjust weights from previous neuron to this
+					weights_[i][pn][c] += learn_rate_ * (layer_errors[n] * layers_[i][n]);
+				}
 			}
+			biases_[i][n] += learn_rate_ * layer_errors[n];
 		}
 
 		delete[] errors;
-		errors = layer_errors;
+		errors = layer_errors; // Set next layer errors to current layer errors, this is kinda recursive?
 	}
 
 	delete[] errors;
