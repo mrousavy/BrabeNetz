@@ -83,7 +83,7 @@ double network::train(double* input_values, const int length, double* expected_o
 }
 
 // Feed the network information and return the output
-double* network::feed(double* input_values, const int length, int& out_length) const
+double* network::feed(double* input_values, const int length, int* out_length) const
 {
 	double* values = input_values; // Values of current layer
 	int* values_length = new int(length); // Copy input length to variable
@@ -93,7 +93,8 @@ double* network::feed(double* input_values, const int length, int& out_length) c
 		vector<double> vec = extensions::to_vector<double>(values, *values_length); // TODO: REMOVE TOVECTOR
 	}
 
-	out_length = *values_length;
+	delete out_length;
+	out_length = values_length;
 	return values;
 }
 
@@ -103,7 +104,7 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 {
 	vector<double> vec = extensions::to_vector<double>(input_values, input_length); // TODO: REMOVE TOVECTOR
 	const int n_count = this->neurons_count_[layer_index]; // Count of neurons in the next layer (w/ layerIndex)
-	double** weights = this->weights_[layer_index - 1]; // ptr to weights of neurons in this layer
+	double** weights = this->weights_[layer_index - 1]; // ptr to weights of neurons from prev. to this layer
 	double* biases = this->biases_[layer_index]; // ptr to biases of neurons in the next layer
 	double* layer = this->layers_[layer_index];
 
@@ -116,8 +117,7 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 			layer[n] += input_values[ii] * weights[ii][n]; // Add Value * Weight to that neuron
 		}
 
-		const double result = layer[n] + biases[n];
-		layer[n] = squash(result); // Squash result
+		layer[n] = squash(layer[n] + biases[n]); // Squash result
 	}
 
 	out_length = n_count;

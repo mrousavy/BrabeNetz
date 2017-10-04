@@ -23,7 +23,7 @@ DECIMAL expand(const DECIMAL squashed)
 
 DECIMAL squash_derivative(const DECIMAL value)
 {
-	return exp(-value) / (pow((1 + exp(-value)), 2));
+	return exp(-value) / pow(1 + exp(-value), 2);
 }
 
 DECIMAL rectify(const DECIMAL value)
