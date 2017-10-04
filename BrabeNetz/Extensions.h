@@ -22,7 +22,5 @@ T* extensions::to_array(std::vector<T>& input)
 template <typename T>
 std::vector<T> extensions::to_vector(T* input, const int length)
 {
-	std::vector<T> v;
-	v.assign(input, input + length);
-	return v;
+	return std::vector<T>(input, input + length);;
 }
