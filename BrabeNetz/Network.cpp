@@ -76,7 +76,7 @@ double network::train(double* input_values, const int length, double* expected_o
 
 	const double error = adjust(expected_output, values, *values_length);
 	delete values_length;
-	return values[0];
+	return error;
 }
 
 // Feed the network information and return the output
@@ -173,11 +173,14 @@ double network::adjust(double* expected_output, double* actual_output, const int
 			const double input_delta = layers_[lindex - 1][p]; // Input change with respect to weight "w"
 
 			const double error_total = error_delta * output_delta * input_delta; // This connection's total weight error
-			//errors[i] = error_total;
-			// TODO: += or -= ???
 			weights_[lindex - 1][p][i] -= learn_rate_ * error_total; // Adjust this weight with learn rate
 		}
 	}
+
+	delete[] errors;
+	return actual_output[0];
+	//TODO: https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/
+	//double error_net = error_output_delta * weights_[lindex - 1][p][i]; // Error change with respect to the raw neuron value
 
 	for (int i = l; i > -1; i--) // Reverse-loop through each layer
 	{
@@ -207,8 +210,6 @@ double network::adjust(double* expected_output, double* actual_output, const int
 	}
 
 	delete[] errors;
-
-	return -1;
 }
 
 void network::save(const string path)
