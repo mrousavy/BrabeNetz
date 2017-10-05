@@ -23,13 +23,6 @@ DECIMAL expand(const DECIMAL squashed)
 
 DECIMAL squash_derivative(const DECIMAL value)
 {
-	// TODO: Decide between those 2
-	return value / (1 - value);
-	return exp(-value) / pow(1 + exp(-value), 2);
-}
-
-DECIMAL transfer_derivative(const DECIMAL value)
-{
 	return value * (1 - value);
 }
 

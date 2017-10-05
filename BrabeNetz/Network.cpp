@@ -164,7 +164,7 @@ double network::adjust(double* expected_output, double* actual_output, const int
 	for (int i = 0; i < length; i++) // Loop through each neuron on the output layer
 	{
 		// Error of this neuron in output layer
-		errors[i] = (expected_output[i] - actual_output[i]) * transfer_derivative(actual_output[i]);
+		errors[i] = (expected_output[i] - actual_output[i]) * squash_derivative(actual_output[i]);
 		// TODO: https://machinelearningmastery.com/implement-backpropagation-algorithm-scratch-python/
 	}
 	return 0;

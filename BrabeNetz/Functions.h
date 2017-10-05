@@ -28,12 +28,6 @@ DECIMAL expand(const DECIMAL squashed);
 DECIMAL squash_derivative(const DECIMAL input);
 
 /// <summary>
-/// Derivative of the sigmoid transfer function
-/// (used for error calculation)
-/// </summary>
-DECIMAL transfer_derivative(const DECIMAL input);
-
-/// <summary>
 /// Rectify a value with the rectified linear unit (ReLU)
 /// function (https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) using
 /// doubles (because doubles are being Hardware-implemented -> faster)
