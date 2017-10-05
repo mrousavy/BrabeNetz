@@ -40,7 +40,7 @@ void trainer::train_xor(network& net)
 		const double result = net.train(values, size, expected);
 
 		//if (i % 4 == 0)
-			cout << "{ " << values[0] << ", " << values[1] << " }: " << expected[0] << " | " << result << " @ l_r:" << learn_rate <<  endl;
+		cout << "{ " << values[0] << ", " << values[1] << " }: " << expected[0] << " | " << result << " @ l_r:" << learn_rate << endl;
 
 		// Cleanup
 		delete[] values;
