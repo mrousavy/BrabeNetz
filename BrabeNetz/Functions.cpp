@@ -23,6 +23,8 @@ DECIMAL expand(const DECIMAL squashed)
 
 DECIMAL squash_derivative(const DECIMAL value)
 {
+	// TODO: Decide between those 2
+	return value / (1 - value);
 	return exp(-value) / pow(1 + exp(-value), 2);
 }
 
@@ -53,6 +55,7 @@ DECIMAL cost_func(DECIMAL* expected, DECIMAL* actual, const int length)
 
 DECIMAL cost_derivative(DECIMAL* expected, DECIMAL* actual, const int length)
 {
+	// TODO: derivative of what? partial? constants should get 0
 	DECIMAL sum = 0.0;
 	for (int i = 0; i < length; i++)
 	{
@@ -66,11 +69,11 @@ DECIMAL get_error(const DECIMAL expected, const DECIMAL actual)
 	return actual * (1 - actual) * (expected - actual);
 }
 
-DECIMAL get_error(const DECIMAL neuron_value, const DECIMAL* next_errors, 
+DECIMAL get_error(const DECIMAL neuron_value, const DECIMAL* next_errors,
 				  const DECIMAL* next_weights, const int next_layer_size)
 {
 	double sum = 0;
-	for(int i = 0; i < next_layer_size; i++)
+	for (int i = 0; i < next_layer_size; i++)
 	{
 		sum += next_errors[i] * next_weights[i];
 	}

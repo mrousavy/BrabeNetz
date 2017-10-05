@@ -34,11 +34,13 @@ void trainer::train_xor(network& net)
 				expected[0] = 0;
 				break;
 		}
-		net.set_learnrate(1.0 / (i + 1.0));
+		const double learn_rate = 1.0 / (i + 1.0);
+		net.set_learnrate(learn_rate);
+
 		const double result = net.train(values, size, expected);
 
 		//if (i % 4 == 0)
-			cout << "{ " << values[0] << ", " << values[1] << " }: " << expected[0] << " | " << result << endl;
+			cout << "{ " << values[0] << ", " << values[1] << " }: " << expected[0] << " | " << result << " @ l_r:" << learn_rate <<  endl;
 
 		// Cleanup
 		delete[] values;

@@ -159,7 +159,23 @@ double network::adjust(double* expected_output, double* actual_output, const int
 {
 	const int l = this->layers_count_ - 2; // Last hidden layer index
 
-	double* errors = new double[length];
+	double* errors = new double[length]; // Each error value on the weights
+
+	const int lindex = layers_count_ - 1; // Last index: index of output layer
+	for(int i = 0; i < length; i++) // Loop through each output neuron (mostly 1)
+	{
+		const double error = -(expected_output[i] - actual_output[i]);
+		const double output_delta = actual_output[i] * (1 - actual_output[i]); // Output change with respect to input
+
+		for (int p = 0; p < neurons_count_[lindex - 1]; p++) // Loop through each neuron "p" on previous layer
+		{
+			// derivative of forward feed is just output (constants get zero)
+			const double input_delta = layers_[lindex - 1][p]; // Input change with respect to weight "w"
+
+			const double error_total = error * output_delta * input_delta; // This connection's total weight error
+			weights_[lindex - 1][p][i] -= error_total;
+		}
+	}
 
 	for (int i = 0; i < length; i++) // Loop through each output neuron (mostly 1)
 	{
