@@ -161,8 +161,16 @@ double network::adjust(double* expected_output, double* actual_output, const int
 
 	double* errors = new double[length]; // Each error value on the weights
 
+	for (int i = 0; i < length; i++) // Loop through each neuron on the output layer
+	{
+		// Error of this neuron in output layer
+		errors[i] = (expected_output[i] - actual_output[i]) * transfer_derivative(actual_output[i]);
+		// TODO: https://machinelearningmastery.com/implement-backpropagation-algorithm-scratch-python/
+	}
+	return 0;
+
 	const int lindex = layers_count_ - 1; // Last index: index of output layer
-	for(int i = 0; i < length; i++) // Loop through each output neuron (mostly 1)
+	for (int i = 0; i < length; i++) // Loop through each output neuron (mostly 1)
 	{
 		const double error_delta = -(expected_output[i] - actual_output[i]); // Total error change with respect to output
 		const double output_delta = actual_output[i] * (1 - actual_output[i]); // Output change with respect to input
