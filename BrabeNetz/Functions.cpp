@@ -28,6 +28,11 @@ DECIMAL squash_derivative(const DECIMAL value)
 	return exp(-value) / pow(1 + exp(-value), 2);
 }
 
+DECIMAL transfer_derivative(const DECIMAL value)
+{
+	return value * (1 - value);
+}
+
 DECIMAL rectify(const DECIMAL value)
 {
 	return fmax(value, 0);
