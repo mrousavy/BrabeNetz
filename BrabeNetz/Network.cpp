@@ -182,17 +182,20 @@ double network::adjust(double* expected_output, double* actual_output, const int
 				for (int nn = 0; nn < next_neurons; nn++) // Loop through each neuron on next layer
 				{
 					// TODO: Check indexes
-					neuron_error += weights_[i][n][nn] * layers_[i + 1][nn];
+					neuron_error += weights_[i][n][nn] * errors[i + 1][nn];
 
 					// TODO: Weights should be from previous neuron to "n" instead of "n" to "nn"
 					/*errors[i][n] = (this->weights_[i][n][nn] * errors[i + 1][nn]) * squash_derivative(layers_[i][n]);
 					weights_[i][n][nn] += learn_rate_ * errors[i][n] * layers_[i][n];*/
 				}
-				errors[i][n] = neuron_error;
+				errors[i][n] = neuron_error * squash_derivative(layers_[i][n]);
 			}
+
+			delete[] errors[i];
 		}
 	}
 
+	delete[] errors;
 	return error_sum; // Return total error sum
 
 	//const int lindex = layers_count_ - 1; // Last index: index of output layer
