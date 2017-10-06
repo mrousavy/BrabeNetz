@@ -197,56 +197,6 @@ double network::adjust(double* expected_output, double* actual_output, const int
 
 	delete[] errors;
 	return error_sum; // Return total error sum
-
-	//const int lindex = layers_count_ - 1; // Last index: index of output layer
-	//for (int i = 0; i < length; i++) // Loop through each output neuron (mostly 1)
-	//{
-	//	const double error_delta = -(expected_output[i] - actual_output[i]); // Total error change with respect to output
-	//	const double output_delta = actual_output[i] * (1 - actual_output[i]); // Output change with respect to input
-
-	//	for (int p = 0; p < neurons_count_[lindex - 1]; p++) // Loop through each neuron "p" on previous layer
-	//	{
-	//		// derivative of forward feed respect to outputp is just output (constants get zero)
-	//		const double input_delta = layers_[lindex - 1][p]; // Input change with respect to weight "w"
-
-	//		const double error_total = error_delta * output_delta * input_delta; // This connection's total weight error
-	//		weights_[lindex - 1][p][i] -= learn_rate_ * error_total; // Adjust this weight with learn rate
-	//	}
-	//}
-
-	//delete[] errors;
-	//return actual_output[0];
-	////TODO: https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/
-	////double error_net = error_output_delta * weights_[lindex - 1][p][i]; // Error change with respect to the raw neuron value
-
-	//for (int i = l; i > -1; i--) // Reverse-loop through each layer
-	//{
-	//	const int neurons = this->neurons_count_[i]; // Count of neurons in this layer
-	//	const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in the next layer
-	//	double* layer_errors = new double[neurons];
-
-	//	// TODO: Something's not right here
-	//	for (int n = 0; n < neurons; n++)
-	//	{
-	//		// Calculate layer errors on this neuron with weights from this neuron to next layer
-	//		layer_errors[n] = get_error(layers_[i][n], errors, weights_[i][n], next_neurons);
-
-	//		for (int pn = 0; pn < neurons_count_[i - 1]; pn++) // Loop through each neuron in previous layer
-	//		{
-	//			for (int c = 0; c < neurons; c++) // Loop through each connection of neuron pn to next neurons
-	//			{
-	//				// Adjust weights from previous neuron to this
-	//				weights_[i][pn][c] += learn_rate_ * (layer_errors[n] * layers_[i][n]);
-	//			}
-	//		}
-	//		biases_[i][n] += learn_rate_ * layer_errors[n];
-	//	}
-
-	//	delete[] errors;
-	//	errors = layer_errors; // Set next layer errors to current layer errors, this is kinda recursive?
-	//}
-
-	//delete[] errors;
 }
 
 void network::save(const string path)
