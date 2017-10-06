@@ -65,7 +65,10 @@ void network::set_learnrate(const double value)
 // Train network and adjust weights to expectedOutput
 double network::train(double* input_values, const int length, double* expected_output) const
 {
-	this->layers_[0] = input_values;
+	this->layers_[0] = new double[length]; // Copy over inputs (we need this for adjust(..))
+	for (int i = 0; i < length; i++) // Loop through each input
+		this->layers_[0][i] = squash(input_values[i]); // Squash Input
+
 	double* values = input_values; // Values of current layer
 	int* values_length = new int(length); // Copy input length to variable
 	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++) // Loop through each hidden layer + output
@@ -80,7 +83,7 @@ double network::train(double* input_values, const int length, double* expected_o
 }
 
 // Feed the network information and return the output
-double* network::feed(double* input_values, const int length, int* out_length) const
+double* network::feed(double* input_values, const int length, int& out_length) const
 {
 	double* values = input_values; // Values of current layer
 	int* values_length = new int(length); // Copy input length to variable
@@ -90,8 +93,8 @@ double* network::feed(double* input_values, const int length, int* out_length) c
 		vector<double> vec = extensions::to_vector<double>(values, *values_length); // TODO: REMOVE TOVECTOR
 	}
 
-	delete out_length;
-	out_length = values_length;
+	out_length = *values_length;
+	delete values_length;
 	return values;
 }
 
@@ -170,7 +173,7 @@ double network::adjust(double* expected_output, double* actual_output, const int
 
 		// TODO: implement https://machinelearningmastery.com/implement-backpropagation-algorithm-scratch-python/
 
-		for (int i = layers_count_ - 2; i > 0; i--) // Reverse-Loop through each hidden layer
+		for (int i = layers_count_ - 2; i > -1; i--) // Reverse-Loop through each hidden layer
 		{
 			const int neurons = this->neurons_count_[i]; // Count of neurons in this layer
 			const int next_neurons = this->neurons_count_[i + 1];  // Count of neurons in next layer
@@ -183,18 +186,21 @@ double network::adjust(double* expected_output, double* actual_output, const int
 				{
 					// TODO: Check indexes
 					neuron_error += weights_[i][n][nn] * errors[i + 1][nn];
-
-					// TODO: Weights should be from previous neuron to "n" instead of "n" to "nn"
-					/*errors[i][n] = (this->weights_[i][n][nn] * errors[i + 1][nn]) * squash_derivative(layers_[i][n]);
-					weights_[i][n][nn] += learn_rate_ * errors[i][n] * layers_[i][n];*/
 				}
 				errors[i][n] = neuron_error * squash_derivative(layers_[i][n]);
+
+				for (int nn = 0; nn < next_neurons; nn++) // Loop through each neuron on the next layer
+				{
+					weights_[i][n][nn] += learn_rate_ * errors[i][n] * layers_[i][n]; // Update the weight with it's error & input
+				}
+				biases_[i][n] += learn_rate_ * errors[i][n];
 			}
 
-			delete[] errors[i];
 		}
 	}
 
+	for (int i = 0; i < layers_count_; i++) // Loop through each error
+		delete[] errors[i]; // Cleanup
 	delete[] errors;
 	return error_sum; // Return total error sum
 }

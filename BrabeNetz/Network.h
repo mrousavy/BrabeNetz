@@ -30,8 +30,8 @@ public:
 	////////////////
 	// Feed the network information and train it to adjust to the expected output (returns output error)
 	double train(double* input_values, int length, double* expected_output) const;
-	// Feed the network information and return the output layer
-	double* feed(double* input_values, int length, int* out_length) const;
+	// Feed the network information and return the output layer with it's length "out_length"
+	double* feed(double* input_values, int length, int& out_length) const;
 	// Save the network's state to disk by serializing weights
 	void save(string path = STATE_FILE);
 	// Load the network's state from disk by deserializing and loading weights
