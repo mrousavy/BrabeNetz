@@ -17,7 +17,7 @@ network::network(initializer_list<int> initializer_list)
 		throw
 		"Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
 
-	this->topology_ = network_topology::random(vector<int>{ initializer_list });
+	this->topology_ = network_topology::random(initializer_list);
 	init(this->topology_);
 }
 
