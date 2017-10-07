@@ -4,8 +4,6 @@
 
 connection::connection()
 {
-	//this->From = NULL;
-	this->to = NULL;
 	this->weight = NULL;
 }
 

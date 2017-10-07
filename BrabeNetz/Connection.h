@@ -15,7 +15,6 @@ class connection
 public:
 	connection();
 	~connection();
-	int to;
 	double weight;
 };
 

@@ -195,7 +195,6 @@ double network::adjust(double* expected_output, double* actual_output, const int
 				}
 				biases_[i][n] += learn_rate_ * errors[i][n];
 			}
-
 		}
 	}
 
@@ -207,6 +206,20 @@ double network::adjust(double* expected_output, double* actual_output, const int
 
 void network::save(const string path)
 {
+	for(int i = 0; i < layers_count_ - 1; i++) // Loop through each layer until last hidden layer
+	{
+		layer& layer = this->topology_.layer_at(i);
+		for (int n = 0; n < neurons_count_[i]; n++) // Loop through each neuron on this layer
+		{
+			neuron& neuron = layer.neuron_at(n);
+			neuron.bias = biases_[i][n]; // Set bias to topology
+
+			for (int nn = 0; nn < neurons_count_[i + 1]; nn++) // Loop through each neuron on the next layer
+			{
+				neuron.connection_at(nn).weight = weights_[i][n][nn]; // Set weight to topology
+			}
+		}
+	}
 	network_topology::save(this->topology_, path);
 }
 
