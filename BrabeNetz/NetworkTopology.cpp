@@ -102,3 +102,8 @@ void network_topology::save(network_topology& topology, const std::string path)
 	file << topology; // Serialize network topology with operator<<
 	file.close();
 }
+
+int network_topology::clear(const std::string path)
+{
+	return remove(path.c_str());
+}
