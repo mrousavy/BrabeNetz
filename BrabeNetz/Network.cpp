@@ -162,46 +162,44 @@ double network::adjust(double* expected_output, double* actual_output, const int
 {
 	double** errors = new double*[layers_count_]; // Each error value on the neurons (2D: [layer][neuron])
 	errors[layers_count_ - 1] = new double[neurons_count_[layers_count_ - 1]]; // Init output layer error size
-	double error_sum = 0;
+	double error_sum = 0; // Sum of all errors on the output layer
 
 	// TODO: New thread/CUDA_core for each neuron/layer? Benchmark!!
 	for (int on = 0; on < length; on++) // Loop through each neuron on the output layer "on"
 	{
 		const double error = (expected_output[on] - actual_output[on]) * squash_derivative(actual_output[on]); // Error of this neuron in output layer
 		error_sum += error;
-		errors[layers_count_ - 1][on] = error;
+		errors[layers_count_ - 1][on] = error; // Set error on output layer @ neuron "on" to calculated error
+	}
 
-		// TODO: implement https://machinelearningmastery.com/implement-backpropagation-algorithm-scratch-python/
+	for (int i = layers_count_ - 2; i > -1; i--) // Reverse-Loop through each hidden layer
+	{
+		const int neurons = this->neurons_count_[i]; // Count of neurons in this layer
+		const int next_neurons = this->neurons_count_[i + 1];  // Count of neurons in next layer
+		errors[i] = new double[neurons]; // Init this layer's errors (size)
 
-		for (int i = layers_count_ - 2; i > -1; i--) // Reverse-Loop through each hidden layer
+		for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer
 		{
-			const int neurons = this->neurons_count_[i]; // Count of neurons in this layer
-			const int next_neurons = this->neurons_count_[i + 1];  // Count of neurons in next layer
-			errors[i] = new double[neurons]; // Init this layer's errors (size)
-
-			for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer
+			double neuron_error = 0;
+			for (int nn = 0; nn < next_neurons; nn++) // Loop through each neuron on next layer
 			{
-				double neuron_error = 0;
-				for (int nn = 0; nn < next_neurons; nn++) // Loop through each neuron on next layer
-				{
-					// TODO: Check indexes
-					neuron_error += weights_[i][n][nn] * errors[i + 1][nn];
-				}
-				errors[i][n] = neuron_error * squash_derivative(layers_[i][n]);
-
-				for (int nn = 0; nn < next_neurons; nn++) // Loop through each neuron on the next layer
-				{
-					weights_[i][n][nn] += learn_rate_ * errors[i][n] * layers_[i][n]; // Update the weight with it's error & input
-				}
-				biases_[i][n] += learn_rate_ * errors[i][n];
+				// TODO: Check indexes
+				neuron_error += weights_[i][n][nn] * errors[i + 1][nn];
 			}
+			errors[i][n] = neuron_error * squash_derivative(layers_[i][n]);
+
+			for (int nn = 0; nn < next_neurons; nn++) // Loop through each neuron on the next layer
+			{
+				weights_[i][n][nn] += learn_rate_ * errors[i][n] * layers_[i][n]; // Update the weight with it's error & input
+			}
+			biases_[i][n] += learn_rate_ * errors[i][n];
 		}
 	}
 
 	for (int i = 0; i < layers_count_; i++) // Loop through each error
 		delete[] errors[i]; // Cleanup
 	delete[] errors;
-	return error_sum; // Return total error sum
+	return error_sum;
 }
 
 void network::save(const string path)
