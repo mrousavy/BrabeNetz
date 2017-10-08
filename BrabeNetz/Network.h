@@ -34,8 +34,6 @@ public:
 	double* feed(double* input_values, int length, int& out_length) const;
 	// Save the network's state to disk by serializing weights
 	void save(string path = STATE_FILE);
-	// Load the network's state from disk by deserializing and loading weights
-	void load(string path = STATE_FILE);
 	// Set the network's learning rate (should be 1/i, where i = train iterations so far)
 	void set_learnrate(double value);
 private:
@@ -65,6 +63,8 @@ private:
 	////////////////
 	// Init Network
 	void init(network_topology& topology);
+	// Load the network's state from disk by deserializing and loading weights
+	void load(string path = STATE_FILE);
 	// Put inputValues into layer at given layerIndex with squashing, etc and return layer's values
 	double* to_next_layer(double* input_values, int input_length, int layer_index, int& out_length) const;
 	// Adjust Network's weights and Biases, return delta/error
