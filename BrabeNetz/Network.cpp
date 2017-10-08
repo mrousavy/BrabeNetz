@@ -169,7 +169,7 @@ double network::adjust(double* expected_output, double* actual_output, const int
 	{
 		const double error = (expected_output[on] - actual_output[on]) * squash_derivative(actual_output[on]); // Error of this neuron in output layer
 		error_sum += error;
-		errors[layers_count_ - 1][on] = error; // Set error on output layer @ neuron "on" to calculated error
+		errors[layers_count_ - 1][on] = error; // Set error on output layer at neuron "on" to calculated error
 	}
 
 	for (int i = layers_count_ - 2; i > -1; i--) // Reverse-Loop through each hidden layer
