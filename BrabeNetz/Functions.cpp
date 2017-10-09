@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Functions.h"
+#include <math.h>
 
 double squash(const double value)
 {
@@ -26,8 +27,8 @@ double squash_derivative(const double value)
 //   float expN = std::pow(EulerConstant, -value);
 //   return (expP - expN) / (expP + expN);
 
-// SPECIFIC ALGEBRAIC
+// SPECIFIC ALGEBRAIC:
 //   return (value) / std::sqrt(1 + std::pow(value, 2));
 
-// BRAH
+// BRAH:
 // ((value - min_A) / max_A - min_A) * (new_max_A - new_min_A) + new_min_A
