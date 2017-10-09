@@ -190,7 +190,7 @@ double network::adjust(double* expected_output, double* actual_output, const int
 				// errors[i+1][nn]		=> errors from next layer at neuron "nn"
 				neuron_error += weights_[i][n][nn] * errors[i + 1][nn];
 			}
-			errors[i][n] = neuron_error;
+			errors[i][n] = neuron_error * squash_derivative(layers_[i][n]);
 
 			for (int nn = 0; nn < next_neurons; nn++) // Loop through each neuron on the next layer
 			{
