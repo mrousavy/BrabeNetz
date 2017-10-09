@@ -4,6 +4,7 @@
 
 #define TRAIN_TIMES_EACH 1000
 #define TRAIN_POSSIBILITIES 4
+#define CONST_LEARN_RATE true
 
 void trainer::train_xor(network& net)
 {
@@ -34,7 +35,12 @@ void trainer::train_xor(network& net)
 				expected[0] = 0;
 				break;
 		}
-		const double learn_rate = 1.0 / (i + 1.0);
+		
+		double learn_rate;
+		if (CONST_LEARN_RATE)
+			learn_rate = 0.001;
+		else
+			learn_rate = 1.0 / (i + 1.0);
 		net.set_learnrate(learn_rate);
 
 		const double result = net.train(values, size, expected);

@@ -165,6 +165,8 @@ double network::adjust(double* expected_output, double* actual_output, const int
 	double error_sum = 0; // Sum of all errors on the output layer
 
 	// TODO: New thread/CUDA_core for each neuron/layer? Benchmark!!
+
+	// Backpropagation loop for Output Layer only
 	for (int on = 0; on < length; on++) // Loop through each neuron on the output layer "on"
 	{
 		const double error = (expected_output[on] - actual_output[on]) * squash_derivative(actual_output[on]); // Error of this neuron in output layer
@@ -172,7 +174,8 @@ double network::adjust(double* expected_output, double* actual_output, const int
 		errors[layers_count_ - 1][on] = error; // Set error on output layer at neuron "on" to calculated error
 	}
 
-	for (int i = layers_count_ - 2; i > -1; i--) // Reverse-Loop through each hidden layer
+	// Backpropagation loop for Input and Hidden Layers
+	for (int i = layers_count_ - 2; i > -1; i--) // Reverse-Loop through each hidden to input layer
 	{
 		const int neurons = this->neurons_count_[i]; // Count of neurons in this layer
 		const int next_neurons = this->neurons_count_[i + 1];  // Count of neurons in next layer
@@ -183,16 +186,17 @@ double network::adjust(double* expected_output, double* actual_output, const int
 			double neuron_error = 0;
 			for (int nn = 0; nn < next_neurons; nn++) // Loop through each neuron on next layer
 			{
-				// TODO: Check indexes
+				// weights_[i][n][nn]	=> weights from this layer "i", neuron "n" to next layer's neuron "nn"
+				// errors[i+1][nn]		=> errors from next layer at neuron "nn"
 				neuron_error += weights_[i][n][nn] * errors[i + 1][nn];
 			}
-			errors[i][n] = neuron_error * squash_derivative(layers_[i][n]);
+			errors[i][n] = neuron_error;
 
 			for (int nn = 0; nn < next_neurons; nn++) // Loop through each neuron on the next layer
 			{
-				weights_[i][n][nn] += learn_rate_ * errors[i][n] * layers_[i][n]; // Update the weight with it's error & input
+				this->weights_[i][n][nn] += learn_rate_ * errors[i + 1][nn] * layers_[i][n]; // Update the weight with it's error & input
+				this->biases_[i + 1][nn] += learn_rate_ * errors[i + 1][nn];
 			}
-			biases_[i][n] += learn_rate_ * errors[i][n];
 		}
 	}
 
