@@ -62,25 +62,7 @@ void network::set_learnrate(const double value)
 	learn_rate_ = value;
 }
 
-// Train network and adjust weights to expectedOutput
-double network::train(double* input_values, const int length, double* expected_output) const
-{
-	this->layers_[0] = new double[length]; // Copy over inputs (we need this for adjust(..))
-	for (int i = 0; i < length; i++) // Loop through each input
-		this->layers_[0][i] = squash(input_values[i]); // Squash Input
-
-	double* values = input_values; // Values of current layer
-	int* values_length = new int(length); // Copy input length to variable
-	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++) // Loop through each hidden layer + output
-	{
-		values = to_next_layer(values, *values_length, hidden_index, *values_length);
-		vector<double> vec = extensions::to_vector<double>(values, *values_length); // TODO: REMOVE TOVECTOR
-	}
-
-	const double error = adjust(expected_output, values, *values_length);
-	delete values_length;
-	return values[0];
-}
+#pragma region Forwards Propagation
 
 // Feed the network information and return the output
 double* network::feed(double* input_values, const int length, int& out_length) const
@@ -99,6 +81,7 @@ double* network::feed(double* input_values, const int length, int& out_length) c
 }
 
 // This function focuses on only one layer, so in theory we have 1 input layer, the layer we focus on, and 1 output
+// FORWARD-PROPAGATION ALGORITHM
 double* network::to_next_layer(double* input_values, const int input_length, const int layer_index,
 							   int& out_length) const
 {
@@ -124,40 +107,31 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 	return layer;
 }
 
-// TODO: Check if this works
-void network::fill_weights()
+#pragma endregion 
+
+#pragma region Backwards Propagation
+
+// Train network and adjust weights to expectedOutput
+double network::train(double* input_values, const int length, double* expected_output) const
 {
-	// layer weights has a reference on the heap
-	if (this->weights_ != nullptr)
-		delete_weights();
+	this->layers_[0] = new double[length]; // Copy over inputs (we need this for adjust(..))
+	for (int i = 0; i < length; i++) // Loop through each input
+		this->layers_[0][i] = squash(input_values[i]); // Squash Input
 
-	const int count = this->layers_count_ - 1; // Count of layers with connections
-	this->weights_ = new double**[count]; // init first dimension; count of layers with connections
-
-	const int lcount = this->topology_.size; // Count of layers
-	this->biases_ = new double*[lcount];
-	this->weights_ = new double**[lcount];
-	for (int l = 0; l < lcount; l++) // Loop through each layer
+	double* values = input_values; // Values of current layer
+	int* values_length = new int(length); // Copy input length to variable
+	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++) // Loop through each hidden layer + output
 	{
-		layer& layer = this->topology_.layer_at(l);
-		const int ncount = layer.size; // Count of neurons in this layer
-		this->biases_[l] = new double[ncount];
-		this->weights_[l] = new double*[ncount];
-		for (int n = 0; n < ncount; n++) // Loop through each neuron in this layer
-		{
-			neuron& neuron = layer.neuron_at(n);
-
-			this->biases_[l][n] = neuron.bias;
-			const int ccount = neuron.size; // Count of connection on this neuron
-			this->weights_[l][n] = new double[ccount];
-			for (int c = 0; c < neuron.size; c++) // Loop through each connection on this neuron
-			{
-				this->weights_[l][n][c] = neuron.connection_at(c).weight;
-			}
-		}
+		values = to_next_layer(values, *values_length, hidden_index, *values_length);
+		vector<double> vec = extensions::to_vector<double>(values, *values_length); // TODO: REMOVE TOVECTOR
 	}
+
+	const double error = adjust(expected_output, values, *values_length);
+	delete values_length;
+	return values[0];
 }
 
+// BACKWARDS-PROPAGATION ALGORITHM
 double network::adjust(double* expected_output, double* actual_output, const int length) const
 {
 	double** errors = new double*[layers_count_]; // Each error value on the neurons (2D: [layer][neuron])
@@ -206,6 +180,44 @@ double network::adjust(double* expected_output, double* actual_output, const int
 	return error_sum;
 }
 
+#pragma endregion 
+
+#pragma State modification
+
+// TODO: Check if this works
+void network::fill_weights()
+{
+	// layer weights has a reference on the heap
+	if (this->weights_ != nullptr)
+		delete_weights();
+
+	const int count = this->layers_count_ - 1; // Count of layers with connections
+	this->weights_ = new double**[count]; // init first dimension; count of layers with connections
+
+	const int lcount = this->topology_.size; // Count of layers
+	this->biases_ = new double*[lcount];
+	this->weights_ = new double**[lcount];
+	for (int l = 0; l < lcount; l++) // Loop through each layer
+	{
+		layer& layer = this->topology_.layer_at(l);
+		const int ncount = layer.size; // Count of neurons in this layer
+		this->biases_[l] = new double[ncount];
+		this->weights_[l] = new double*[ncount];
+		for (int n = 0; n < ncount; n++) // Loop through each neuron in this layer
+		{
+			neuron& neuron = layer.neuron_at(n);
+
+			this->biases_[l][n] = neuron.bias;
+			const int ccount = neuron.size; // Count of connection on this neuron
+			this->weights_[l][n] = new double[ccount];
+			for (int c = 0; c < neuron.size; c++) // Loop through each connection on this neuron
+			{
+				this->weights_[l][n][c] = neuron.connection_at(c).weight;
+			}
+		}
+	}
+}
+
 void network::save(const string path)
 {
 	for(int i = 0; i < layers_count_ - 1; i++) // Loop through each layer until last hidden layer
@@ -245,3 +257,5 @@ void network::delete_weights() const
 	}
 	delete[] this->weights_; // Delete layer
 }
+
+#pragma endregion 
