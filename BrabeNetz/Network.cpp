@@ -190,7 +190,7 @@ double network::adjust(double* expected_output, double* actual_output, const int
 
 #pragma endregion 
 
-#pragma State modification
+#pragma region State modification
 
 // TODO: Check if this works
 void network::fill_weights()
