@@ -115,8 +115,8 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 double network::train(double* input_values, const int length, double* expected_output) const
 {
 	this->layers_[0] = new double[length]; // Copy over inputs (we need this for adjust(..))
-	for (int i = 0; i < length; i++) // Loop through each input
-		this->layers_[0][i] = squash(input_values[i]); // Squash Input
+	for (int n = 0; n < length; n++) // Loop through each input neuron "n"
+		this->layers_[0][n] = squash(input_values[n] + this->biases_[0][n]); // Squash Input
 
 	double* values = input_values; // Values of current layer
 	int* values_length = new int(length); // Copy input length to variable
@@ -157,19 +157,27 @@ double network::adjust(double* expected_output, double* actual_output, const int
 
 		for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer
 		{
-			double neuron_error = 0;
-			for (int nn = 0; nn < next_neurons; nn++) // Loop through each neuron on next layer
-			{
-				// weights_[i][n][nn]	=> weights from this layer "i", neuron "n" to next layer's neuron "nn"
-				// errors[i+1][nn]		=> errors from next layer at neuron "nn"
-				neuron_error += weights_[i][n][nn] * errors[i + 1][nn];
-			}
-			errors[i][n] = neuron_error * squash_derivative(layers_[i][n]);
+
+// TODO:
+//			if (i > 0) // Only calculate error on hidden layers
+//			{
+				double neuron_error = 0;
+				for (int nn = 0; nn < next_neurons; nn++) // Loop through each neuron on next layer
+				{
+					// weights_[i][n][nn]	=> weights from this layer "i", neuron "n" to next layer's neuron "nn"
+					// errors[i+1][nn]		=> errors from next layer at neuron "nn"
+					neuron_error += weights_[i][n][nn] * errors[i + 1][nn];
+				}
+				errors[i][n] = neuron_error * squash_derivative(layers_[i][n]);
+				this->biases_[i][n] += learn_rate_ * errors[i][n];
+//			}
 
 			for (int nn = 0; nn < next_neurons; nn++) // Loop through each neuron on the next layer
 			{
+				// weights_[i][n][nn]	=> weights from this layer "i", neuron "n" to next layer's neuron "nn"
+				// errors[i+1][nn]		=> errors from next layer at neuron "nn"
+				// layers_[i][n]		=> neuron at index "n" on layer "i"
 				this->weights_[i][n][nn] += learn_rate_ * errors[i + 1][nn] * layers_[i][n]; // Update the weight with it's error & input
-				this->biases_[i + 1][nn] += learn_rate_ * errors[i + 1][nn];
 			}
 		}
 	}
@@ -210,7 +218,7 @@ void network::fill_weights()
 			this->biases_[l][n] = neuron.bias;
 			const int ccount = neuron.size; // Count of connection on this neuron
 			this->weights_[l][n] = new double[ccount];
-			for (int c = 0; c < neuron.size; c++) // Loop through each connection on this neuron
+			for (int c = 0; c < ccount; c++) // Loop through each connection on this neuron
 			{
 				this->weights_[l][n][c] = neuron.connection_at(c).weight;
 			}
