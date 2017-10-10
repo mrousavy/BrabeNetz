@@ -8,6 +8,8 @@ using namespace std;
 #include "Extensions.h"
 #include <iostream>
 
+#pragma region ctor
+
 // ctor
 network::network(initializer_list<int> initializer_list)
 {
@@ -61,6 +63,8 @@ void network::set_learnrate(const double value)
 {
 	learn_rate_ = value;
 }
+
+#pragma endregion
 
 #pragma region Forwards Propagation
 
