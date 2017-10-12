@@ -33,7 +33,7 @@ It's pretty fast (TODO)
     * `network(string)`: Create a new neural network with the given path to the `sate.nn` file and **load it**. _(See `network_topology::load(string)` for more info)_
 
 2. Functions
-    * `double train(double* input_values, int length, int& out_length)`: **Feed** the network `input_values` and return an array of output values (size of **output layer** in topology) (where `out_length` will be set to the **length** of returned output values)
+    * `double feed(double* input_values, int length, int& out_length)`: **Feed** the network `input_values` and return an array of output values (where `out_length` will be set to the **length** of returned output values, that's the **size of the output layer** in topology)
     * `double train(double* input_values, int length, double* expected_output)`: **Feed** the network `input_values` and **compare** _predicted output_ with `expected_output`, **Backwards-Propagate** (adjust _weights/biases_) if needed. **Returns** the total error of the output layer.
     * `void save(string path)`: Save the **current network state** _(topology, weights, biases)_ to **disk** (with the given path or default: `state.nn`)
     * `void set_learnrate(double value)`: Set the learn rate of the network (used by `train(..)` function). Should always be `1 / (total train times + 1)`
