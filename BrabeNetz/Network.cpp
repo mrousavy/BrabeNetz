@@ -125,7 +125,7 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 // Train network and adjust weights to expectedOutput
 double network::train(double* input_values, const int length, double* expected_output) const
 {
-	this->layers_[0] = new double[length]; // Copy over inputs (we need this for adjust(..))
+	this->layers_[0] = static_cast<double*>(malloc(sizeof(double) * length)); // Copy over inputs (we need this for adjust(..))
 	for (int n = 0; n < length; n++) // Loop through each input neuron "n"
 		this->layers_[0][n] = squash(input_values[n] + this->biases_[0][n]); // Squash Input
 
@@ -145,8 +145,8 @@ double network::train(double* input_values, const int length, double* expected_o
 // BACKWARDS-PROPAGATION ALGORITHM
 double network::adjust(double* expected_output, double* actual_output, const int length) const
 {
-	double** errors = new double*[layers_count_]; // Each error value on the neurons (2D: [layer][neuron])
-	errors[layers_count_ - 1] = new double[neurons_count_[layers_count_ - 1]]; // Init output layer error size
+	double** errors = static_cast<double**>(malloc(sizeof(double*) * layers_count_)); // Each error value on the neurons (2D: [layer][neuron])
+	errors[layers_count_ - 1] = static_cast<double*>(malloc(sizeof(double) * neurons_count_[layers_count_ - 1])); // Allocate output layer error size
 	double error_sum = 0; // Sum of all errors on the output layer
 
 	// TODO: New thread/CUDA_core for each neuron/layer? Benchmark!!
@@ -164,11 +164,10 @@ double network::adjust(double* expected_output, double* actual_output, const int
 	{
 		const int neurons = this->neurons_count_[i]; // Count of neurons in this layer
 		const int next_neurons = this->neurons_count_[i + 1];  // Count of neurons in next layer
-		errors[i] = new double[neurons]; // Init this layer's errors (size)
+		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
 
 		for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer
 		{
-
 // TODO:
 //			if (i > 0) // Only calculate error on hidden layers
 //			{
@@ -194,8 +193,8 @@ double network::adjust(double* expected_output, double* actual_output, const int
 	}
 
 	for (int i = 0; i < layers_count_; i++) // Loop through each error
-		delete[] errors[i]; // Cleanup
-	delete[] errors;
+		free(errors[i]); // Cleanup
+	free(errors);
 	return error_sum;
 }
 
