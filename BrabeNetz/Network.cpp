@@ -56,6 +56,13 @@ network::~network()
 {
 	// cleanup
 	delete_weights();
+	for(int i = 0; i < layers_count_; i++)
+	{
+		free(this->layers_[i]);
+		delete[] this->biases_[i];
+	}
+	delete[] this->layers_;
+	delete[] this->biases_;
 	delete[] this->neurons_count_;
 }
 
