@@ -76,18 +76,18 @@ void network::set_learnrate(const double value)
 #pragma region Forwards Propagation
 
 // Feed the network information and return the output
-double* network::feed(double* input_values, const int length, int& out_length) const
+double* network::feed(double* input_values, int& out_length) const
 {
 	double* values = input_values; // Values of current layer
-	int* values_length = new int(length); // Copy input length to variable
+	int* length = new int(this->neurons_count_[0]); // Copy input length to ptr variable
 	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++) // Loop through each hidden layer
 	{
-		values = to_next_layer(values, *values_length, hidden_index, *values_length);
-		vector<double> vec = extensions::to_vector<double>(values, *values_length); // TODO: REMOVE TOVECTOR
+		values = to_next_layer(values, *length, hidden_index, *length);
+		vector<double> vec = extensions::to_vector<double>(values, *length); // TODO: REMOVE TOVECTOR
 	}
 
-	out_length = *values_length;
-	delete values_length;
+	out_length = *length;
+	delete length;
 	return values;
 }
 
@@ -123,8 +123,9 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 #pragma region Backwards Propagation
 
 // Train network and adjust weights to expectedOutput
-double network::train(double* input_values, const int length, double* expected_output) const
+double network::train(double* input_values, double* expected_output) const
 {
+	const int length = this->neurons_count_[0]; // Count of input neurons
 	this->layers_[0] = static_cast<double*>(malloc(sizeof(double) * length)); // Copy over inputs (we need this for adjust(..))
 	for (int n = 0; n < length; n++) // Loop through each input neuron "n"
 		this->layers_[0][n] = squash(input_values[n] + this->biases_[0][n]); // Squash Input
@@ -137,22 +138,23 @@ double network::train(double* input_values, const int length, double* expected_o
 		vector<double> vec = extensions::to_vector<double>(values, *values_length); // TODO: REMOVE TOVECTOR
 	}
 
-	const double error = adjust(expected_output, values, *values_length);
+	const double error = adjust(expected_output, values);
 	delete values_length;
 	return error;
 }
 
 // BACKWARDS-PROPAGATION ALGORITHM
-double network::adjust(double* expected_output, double* actual_output, const int length) const
+double network::adjust(double* expected_output, double* actual_output) const
 {
+	const int output_length = this->neurons_count_[layers_count_ - 1]; // Count of neurons in output layer
 	double** errors = static_cast<double**>(malloc(sizeof(double*) * layers_count_)); // Each error value on the neurons (2D: [layer][neuron])
-	errors[layers_count_ - 1] = static_cast<double*>(malloc(sizeof(double) * neurons_count_[layers_count_ - 1])); // Allocate output layer error size
+	errors[layers_count_ - 1] = static_cast<double*>(malloc(sizeof(double) * output_length)); // Allocate output layer error size
 	double error_sum = 0; // Sum of all errors on the output layer
 
 	// TODO: New thread/CUDA_core for each neuron/layer? Benchmark!!
 
 	// Backpropagation loop for Output Layer only
-	for (int on = 0; on < length; on++) // Loop through each neuron on the output layer "on"
+	for (int on = 0; on < output_length; on++) // Loop through each neuron on the output layer "on"
 	{
 		const double error = (expected_output[on] - actual_output[on]) * squash_derivative(actual_output[on]); // Error of this neuron in output layer
 		error_sum += error;

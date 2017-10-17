@@ -29,9 +29,9 @@ public:
 	// functions  //
 	////////////////
 	// Feed the network information and train it to adjust to the expected output (returns output error)
-	double train(double* input_values, int length, double* expected_output) const;
+	double train(double* input_values, double* expected_output) const;
 	// Feed the network information and return the output layer with it's length "out_length"
-	double* feed(double* input_values, int length, int& out_length) const;
+	double* feed(double* input_values, int& out_length) const;
 	// Save the network's state to disk by serializing weights
 	void save(string path = STATE_FILE);
 	// Set the network's learning rate (should be 1/i, where i = train iterations so far)
@@ -68,7 +68,7 @@ private:
 	// Forwards Propagate given input_values by one layer and return the new output layer with length of out_length
 	double* to_next_layer(double* input_values, int input_length, int layer_index, int& out_length) const;
 	// Backwards Propagate through the network, adjust weights and biases and return total output error
-	double adjust(double* expected_output, double* actual_output, const int length) const;
+	double adjust(double* expected_output, double* actual_output) const;
 	// Fill neuron weights with this topology
 	void fill_weights();
 	// Delete weights array
