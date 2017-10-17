@@ -56,7 +56,7 @@ network::~network()
 {
 	// cleanup
 	delete_weights();
-	for(int i = 0; i < layers_count_; i++)
+	for (int i = 0; i < layers_count_; i++)
 	{
 		free(this->layers_[i]);
 		delete[] this->biases_[i];
@@ -139,7 +139,7 @@ double network::train(double* input_values, const int length, double* expected_o
 
 	const double error = adjust(expected_output, values, *values_length);
 	delete values_length;
-	return values[0];
+	return error;
 }
 
 // BACKWARDS-PROPAGATION ALGORITHM
@@ -168,9 +168,8 @@ double network::adjust(double* expected_output, double* actual_output, const int
 
 		for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer
 		{
-// TODO:
-//			if (i > 0) // Only calculate error on hidden layers
-//			{
+			if (i > 0) // Only calculate error on hidden layers
+			{
 				double neuron_error = 0;
 				for (int nn = 0; nn < next_neurons; nn++) // Loop through each neuron on next layer
 				{
@@ -180,7 +179,7 @@ double network::adjust(double* expected_output, double* actual_output, const int
 				}
 				errors[i][n] = neuron_error * squash_derivative(layers_[i][n]);
 				this->biases_[i][n] += learn_rate_ * errors[i][n];
-//			}
+			}
 
 			for (int nn = 0; nn < next_neurons; nn++) // Loop through each neuron on the next layer
 			{
@@ -238,7 +237,7 @@ void network::fill_weights()
 
 void network::save(const string path)
 {
-	for(int i = 0; i < layers_count_ - 1; i++) // Loop through each layer until last hidden layer
+	for (int i = 0; i < layers_count_ - 1; i++) // Loop through each layer until last hidden layer
 	{
 		layer& layer = this->topology_.layer_at(i);
 		for (int n = 0; n < neurons_count_[i]; n++) // Loop through each neuron on this layer

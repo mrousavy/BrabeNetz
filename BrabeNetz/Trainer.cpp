@@ -38,7 +38,7 @@ void trainer::train_xor(network& net)
 		
 		double learn_rate;
 		if (CONST_LEARN_RATE)
-			learn_rate = 0.001;
+			learn_rate = 0.5;
 		else
 			learn_rate = 1.0 / (i + 1.0);
 		net.set_learnrate(learn_rate);

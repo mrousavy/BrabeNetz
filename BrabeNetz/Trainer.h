@@ -5,7 +5,7 @@
 /// <summary>
 /// A Neuronal Network Trainer supporting bools
 /// </summary>
-static class trainer
+class trainer
 {
 public:
 	// Teach the network XOR switches
