@@ -5,11 +5,11 @@
 #define TRAIN_TIMES_EACH 1000
 #define TRAIN_POSSIBILITIES 4
 #define CONST_LEARN_RATE true
-#define SINGLE_TRAIN true
+#define SINGLE_TRAIN false
 
 void trainer::train_xor(network& net)
 {
-	#ifdef SINGLE_TRAIN
+	#if SINGLE_TRAIN
 	net.set_learnrate(0.5);
 	for(int i = 0; i < TRAIN_TIMES_EACH; i++)
 	{
