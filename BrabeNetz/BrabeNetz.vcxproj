@@ -23,7 +23,7 @@
     <ProjectGuid>{5A91483D-1D83-427B-A670-EA3EE9A56EA7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BrabeNetz</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>BrabeNetz</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
