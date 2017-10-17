@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Network.h"
-#include <ctime>
 #include "Functions.h"
+#include <ctime>
 using namespace std;
 
 // TODO: REMOVE INCLUDES
@@ -17,7 +17,7 @@ network::network(initializer_list<int> initializer_list)
 
 	if (initializer_list.size() < 3)
 		throw
-			"Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
+		"Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
 
 	this->topology_ = network_topology::random(initializer_list);
 	init(this->topology_);
@@ -94,7 +94,7 @@ double* network::feed(double* input_values, int& out_length) const
 // This function focuses on only one layer, so in theory we have 1 input layer, the layer we focus on, and 1 output
 // FORWARD-PROPAGATION ALGORITHM
 double* network::to_next_layer(double* input_values, const int input_length, const int layer_index,
-                               int& out_length) const
+							   int& out_length) const
 {
 	vector<double> vec = extensions::to_vector<double>(input_values, input_length); // TODO: REMOVE TOVECTOR
 	const int n_count = this->neurons_count_[layer_index]; // Count of neurons in the next layer (w/ layerIndex)
@@ -102,6 +102,7 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 	double* biases = this->biases_[layer_index]; // ptr to biases of neurons in the next layer
 	double* layer = this->layers_[layer_index];
 
+	// TODO: worth the spawn?; #pragma omp parallel for
 	for (int n = 0; n < n_count; n++) // Loop through each neuron "n" on the next layer
 	{
 		layer[n] = 0; // Reset neuron's value
@@ -129,12 +130,13 @@ double network::train(double* input_values, double* expected_output) const
 	this->layers_[0] = static_cast<double*>(malloc(sizeof(double) * length));
 	// Copy over inputs (we need this for adjust(..))
 	for (int n = 0; n < length; n++) // Loop through each input neuron "n"
+	{
 		this->layers_[0][n] = squash(input_values[n] + this->biases_[0][n]); // Squash Input
+	}
 
 	double* values = input_values; // Values of current layer
 	int* values_length = new int(length); // Copy input length to variable
-	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++)
-		// Loop through each hidden layer + output
+	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++) // Loop through each hidden layer + output
 	{
 		values = to_next_layer(values, *values_length, hidden_index, *values_length);
 		vector<double> vec = extensions::to_vector<double>(values, *values_length); // TODO: REMOVE TOVECTOR
@@ -173,6 +175,7 @@ double network::adjust(double* expected_output, double* actual_output) const
 		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
 		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
 
+		#pragma omp parallel for
 		for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer
 		{
 			if (i > 0) // Only calculate error on hidden layers
@@ -222,6 +225,7 @@ void network::fill_weights()
 	const int lcount = this->topology_.size; // Count of layers
 	this->biases_ = new double*[lcount];
 	this->weights_ = new double**[lcount];
+	#pragma omp parallel for
 	for (int l = 0; l < lcount; l++) // Loop through each layer
 	{
 		layer& layer = this->topology_.layer_at(l);
@@ -245,6 +249,7 @@ void network::fill_weights()
 
 void network::save(const string path)
 {
+	#pragma omp parallel for
 	for (int i = 0; i < layers_count_ - 1; i++) // Loop through each layer until last hidden layer
 	{
 		layer& layer = this->topology_.layer_at(i);
