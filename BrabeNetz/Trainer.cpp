@@ -9,7 +9,7 @@
 
 void trainer::train_xor(network& net)
 {
-	#if SINGLE_TRAIN
+#if SINGLE_TRAIN
 	net.set_learnrate(0.5);
 	for(int i = 0; i < TRAIN_TIMES_EACH; i++)
 	{
@@ -19,7 +19,7 @@ void trainer::train_xor(network& net)
 		cout << "{ " << values[0] << ", " << values[1] << " }: " << expected[0] << " | " << result << " @ l_r:" << endl;
 	}
 	return;
-	#endif
+#endif
 
 	const int size = 2;
 	double* values;
@@ -30,25 +30,25 @@ void trainer::train_xor(network& net)
 	{
 		switch (i % 4) // Train all 4 cases alternately
 		{
-			case 0:
-				values = new double[size] { 0, 0 };
-				expected[0] = 0;
-				break;
-			case 1:
-				values = new double[size] { 1, 0 };
-				expected[0] = 1;
-				break;
-			case 2:
-				values = new double[size] { 0, 1 };
-				expected[0] = 1;
-				break;
-			case 3:
-			default:
-				values = new double[size] { 1, 1 };
-				expected[0] = 0;
-				break;
+		case 0:
+			values = new double[size] {0, 0};
+			expected[0] = 0;
+			break;
+		case 1:
+			values = new double[size] {1, 0};
+			expected[0] = 1;
+			break;
+		case 2:
+			values = new double[size] {0, 1};
+			expected[0] = 1;
+			break;
+		case 3:
+		default:
+			values = new double[size] {1, 1};
+			expected[0] = 0;
+			break;
 		}
-		
+
 		double learn_rate;
 		if (CONST_LEARN_RATE)
 			learn_rate = 0.5;
@@ -59,7 +59,8 @@ void trainer::train_xor(network& net)
 		const double result = net.train(values, expected);
 
 		//if (i % 4 == 0)
-		cout << "{ " << values[0] << ", " << values[1] << " }: " << expected[0] << " | " << result << " @ l_r:" << learn_rate << endl;
+		cout << "{ " << values[0] << ", " << values[1] << " }: " << expected[0] << " | " << result << " @ l_r:" << learn_rate
+			<< endl;
 
 		// Cleanup
 		delete[] values;
