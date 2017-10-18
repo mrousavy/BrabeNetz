@@ -16,7 +16,8 @@ Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/
 <p align="center">
    <img align="center" src="Images/cout.png" alt="Console output with elapsed time (2ms)">
    <p align="center">Training a <b>XOR</b> 1000 times</p>
-   <br/>
+</p>
+<p align="center">
    <img align="center" src="Images/cpuload.png" alt="Using 24/24 cores in Taskmanager">
    <p align="center">Effectively using <b>all available cores</b></p>
 </p>
