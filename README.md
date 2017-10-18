@@ -15,11 +15,11 @@ Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/
 
 <p align="center">
    <img align="center" src="Images/cout.png" alt="Console output with elapsed time (2ms)">
-   <p align="center">Training a <b>XOR</b> 1000 times</p>
+   <p align="center">Training a <b>XOR</b> 1000 times takes just <b>2ms</b></p>
 </p>
 <p align="center">
    <img align="center" src="Images/cpuload.png" alt="Using 24/24 cores in Taskmanager">
-   <p align="center">Effectively using <b>all available cores</b></p>
+   <p align="center">Effectively using <b>all available cores</b> (24/24, 100% workload)</p>
 </p>
 
 ## Goals
@@ -34,7 +34,7 @@ Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/
 * Smart **multithreading** by [OpenMP](http://www.openmp.org/)
 * **Easy to use** (Inputs, outputs)
 * **Randomly generated values** to begin with
-* Easily save/load with `network::save(string)`/`network::load(string)`
+* Easily binary save/load with `network::save(string)`/`network::load(string)`
 * **Sigmoid** squashing function
 * **Biases** for each neuron
 * `network_topology` helper objects for loading/saving state and inspecting network
@@ -46,9 +46,9 @@ Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/
     * `network(string)`: Create a new neural network with the given path to the `sate.nn` file and load it.
 
 2. Functions
-    * `double feed(double* input_values, int length, int& out_length)`: Feed the network `input_values` and return an array of output values (where `out_length` will be set to the length of returned output values, that's the size of the output layer in topology)
-    * `double train(double* input_values, int length, double* expected_output)`: Feed the network `input_values` and compare predicted output with `expected_output`, **Backwards-Propagate** (adjust weights/biases) if needed. Returns the total error of the output layer.
+    * `double* feed(double* input_values)`: Feed the network `input_values` and return an array of output values (where the array's length is the size of the output layer in topology)
+    * `double train(double* input_values, double* expected_output)`: Feed the network `input_values` and **backwards-propagate** to adjust the weights/biases and reduce error. Returns the total error of the output layer.
     * `void save(string path)`: Save the current network state (topology, weights, biases) to disk (with the given path or default: `state.nn`)
-    * `void set_learnrate(double value)`: Set the learn rate of the network (used by `train(..)` function). Should always be `1 / (total train times + 1)`
+    * `void set_learnrate(double value)`: Set the learn rate of the network (used by `train(..)` function). Should either be a constant (`0.5`) or `1 / (total train times + 1)`
 
-An example of this can be found [here](https://github.com/mrousavy/BrabeNetz/blob/master/BrabeNetz/__ConsoleEntry.cpp), and [here](https://github.com/mrousavy/BrabeNetz/blob/master/BrabeNetz/Trainer.cpp)
+Usage examples can be found [here](https://github.com/mrousavy/BrabeNetz/blob/master/BrabeNetz/__ConsoleEntry.cpp), and [here](https://github.com/mrousavy/BrabeNetz/blob/master/BrabeNetz/Trainer.cpp)
