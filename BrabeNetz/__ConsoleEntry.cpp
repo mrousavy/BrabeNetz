@@ -9,6 +9,7 @@
 #include <fstream>
 using namespace std;
 
+// Load saved network state from disk instead of randomizing a new one each start
 #define LOAD_STATE false
 
 void print_info()
@@ -22,7 +23,7 @@ void print_info()
 
 	const bool use_cuda = false;
 	const int core_count = 0;
-	if(use_cuda)
+	if (use_cuda)
 		cout << "Using NVIDIA CUDA with " << core_count << " cores" << endl;
 	else
 		cout << "Not using NVIDIA CUDA" << endl;
@@ -30,6 +31,8 @@ void print_info()
 
 int main()
 {
+	srand(time(nullptr));
+
 	print_info();
 
 	// boot up neuronal network
@@ -39,7 +42,7 @@ int main()
 	if (LOAD_STATE && ifstream("state.nn", fstream::in | fstream::binary))
 		net = new network("state.nn");
 	else
-		net = new network(network_topology::random({2,3,1}));
+		net = new network(network_topology::random({ 2,3,1 }));
 
 	const auto boot_finish = chrono::high_resolution_clock::now();
 
