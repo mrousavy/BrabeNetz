@@ -153,8 +153,10 @@ double network::adjust(double* expected_output, double* actual_output) const
 	// Backpropagation loop for Output Layer only
 	for (int on = 0; on < output_length; on++) // Loop through each neuron on the output layer "on"
 	{
-		// TODO: const double error = (expected_output[on] - actual_output[on]) * squash_derivative(actual_output[on]); // Error of this neuron in output layer
-		const double error = (expected_output[on] - actual_output[on]) * (expected_output[on] - actual_output[on]) / 2;
+		// TODO:
+		//const double error = (expected_output[on] - actual_output[on]) * squash_derivative(actual_output[on]); // Error of this neuron in output layer
+		//const double error = (expected_output[on] - actual_output[on]) * (expected_output[on] - actual_output[on]) / 2;
+		const double error = expected_output[on] - actual_output[on];
 		error_sum += error;
 		errors[layers_count_ - 1][on] = error; // Set error on output layer at neuron "on" to calculated error
 	}
