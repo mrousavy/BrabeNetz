@@ -3,11 +3,11 @@
    <img align="right" src="Images/brain.png" alt="Brain - Image by medium.com" width=200>
 </p>
 
-**BrabeNetz** is a **supervised neural network** written in C++, aiming to be as fast as possible by using bare values instead of objects
+> **BrabeNetz** is a **supervised neural network** written in C++, aiming to be as fast as possible. It can effectively multithread on the **CPU** where needed, allocate and free fast (by `malloc`/`free`), access values faster (pointer-arrays instead of `vector`) and is well documented.
 
-**BrabeNetz** has no bounds- or error-checking for performance reasons, be careful what you feed it.
+I've written an example of using **BrabeNetz** in the [Trainer class](https://github.com/mrousavy/BrabeNetz/blob/master/BrabeNetz/Trainer.cpp) to train a **XOR**. (`{0,0}=0`, `{0,1}=1`, ..)
 
-I've currently trained it to solve **XOR**, I'll train it to **recognize handwritten characters**.
+In my example, I'm using a `{2,3,1}` topology (`2` input-, `3` hidden- and `1` output-neurons), but **BrabeNetz** is scalable until the hardware reaches its limits. You may easily rewrite it to recognize handwritten characters with larger topologies.
 
 Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/blob/master/DESCRIPTION.md)
 
