@@ -9,11 +9,15 @@ Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/
 
 ## Benchmarks
 
-Training a **XOR** 1000 times:
-![Console output](https://raw.githubusercontent.com/mrousavy/BrabeNetz/master/Images/cout.png)
-
-Effectively using **all available cores**:
-![24/24 cores used in Task manager](https://raw.githubusercontent.com/mrousavy/BrabeNetz/master/Images/taskmgr.png)
+<a align="center">
+   <img align="center" src="Images/cout.png" alt="Console output with elapsed time (2ms)">
+   <p align="center">Training a <b>XOR</b> 1000 times</p>
+   
+   <br/>
+   
+   <img align="center" src="Images/cpuload.png" alt="Using 24/24 cores in Taskmanager">
+   <p align="center">Effectively using <b>all available cores</b></p>
+</a>
 
 ## Goals
 * [x] **Fast Feed-Forward** algorithm
