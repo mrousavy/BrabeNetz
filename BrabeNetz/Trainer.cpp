@@ -5,24 +5,11 @@
 #define TRAIN_TIMES_EACH 1000
 #define TRAIN_POSSIBILITIES 4
 #define CONST_LEARN_RATE true
-#define SINGLE_TRAIN false
 // Print the input, expected and actual output to console (that's hella slow!)
 #define PRINT_OUTPUT false
 
 void trainer::train_xor(network& net, int train_times)
 {
-	#if SINGLE_TRAIN
-	net.set_learnrate(0.5);
-	for (int i = 0; i < TRAIN_TIMES_EACH; i++)
-	{
-		double* expected = new double[1]{ 1 };
-		double* values = new double[2]{ 1, 0 };
-		const double result = net.train(values, expected);
-		cout << "{ " << values[0] << ", " << values[1] << " }: " << expected[0] << " | " << result << " @ l_r:" << endl;
-	}
-	return;
-	#endif
-
 	#if CONST_LEARN_RATE
 	const double learn_rate = 0.5;
 	net.set_learnrate(learn_rate);
