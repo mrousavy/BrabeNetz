@@ -2,16 +2,17 @@
 #include "Trainer.h"
 #include <iostream>
 
-#define TRAIN_TIMES_EACH 1000
-#define TRAIN_POSSIBILITIES 4
+// Use a constant learn rate (LEARN_RATE) for training instead of small decreasing one
 #define CONST_LEARN_RATE true
+// Learn rate to use if CONST_LEARN_RATE is true
+#define DEFAULT_LEARN_RATE 0.5
 // Print the input, expected and actual output to console (that's hella slow!)
 #define PRINT_OUTPUT false
 
 void trainer::train_xor(network& net, int train_times)
 {
 	#if CONST_LEARN_RATE
-	const double learn_rate = 0.5;
+	const double learn_rate = DEFAULT_LEARN_RATE;
 	net.set_learnrate(learn_rate);
 	#endif
 
@@ -19,8 +20,7 @@ void trainer::train_xor(network& net, int train_times)
 	double* values;
 	double* expected = new double[1];
 
-	for (int i = 0; i < TRAIN_TIMES_EACH * TRAIN_POSSIBILITIES; i++)
-		// Loop TRAIN_TIMES_EACH (1000) * TRAIN_POSSIBILITIES (4)
+	for (int i = 0; i < train_times * 4; i++) // Loop train_times (1000) * possibilities for XOR (4)
 	{
 		switch (i % 4) // Train all 4 cases alternately
 		{
