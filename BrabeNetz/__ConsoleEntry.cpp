@@ -9,8 +9,27 @@
 #include <fstream>
 using namespace std;
 
+void print_info()
+{
+	int available_threads = 0;
+	#pragma omp parallel
+	{
+		available_threads++;
+	}
+	cout << "Available OpenMP Threads: " << available_threads << endl;
+
+	const bool use_cuda = false;
+	const int core_count = 0;
+	if(use_cuda)
+		cout << "Using NVIDIA CUDA with " << core_count << " cores" << endl;
+	else
+		cout << "Not using NVIDIA CUDA" << endl;
+}
+
 int main()
 {
+	print_info();
+
 	// boot up neuronal network
 	const auto boot_start = chrono::high_resolution_clock::now();
 
