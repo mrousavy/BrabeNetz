@@ -9,5 +9,5 @@ class trainer
 {
 public:
 	// Teach the network XOR switches
-	static void train_xor(network& net);
+	static void train_xor(network& net, int train_times);
 };

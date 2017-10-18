@@ -34,7 +34,7 @@ layer network_topology::read_layer(std::istream& is)
 	return l;
 }
 
-void network_topology::add_layer(const layer layer)
+void network_topology::add_layer(layer& layer)
 {
 	this->layers_.push_back(layer);
 	this->size = layers_.size();
@@ -57,7 +57,7 @@ network_topology network_topology::random(std::vector<int> layers)
 		for (int n = 0; n < lsize; n++) // Loop through each neuron
 		{
 			neuron neuron;
-			if (n != 0) // Layer0 (input) does not have any bias
+			if (l != 0) // Layer0 (input) does not have any bias
 				neuron.bias = (double(rand() % 200) / 100) - 1; // Random number between 0 and 2, minus 1 (so between -1 and 1)
 
 			int next_neurons; // Count of neurons in the next layer

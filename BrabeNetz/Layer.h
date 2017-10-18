@@ -10,7 +10,7 @@ class layer
 public:
 	layer();
 	~layer();
-	void add_neuron(neuron neuron);
+	void add_neuron(neuron& neuron);
 	neuron& neuron_at(int index);
 	int size;
 private:

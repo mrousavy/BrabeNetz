@@ -10,7 +10,7 @@ class network_topology
 public:
 	network_topology();
 	~network_topology();
-	void add_layer(layer layer);
+	void add_layer(layer& layer);
 	layer& layer_at(int index);
 	int size;
 

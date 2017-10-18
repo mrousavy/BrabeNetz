@@ -34,7 +34,7 @@ connection neuron::read_connection(std::istream& is)
 	return c;
 }
 
-void neuron::add_connection(const connection connection)
+void neuron::add_connection(connection& connection)
 {
 	this->connections_.push_back(connection);
 	this->size = connections_.size();

@@ -34,7 +34,7 @@ neuron layer::read_neuron(std::istream& is)
 }
 
 
-void layer::add_neuron(const neuron neuron)
+void layer::add_neuron(neuron& neuron)
 {
 	this->neurons_.push_back(neuron);
 	this->size = neurons_.size();
