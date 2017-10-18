@@ -131,7 +131,7 @@ double network::train(double* input_values, double* expected_output) const
 	// Copy over inputs (we need this for adjust(..))
 	for (int n = 0; n < length; n++) // Loop through each input neuron "n"
 	{
-		this->layers_[0][n] = squash(input_values[n] + this->biases_[0][n]); // Squash Input
+		this->layers_[0][n] = squash(input_values[n]); // Squash Input
 	}
 
 	double* values = input_values; // Values of current layer

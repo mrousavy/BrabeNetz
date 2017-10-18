@@ -48,7 +48,7 @@ private:
 	int* neurons_count_;
 	// Actual layers that contain nodes with their values
 	double** layers_;
-	// Each neuron's bias
+	// Each neuron's bias (has length of layers_count_, but every item in [0] is 0 because input layer has no bias)
 	double** biases_;
 	// Each neuron's error values
 	double** errors_;
