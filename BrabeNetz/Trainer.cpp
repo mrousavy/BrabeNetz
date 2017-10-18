@@ -7,7 +7,7 @@
 // Learn rate to use if CONST_LEARN_RATE is true
 #define DEFAULT_LEARN_RATE 0.5
 // Print the input, expected and actual output to console (that's hella slow!)
-#define PRINT_OUTPUT false
+#define PRINT_OUTPUT true
 
 void trainer::train_xor(network& net, int train_times)
 {
@@ -48,10 +48,11 @@ void trainer::train_xor(network& net, int train_times)
 		net.set_learnrate(learn_rate);
 		#endif
 
-		const double result = net.train(values, expected);
+		double* total_error = new double(0);
+		const double* output = net.train(values, expected, *total_error);
 
 		if (PRINT_OUTPUT)
-			cout << "{ " << values[0] << ", " << values[1] << " }: " << expected[0] << " | " << result << endl;
+			cout << "{ " << values[0] << ", " << values[1] << " } = " << output[0] << " | Error: " << *total_error << endl;
 
 		// Cleanup
 		delete[] values;

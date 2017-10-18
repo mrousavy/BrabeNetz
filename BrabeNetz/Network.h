@@ -24,10 +24,10 @@ public:
 	////////////////
 	// functions  //
 	////////////////
-	// Feed the network information and train it to adjust to the expected output (returns output error)
-	double train(double* input_values, double* expected_output) const;
+	// Feed the network information and train it to adjust to the expected output (returns network output)
+	double* train(double* input_values, double* expected_output, double& out_total_error) const;
 	// Feed the network information and return the output layer with it's length "out_length"
-	double* feed(double* input_values, int& out_length) const;
+	double* feed(double* input_values) const;
 	// Save the network's state to disk by serializing weights
 	void save(string path = STATE_FILE);
 	// Set the network's learning rate (should be 1/i, where i = train iterations so far)

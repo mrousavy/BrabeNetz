@@ -4,11 +4,11 @@
 * `layers_[][]`: An array of **all** layers (which contain _neurons_) in the **network**. _(double)_
   * **Note:**
   * `layers_[0]` would target the **input layer**.
-  * `layers_[0][0]` would target the **first neuron** (top one in topology) in the **input layer**.
+  * `layers_[0][0]` would target the **first neuron**'s value (top one in topology) in the **input layer**.
 * `biases_[][]`: An array of **biases for every neuron**. _(double)_
   * **Note:**
   * `biases_[0]` would target the **input layer's biases**.
-  * `biases_[0][0]` would target the bias for the **first neuron** (top one in topology) in the **input layer**.
+  * `biases_[0][0]` would target the bias for the **first neuron** (top one in topology) in the **input layer**. (Every layer **but input layer** has biases)
 * `weights_[][][]` An array of **weights between neurons**. _(double)_
   * **Note:**
   * `weights_[0]` would target the **input layer's weights** (or neurons in this case).

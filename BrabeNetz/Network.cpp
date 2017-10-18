@@ -72,7 +72,7 @@ void network::set_learnrate(const double value)
 #pragma region Forwards Propagation
 
 // Feed the network information and return the output
-double* network::feed(double* input_values, int& out_length) const
+double* network::feed(double* input_values) const
 {
 	double* values = input_values; // Values of current layer
 	int* length = new int(this->neurons_count_[0]); // Copy input length to ptr variable
@@ -81,7 +81,6 @@ double* network::feed(double* input_values, int& out_length) const
 		values = to_next_layer(values, *length, hidden_index, *length);
 	}
 
-	out_length = *length;
 	delete length;
 	return values;
 }
@@ -117,7 +116,7 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 #pragma region Backwards Propagation
 
 // Train network and adjust weights to expectedOutput
-double network::train(double* input_values, double* expected_output) const
+double* network::train(double* input_values, double* expected_output, double& out_total_error) const
 {
 	const int length = this->neurons_count_[0]; // Count of input neurons
 	this->layers_[0] = static_cast<double*>(malloc(sizeof(double) * length));
@@ -134,9 +133,9 @@ double network::train(double* input_values, double* expected_output) const
 		values = to_next_layer(values, *values_length, hidden_index, *values_length);
 	}
 
-	const double error = adjust(expected_output, values);
+	out_total_error = adjust(expected_output, values);
 	delete values_length;
-	return values[0];
+	return values;
 }
 
 // BACKWARDS-PROPAGATION ALGORITHM

@@ -51,7 +51,7 @@ Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/
 
 2. Functions
     * `double* feed(double* input_values)`: Feed the network `input_values` and return an array of output values (where the array's length is the size of the output layer in topology)
-    * `double train(double* input_values, double* expected_output)`: Feed the network `input_values` and **backwards-propagate** to adjust the weights/biases and reduce error. Returns the total error of the output layer.
+    * `double* train(double* input_values, double* expected_output, double& out_total_error)`: Feed the network `input_values` and **backwards-propagate** to adjust the weights/biases and reduce error. Returns the output layer's values, `out_total_error` will be set to the total error of the output layer (This can be used to check if more training is needed)
     * `void save(string path)`: Save the current network state (topology, weights, biases) to disk (with the given path or default: `state.nn`)
     * `void set_learnrate(double value)`: Set the learn rate of the network (used by `train(..)` function). Should either be a constant (`0.5`) or `1 / (total train times + 1)`
 
