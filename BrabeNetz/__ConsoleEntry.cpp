@@ -9,6 +9,8 @@
 #include <fstream>
 using namespace std;
 
+#define LOAD_STATE false
+
 void print_info()
 {
 	int available_threads = 0;
@@ -34,7 +36,7 @@ int main()
 	const auto boot_start = chrono::high_resolution_clock::now();
 
 	network* net;
-	if (ifstream("state.nn", fstream::in | fstream::binary))
+	if (LOAD_STATE && ifstream("state.nn", fstream::in | fstream::binary))
 		net = new network("state.nn");
 	else
 		net = new network(network_topology::random({2,3,1}));
