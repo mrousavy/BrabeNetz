@@ -1,4 +1,8 @@
-# BrabeNetz
+<p align="center">
+   <h1 align="left">BrabeNetz</h1>
+   <img align="right" src="Images/brain.png" alt="Brain - Image by medium.com" width=200>
+</p>
+
 **BrabeNetz** is a **supervised neural network** written in C++, aiming to be as fast as possible by using bare values instead of objects
 
 **BrabeNetz** has no bounds- or error-checking for performance reasons, be careful what you feed it.
@@ -9,15 +13,13 @@ Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/
 
 ## Benchmarks
 
-<a align="center">
+<p align="center">
    <img align="center" src="Images/cout.png" alt="Console output with elapsed time (2ms)">
    <p align="center">Training a <b>XOR</b> 1000 times</p>
-   
    <br/>
-   
    <img align="center" src="Images/cpuload.png" alt="Using 24/24 cores in Taskmanager">
    <p align="center">Effectively using <b>all available cores</b></p>
-</a>
+</p>
 
 ## Goals
 * [x] **Fast Feed-Forward** algorithm
