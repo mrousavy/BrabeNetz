@@ -3,28 +3,34 @@
 
 **BrabeNetz** has no bounds- or error-checking for performance reasons, be careful what you feed it.
 
-I've currently trained it to solve **XOR**, once I fix [this](https://github.com/mrousavy/BrabeNetz/issues/3), I'll train it to **recognize handwritten characters**.
+I've currently trained it to solve **XOR**, I'll train it to **recognize handwritten characters**.
 
 Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/blob/master/DESCRIPTION.md)
 
 ## Benchmarks
-It's pretty fast (TODO)
+
+Training a **XOR** 1000 times:
+![Console output](https://raw.githubusercontent.com/mrousavy/BrabeNetz/master/Images/cout.png)
+
+Effectively using **all available cores**:
+![24/24 cores used in Task manager](https://raw.githubusercontent.com/mrousavy/BrabeNetz/master/Images/taskmgr.png)
 
 ## Goals
 * [x] **Fast Feed-Forward** algorithm
-* [ ] **Fast Backwards-Propagation** algorithm
-* [x] **Easy to use** (Inputs, outputs)
-* [x] **Pointer arrays** instead of `std::vector`
+* [x] **Fast Backwards-Propagation** algorithm
 * [x] **Fast binary network state saving** via `state.nn` file (Weights, Biases, Sizes)
-* [ ] **Multithreaded** if worth the spawn-overhead (`std::thread` or NVIDIA CUDA)
+* [x] **Multithreaded** where worth the spawn-overhead (CPU: `std::thread` | GPU: OpenCL/CUDA)
 * [x] **Scalability** (Neuron size, Layer count) - only limited by hardware
 
 ## Specs
+* **Faster accessing** via `malloc`/`free` instead of `new`/`delete`, and **pointers** instead of `std::vector`
+* Smart **multithreading** by [OpenMP](http://www.openmp.org/)
+* **Easy to use** (Inputs, outputs)
 * **Randomly generated values** to begin with
 * Easily save/load with `network::save(string)`/`network::load(string)`
-* **Sigmoid** squashing function (TODO: ReLU?)
+* **Sigmoid** squashing function
 * **Biases** for each neuron
-* `network_topology` helper objects for loading/saving state and inspecting network (TODO: Remove totally?)
+* `network_topology` helper objects for loading/saving state and inspecting network
 
 ## Usage
 1. Constructors
