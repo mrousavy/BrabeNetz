@@ -96,7 +96,6 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 	double* biases = this->biases_[layer_index]; // ptr to biases of neurons in the next layer
 	double* layer = this->layers_[layer_index];
 
-	// TODO: worth the spawn?; #pragma omp parallel for
 	for (int n = 0; n < n_count; n++) // Loop through each neuron "n" on the next layer
 	{
 		layer[n] = 0; // Reset neuron's value
@@ -168,7 +167,7 @@ double network::adjust(double* expected_output, double* actual_output) const
 		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
 		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
 
-		#pragma omp parallel for
+		// TODO: #pragma omp parallel for
 		for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer
 		{
 			if (i > 0) // Only calculate error on hidden layers
