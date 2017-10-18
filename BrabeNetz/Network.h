@@ -2,11 +2,7 @@
 #include "NetworkTopology.h"
 using namespace std;
 
-// Specifies the value each weight gets adjusted by on training
-#define ADJUST_WEIGHTS_BY 0.002
-// Maximum delta of actual and expected values until stop training
-#define MAX_DELTA 0.01
-// Learning rate for the backpropagation weights/bias adjusting
+// Default learning rate for the backpropagation weights/bias adjusting
 #define LEARNING_RATE 0.01
 // Filename for the state file
 #define STATE_FILE "state.nn"
