@@ -18,6 +18,10 @@ Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/
    <p align="center">Training a <b>XOR</b> 1000 times takes just <b>2ms</b></p>
 </p>
 <p align="center">
+   <img align="center" src="Images/results.png" alt="Actual trained network prediction output">
+   <p align="center"><b>Actual prediction</b> of the XOR trained network (cout is very slow, hence 3.3s)</p>
+</p>
+<p align="center">
    <img align="center" src="Images/cpuload.png" alt="Using 24/24 cores in Taskmanager">
    <p align="center">Effectively using <b>all available cores</b> (24/24, 100% workload)</p>
 </p>
