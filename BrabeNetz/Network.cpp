@@ -4,10 +4,6 @@
 #include <ctime>
 using namespace std;
 
-// TODO: REMOVE INCLUDES
-#include "Extensions.h"
-#include <iostream>
-
 #pragma region ctor
 
 // ctor
@@ -83,7 +79,6 @@ double* network::feed(double* input_values, int& out_length) const
 	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++) // Loop through each hidden layer
 	{
 		values = to_next_layer(values, *length, hidden_index, *length);
-		vector<double> vec = extensions::to_vector<double>(values, *length); // TODO: REMOVE TOVECTOR
 	}
 
 	out_length = *length;
@@ -96,7 +91,6 @@ double* network::feed(double* input_values, int& out_length) const
 double* network::to_next_layer(double* input_values, const int input_length, const int layer_index,
 							   int& out_length) const
 {
-	vector<double> vec = extensions::to_vector<double>(input_values, input_length); // TODO: REMOVE TOVECTOR
 	const int n_count = this->neurons_count_[layer_index]; // Count of neurons in the next layer (w/ layerIndex)
 	double** weights = this->weights_[layer_index - 1]; // ptr to weights of neurons from prev. to this layer
 	double* biases = this->biases_[layer_index]; // ptr to biases of neurons in the next layer
@@ -131,7 +125,7 @@ double network::train(double* input_values, double* expected_output) const
 	// Copy over inputs (we need this for adjust(..))
 	for (int n = 0; n < length; n++) // Loop through each input neuron "n"
 	{
-		this->layers_[0][n] = squash(input_values[n]); // Squash Input
+		this->layers_[0][n] = input_values[n]; // Squash Input
 	}
 
 	double* values = input_values; // Values of current layer
@@ -139,7 +133,6 @@ double network::train(double* input_values, double* expected_output) const
 	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++) // Loop through each hidden layer + output
 	{
 		values = to_next_layer(values, *values_length, hidden_index, *values_length);
-		vector<double> vec = extensions::to_vector<double>(values, *values_length); // TODO: REMOVE TOVECTOR
 	}
 
 	const double error = adjust(expected_output, values);
@@ -156,8 +149,6 @@ double network::adjust(double* expected_output, double* actual_output) const
 	errors[layers_count_ - 1] = static_cast<double*>(malloc(sizeof(double) * output_length));
 	// Allocate output layer error size
 	double error_sum = 0; // Sum of all errors on the output layer
-
-	// TODO: New thread/CUDA_core for each neuron/layer? Benchmark!!
 
 	// Backpropagation loop for Output Layer only
 	for (int on = 0; on < output_length; on++) // Loop through each neuron on the output layer "on"
@@ -212,7 +203,6 @@ double network::adjust(double* expected_output, double* actual_output) const
 
 #pragma region State modification
 
-// TODO: Check if this works
 void network::fill_weights()
 {
 	// layer weights has a reference on the heap
