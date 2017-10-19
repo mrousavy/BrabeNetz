@@ -7,7 +7,7 @@
 
 I've written an example of using **BrabeNetz** in the [Trainer class](https://github.com/mrousavy/BrabeNetz/blob/master/BrabeNetz/Trainer.cpp) to train a **XOR**. (`{0,0}=0`, `{0,1}=1`, ..)
 
-In my example, I'm using a `{2,3,1}` topology (`2` input-, `3` hidden- and `1` output-neurons), but **BrabeNetz** is scalable until the hardware reaches its limits. You may easily rewrite it to recognize handwritten characters with larger topologies.
+In my example, I'm using a `{2,3,1}` topology (`2` input-, `3` hidden- and `1` output-neurons), but **BrabeNetz** is scalable until the hardware reaches its limits. You may easily rewrite it to recognize handwritten characters (from the [MNIST DB](http://yann.lecun.com/exdb/mnist/)) with larger topologies.
 
 Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/blob/master/DESCRIPTION.md)
 

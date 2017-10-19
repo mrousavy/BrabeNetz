@@ -3,11 +3,13 @@
 using namespace std;
 
 // Default learning rate for the backpropagation weights/bias adjusting
-#define LEARNING_RATE 0.1
+#define LEARNING_RATE 0.17
 // Filename for the state file
 #define STATE_FILE "state.nn"
 // Force use of multithreading for backpropagation (only use on larger layers, experiment yourself)
 #define FORCE_MULTITHREADED false
+// Minimum Neurons in a layer to start multithreading instead of serial
+#define MIN_NEURONS_MULTITHREAD 10
 
 class network
 {
@@ -34,8 +36,6 @@ public:
 	void save(string path = STATE_FILE);
 	// Set the network's learning rate (should be 1/i, where i = train iterations so far)
 	void set_learnrate(double value);
-	// Check if network is multithreaded
-	bool is_multithread() const;
 private:
 	////////////////
 	// properties //
@@ -56,8 +56,6 @@ private:
 	double*** weights_;
 	// The network topology, only for logic representation and weights initialization
 	network_topology topology_;
-	// Use multithreading for backpropagation
-	bool multithread_;
 
 
 	////////////////
@@ -75,6 +73,4 @@ private:
 	void fill_weights();
 	// Delete weights array
 	void delete_weights() const;
-	// Check whether this network is worth multithreading
-	bool should_multithread() const;
 };

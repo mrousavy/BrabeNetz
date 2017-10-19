@@ -6,6 +6,10 @@
 # Neural Network State
 state.nn
 
+# MNIST Training files
+*.idx1-ubyte
+*.idx3-ubyte
+
 # User-specific files
 *.suo
 *.user

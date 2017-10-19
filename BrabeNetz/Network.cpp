@@ -45,12 +45,6 @@ void network::init(network_topology& topology)
 		this->layers_[i] = new double[layer_size];
 	}
 	fill_weights();
-
-	#if FORCE_MULTITHREADED
-	multithread_ = true;
-	#else
-	multithread_ = should_multithread();
-	#endif
 }
 
 // dector
@@ -71,22 +65,6 @@ network::~network()
 void network::set_learnrate(const double value)
 {
 	learn_rate_ = value;
-}
-
-bool network::is_multithread() const
-{
-	return this->multithread_;
-}
-
-bool network::should_multithread() const
-{
-	double avg_neurons = 0;
-	for (int i = 1; i < this->layers_count_; i++)
-	{
-		avg_neurons += this->neurons_count_[i];
-	}
-	avg_neurons /= this->layers_count_ - 1;
-	return avg_neurons > 20; // TODO: Test multithread worth it?
 }
 
 #pragma endregion
@@ -188,7 +166,7 @@ double network::adjust(double* expected_output, double* actual_output) const
 		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
 		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
 
-		#pragma omp parallel for if(this->multithread_)
+		#pragma omp parallel for if(neurons > 10 || FORCE_MULTITHREADED) // OMP.Parallel if worth the thread spawn
 		for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer
 		{
 			if (i > 0) // Only calculate error on hidden layers
