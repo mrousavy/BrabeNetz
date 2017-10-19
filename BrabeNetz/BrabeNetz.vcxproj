@@ -162,7 +162,6 @@
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Neuron.cpp" />
     <ClCompile Include="NetworkTopology.cpp" />
-    <ClCompile Include="__ConsoleEntry.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Network.cpp" />
     <ClCompile Include="stdafx.cpp">
