@@ -6,6 +6,8 @@ using namespace std;
 #define LEARNING_RATE 0.01
 // Filename for the state file
 #define STATE_FILE "state.nn"
+// Use multithreading for backpropagation (only use on larger layers, experiment yourself)
+#define MULTITHREADED false
 
 class network
 {

@@ -166,7 +166,7 @@ double network::adjust(double* expected_output, double* actual_output) const
 		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
 		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
 
-		// TODO: #pragma omp parallel for
+		#pragma omp parallel for if(MULTITHREADED)
 		for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer
 		{
 			if (i > 0) // Only calculate error on hidden layers
