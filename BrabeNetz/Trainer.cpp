@@ -53,18 +53,19 @@ void trainer::train_xor(network& net, const int train_times)
 	delete[] expected;
 }
 
+// TODO: Fix MSB first (Little/Big endian)
 void trainer::train_handwritten_digits(network& net, int train_times, const string mnist_images, const string mnist_labels)
 {
 	// Open streams
 	ifstream images_stream(mnist_images, fstream::in | fstream::binary); // Open the images file
 	ifstream labels_stream(mnist_labels, fstream::in | fstream::binary); // Open the labels file
 
-	if (!images_stream || !labels_stream) // Check if exists
+	if (!images_stream.is_open() || !labels_stream.is_open()) // Check if exists
 		throw "Images/Labels training file not found!";
 
 	// First 32 bit: MAGIC NUMBER
-	int i_magic_number = 0;
-	int l_magic_number = 0;
+	int32_t i_magic_number = 0;
+	int32_t l_magic_number = 0;
 	images_stream.read(reinterpret_cast<char*>(&i_magic_number), sizeof(i_magic_number));
 	labels_stream.read(reinterpret_cast<char*>(&l_magic_number), sizeof(l_magic_number));
 
@@ -94,7 +95,7 @@ void trainer::train_handwritten_digits(network& net, int train_times, const stri
 		{
 			byte pixel;
 			labels_stream.read(reinterpret_cast<char*>(&pixel), sizeof(pixel)); // read 1 pixel
-			//image[p] = pixel;
+			//image[p] = reinterpret_cast<double>(&pixel);
 		}
 
 		double* total_error = new double();
