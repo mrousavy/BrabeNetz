@@ -62,9 +62,6 @@
     <ClCompile Include="__ConsoleEntry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Extensions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="NetworkTopology.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
