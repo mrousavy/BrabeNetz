@@ -53,10 +53,10 @@ Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/
 
 ## Usage
 1. Build library
-  1. Open [Developer Commandprompt for Visual Studio](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs) and navigate to the `BrabeNetz\BrabeNetz` folder
-  2. Run `msbuild BrabeNetz.vcxproj /p:Configuration=Release /p:Platform=x64` (Use the configuration and platform you need)
-  3. Link the library (in `BrabeNetz\BrabeNetz\x64\Release`)
-  4. Add headers to your project (every file ending with `.h` in `BrabeNetz\BrabeNetz`)
+    1. Open [Developer Commandprompt for Visual Studio](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs) and navigate to the `BrabeNetz\BrabeNetz` folder
+    2. Run `msbuild BrabeNetz.vcxproj /p:Configuration=Release /p:Platform=x64` (Use the configuration and platform you need)
+    3. Link the library (in `BrabeNetz\BrabeNetz\x64\Release`)
+    4. Add headers to your project (every file ending with `.h` in `BrabeNetz\BrabeNetz`)
 
 2. Constructors
     * `network(initializer_list<int>)`: Create a new neural network with the given topology vector and fill it with random numbers (`{ 2, 3, 4, 1}` = 2 Input, 3 Hidden, 4 Hidden, 1 Output **Neurons** - total of 4 layers)
