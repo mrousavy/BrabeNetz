@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{E7C8269D-32A8-4A54-BE2C-4DDF32DE4DE4}</ProjectGuid>
+    <ProjectGuid>{BCA12211-6382-484D-93EF-E096526F43A5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BrabeNetzConsole</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
@@ -160,7 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BrabeNetz\BrabeNetz.vcxproj">
-      <Project>{5a91483d-1d83-427b-a670-ea3ee9a56ea7}</Project>
+      <Project>{66e7be6f-e609-476a-b499-e1acd8890882}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

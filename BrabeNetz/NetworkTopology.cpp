@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "NetworkTopology.h"
 #include <fstream>
 

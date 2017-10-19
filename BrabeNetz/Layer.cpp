@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Layer.h"
 
 layer::layer()
