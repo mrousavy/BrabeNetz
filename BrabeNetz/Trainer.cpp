@@ -4,11 +4,6 @@
 
 void trainer::train_xor(network& net, const int train_times)
 {
-	#if CONST_LEARN_RATE
-	const double learn_rate = DEFAULT_LEARN_RATE;
-	net.set_learnrate(learn_rate);
-	#endif
-
 	const int size = 2;
 	double* values;
 	double* expected = new double[1];

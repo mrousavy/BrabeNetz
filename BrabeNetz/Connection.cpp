@@ -4,7 +4,12 @@
 
 connection::connection()
 {
-	this->weight = NULL;
+	this->weight = 1;
+}
+
+connection::connection(const double weight)
+{
+	this->weight = weight;
 }
 
 connection::~connection()

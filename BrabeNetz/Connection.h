@@ -1,12 +1,6 @@
 #pragma once
-#include "Neuron.h"
 #include <ostream>
 #include <istream>
-
-#ifndef CONNECTION_INCLUDED
-#define CONNECTION_INCLUDED
-
-class neuron;
 
 class connection
 {
@@ -14,8 +8,7 @@ class connection
 	friend std::istream& operator>>(std::istream& is, connection& c);
 public:
 	connection();
+	explicit connection(double weight);
 	~connection();
 	double weight;
 };
-
-#endif
