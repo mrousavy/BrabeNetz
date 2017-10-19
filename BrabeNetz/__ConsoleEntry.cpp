@@ -45,6 +45,7 @@ int main()
 	else // Else create random network
 		net = new network({ 2,3,1 });
 	const auto boot_finish = chrono::high_resolution_clock::now();
+	cout << "Multithreaded: " << net->is_multithread() << endl;
 
 	// Train neural network with trainer
 	const auto train_start = chrono::high_resolution_clock::now();

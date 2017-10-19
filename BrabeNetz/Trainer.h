@@ -14,4 +14,6 @@ class trainer
 public:
 	// Teach the network XOR switches
 	static void train_xor(network& net, int train_times);
+	// Train the network to recognize handwritten digits
+	static void train_handwritten_digits(network& net, int train_times, string mnist_filepath);
 };

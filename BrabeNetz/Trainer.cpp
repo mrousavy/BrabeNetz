@@ -48,3 +48,8 @@ void trainer::train_xor(network& net, const int train_times)
 	}
 	delete[] expected;
 }
+
+void trainer::train_handwritten_digits(network& net, int train_times, string mnist_filepath)
+{
+
+}

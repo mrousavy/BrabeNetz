@@ -1,7 +1,7 @@
 #pragma once
+#include "Connection.h"
 #include <vector>
 #include <ostream>
-#include "Connection.h"
 
 class neuron
 {

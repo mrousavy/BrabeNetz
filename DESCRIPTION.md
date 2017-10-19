@@ -31,7 +31,7 @@
 * `Network.h`
   * `LEARNING_RATE`: The default learning rate if none is manually set (`0.1`)
   * `STATE_FILE`: The default filepath to the network's state file (`"state.nn"`)
-  * `MULTITHREADED`: Use multithreading for Backwards-Propagation algorithm, only use on larger networks (hidden layers with >5 neurons) (Only in Release mode) (`true`)
+  * `FORCE_MULTITHREADED`: Force use of multithreading for Backwards-Propagation algorithm, only use on larger networks (hidden layers with >5 neurons) (Only in Release mode) (`false`)
 * `Trainer.h`
   * `CONST_LEARN_RATE`: Use a constant learn rate for training instead of using the thumb-rule formula (`true`)
   * `PRINT_OUTPUT`: Print the output of the training to console (use only for debug, `cout` is very slow, training will take ~1500 times longer) (`false`)
