@@ -2,6 +2,7 @@
 **This file explains all definitions and members important for the math of the network class.**
 
 # Members
+All Members of the `Network.cpp`/`Network.h` class:
 
 * `layers_[][]`: An array of **all** layers (which contain _neurons_) in the **network**. _(double)_
   * **Note:**
@@ -27,6 +28,7 @@
 
 
 # Definitions
+All compile time (`#define`) Definitions inside the `Globals.h` header file:
 
 * `Network.h`
   * `LEARNING_RATE`: The default learning rate if none is manually set (`0.1`)

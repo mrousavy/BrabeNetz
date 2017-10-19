@@ -1,15 +1,7 @@
 #pragma once
 #include "NetworkTopology.h"
+#include "Globals.h"
 using namespace std;
-
-// Default learning rate for the backpropagation weights/bias adjusting
-#define LEARNING_RATE 0.17
-// Filename for the state file
-#define STATE_FILE "state.nn"
-// Force use of multithreading for backpropagation (only use on larger layers, experiment yourself)
-#define FORCE_MULTITHREADED false
-// Minimum Neurons in a layer to start multithreading instead of serial
-#define MIN_NEURONS_MULTITHREAD 10
 
 class network
 {

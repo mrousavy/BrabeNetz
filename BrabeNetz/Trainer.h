@@ -1,10 +1,6 @@
 #pragma once
 #include "Network.h"
-
-// Use a constant learn rate (LEARN_RATE) for training instead of small decreasing one
-#define CONST_LEARN_RATE true
-// Print the input, expected and actual output to console (that's hella slow!)
-#define PRINT_OUTPUT true
+#include "Globals.h"
 
 /// <summary>
 /// A Neuronal Network Trainer supporting bools

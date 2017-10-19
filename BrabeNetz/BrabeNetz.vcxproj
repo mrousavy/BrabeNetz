@@ -32,6 +32,7 @@
     <ClInclude Include="Connection.h" />
     <ClInclude Include="Extensions.h" />
     <ClInclude Include="Functions.h" />
+    <ClInclude Include="Globals.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="NetworkTopology.h" />
