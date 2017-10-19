@@ -3,7 +3,7 @@
 using namespace std;
 
 // Default learning rate for the backpropagation weights/bias adjusting
-#define LEARNING_RATE 0.01
+#define LEARNING_RATE 0.1
 // Filename for the state file
 #define STATE_FILE "state.nn"
 // Use multithreading for backpropagation (only use on larger layers, experiment yourself)
