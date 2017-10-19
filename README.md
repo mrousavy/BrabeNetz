@@ -20,6 +20,8 @@ Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/
 > **RAM:** HyperX Fury DDR4 32GB CL14 2400MHz
 >
 > **SSD:** Samsung 850 EVO 540MB/s
+>
+> **Commit:** [8c67527](https://github.com/mrousavy/BrabeNetz/commit/8c675272ee0318905930357bd089f40148c88dbf)
 
 <p align="center">
    <img align="center" src="Images/cout.png" alt="Console output with elapsed time (2ms)">
