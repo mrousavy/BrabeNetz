@@ -8,48 +8,60 @@ typedef bitset<8> byte; // byte
 void trainer::train_xor(network& net, const int train_times)
 {
 	const int size = 2;
-	double* values;
-	double* expected = new double[1];
+
+	double* zz = new double[2]{ 0,0 };
+	double* zz_e = new double[1]{ 0 };
+	double* oz = new double[2]{ 1,0 };
+	double* oz_e = new double[1]{ 1 };
+	double* zo = new double[2]{ 0,1 };
+	double* zo_e = new double[1]{ 1 };
+	double* oo = new double[2]{ 1,1 };
+	double* oo_e = new double[1]{ 0 };
 
 	for (int i = 0; i < train_times * 4; i++) // Loop train_times (1000) * possibilities for XOR (4)
 	{
-		switch (i % 4) // Train all 4 cases alternately
-		{
-			case 0:
-				values = new double[size] { 0, 0 };
-				expected[0] = 0;
-				break;
-			case 1:
-				values = new double[size] { 1, 0 };
-				expected[0] = 1;
-				break;
-			case 2:
-				values = new double[size] { 0, 1 };
-				expected[0] = 1;
-				break;
-			case 3:
-			default:
-				values = new double[size] { 1, 1 };
-				expected[0] = 0;
-				break;
-		}
-
 		#if !CONST_LEARN_RATE
-		const double learn_rate = 1.0 / (i + 1.0);
+		const double learn_rate = 1.0 / ((i / 4) + 1.0);
 		net.set_learnrate(learn_rate);
 		#endif
 
 		double* total_error = new double(0);
-		const double* output = net.train(values, expected, *total_error);
+		double* output;
 
-		if (PRINT_OUTPUT)
-			cout << "{ " << values[0] << ", " << values[1] << " } = " << output[0] << " | Error: " << *total_error << endl;
+		switch (i % 4) // Train all 4 cases alternately
+		{
+			case 0:
+				output = net.train(zz, zz_e, *total_error);
+				if (PRINT_OUTPUT) cout << "{ " << zz[0] << ", " << zz[1] << " } = " << output[0] << " | Error: " << *total_error << endl;
+				break;
+			case 1:
+				output = net.train(oz, oz_e, *total_error);
+				if (PRINT_OUTPUT) cout << "{ " << oz[0] << ", " << oz[1] << " } = " << output[0] << " | Error: " << *total_error << endl;
+				break;
+			case 2:
+				output = net.train(zo, zo_e, *total_error);
+				if (PRINT_OUTPUT) cout << "{ " << zo[0] << ", " << zo[1] << " } = " << output[0] << " | Error: " << *total_error << endl;
+				break;
+			case 3:
+			default:
+				output = net.train(oo, oo_e, *total_error);
+				if (PRINT_OUTPUT) cout << "{ " << oo[0] << ", " << oo[1] << " } = " << output[0] << " | Error: " << *total_error << endl;
+				break;
+		}
 
 		// Cleanup
-		delete[] values;
 		delete total_error;
 	}
-	delete[] expected;
+
+	// Cleanup
+	delete[] zz;
+	delete[] zz_e;
+	delete[] oz;
+	delete[] oz_e;
+	delete[] zo;
+	delete[] zo_e;
+	delete[] oo;
+	delete[] oo_e;
 }
 
 // TODO: Fix MSB first (Little/Big endian)
