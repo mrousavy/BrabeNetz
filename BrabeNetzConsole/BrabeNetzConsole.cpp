@@ -6,6 +6,7 @@
 #include <string>
 #include <chrono>
 #include <fstream>
+#include <omp.h>
 #include "../BrabeNetz/Network.h"
 #include "../BrabeNetz/Trainer.h"
 using namespace std;
@@ -17,12 +18,18 @@ using namespace std;
 
 void print_info()
 {
-	int available_threads = 0;
 	#pragma omp parallel
 	{
-		available_threads++;
+		if (omp_in_parallel())
+		{
+			#pragma omp single  
+			cout << "Running in parallel with " << omp_get_num_threads() << " OpenMP threads." << omp_get_num_procs() << endl;
+		} else
+		{
+			#pragma omp single  
+			cout << "Running in serial, no multithreading is used." << omp_get_num_threads()  << endl;
+		}
 	}
-	cout << "Available OpenMP Threads: " << available_threads << endl;
 
 	const bool use_cuda = false;
 	const int core_count = 0;
