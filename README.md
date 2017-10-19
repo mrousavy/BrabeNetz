@@ -55,7 +55,7 @@ Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/
 1. Build library
     1. Open [Developer Commandprompt for Visual Studio](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs) and navigate to the `BrabeNetz\BrabeNetz` folder
     2. Run `msbuild BrabeNetz.vcxproj /p:Configuration=Release /p:Platform=x64` (Use the configuration and platform you need)
-    3. Link the library (in `BrabeNetz\BrabeNetz\x64\Release`)
+    3. Link the library (in `BrabeNetz\BrabeNetz\x64\Release`) to your Project
     4. Add headers to your project (every file ending with `.h` in `BrabeNetz\BrabeNetz`)
 
 2. Constructors
