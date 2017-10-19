@@ -36,29 +36,24 @@ Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/
    <p align="center">Effectively using <b>all available cores</b> (24/24, 100% workload)</p>
 </p>
 
-## Goals
-* [x] **Fast Feed-Forward** algorithm
-* [x] **Fast Backwards-Propagation** algorithm
-* [x] **Fast binary network state saving** via `state.nn` file (Weights, Biases, Sizes)
-* [x] **Multithreaded** where worth the spawn-overhead (CPU: `std::thread` | GPU: OpenCL/CUDA)
-* [x] **Scalability** (Neuron size, Layer count) - only limited by hardware
-
 ## Specs
-* **Faster accessing** via `malloc`/`free` instead of `new`/`delete`, and **pointers** instead of `std::vector`
-* Smart **multithreading** by [OpenMP](http://www.openmp.org/)
+* **Faster algorithms** via `malloc`/`free` instead of `new`/`delete`, and **pointers** instead of `std::vector`
+* Smart **multithreading** by [OpenMP](http://www.openmp.org/) where worth the spawn-overhead
+* **Scalability** (Neuron size, Layer count) - only limited by hardware
 * **Easy to use** (Inputs, outputs)
 * **Randomly generated values** to begin with
-* Easily binary save/load with `network::save(string)`/`network::load(string)`
+* Easily binary save/load with `network::save(string)`/`network::load(string)` (`state.nn` file)
 * **Sigmoid** squashing function
 * **Biases** for each neuron
 * `network_topology` helper objects for loading/saving state and inspecting network
 
 ## Usage
 1. Build library
-    1. Open [Developer Commandprompt for Visual Studio](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs) and navigate to the `BrabeNetz\BrabeNetz` folder
-    2. Run `msbuild BrabeNetz.vcxproj /p:Configuration=Release /p:Platform=x64` (Use the configuration and platform you need)
-    3. Link the library (in `BrabeNetz\BrabeNetz\x64\Release`) to your Project
-    4. Add headers to your project (every file ending with `.h` in `BrabeNetz\BrabeNetz`)
+    1. Download/Clone from GitHub and change custom definitions (see [this](DESCRIPTION.md) for more info)
+    2. Open [Developer Commandprompt for Visual Studio](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs) and navigate to the `BrabeNetz\BrabeNetz` folder
+    3. Run `msbuild BrabeNetz.vcxproj /p:Configuration=Release /p:Platform=x64` (Use the configuration and platform you need)
+    4. Link the library (in `BrabeNetz\BrabeNetz\x64\Release`) to your Project
+    5. Add headers to your project (every file ending with `.h` in `BrabeNetz\BrabeNetz`)
 
 2. Constructors
     * `network(initializer_list<int>)`: Create a new neural network with the given topology vector and fill it with random numbers (`{ 2, 3, 4, 1}` = 2 Input, 3 Hidden, 4 Hidden, 1 Output **Neurons** - total of 4 layers)
