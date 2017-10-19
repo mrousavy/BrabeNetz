@@ -1,12 +1,13 @@
-// __ConsoleEntry.cpp : Defines the entry point for the console application.
+// BrabeNetzConsole.cpp : Defines the entry point for the console application.
 //
+
 #include "stdafx.h"
 #include <iostream>
 #include <string>
-#include "Network.h"
-#include "Trainer.h"
 #include <chrono>
 #include <fstream>
+#include "../BrabeNetz/Network.h"
+#include "../BrabeNetz/Trainer.h"
 using namespace std;
 
 // Load saved network state from disk instead of randomizing a new one each start

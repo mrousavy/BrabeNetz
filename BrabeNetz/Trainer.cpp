@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Trainer.h"
 #include <iostream>
 #include <fstream>
