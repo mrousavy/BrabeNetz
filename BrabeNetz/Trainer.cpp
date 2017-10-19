@@ -44,6 +44,7 @@ void trainer::train_xor(network& net, const int train_times)
 
 		// Cleanup
 		delete[] values;
+		delete total_error;
 	}
 	delete[] expected;
 }
