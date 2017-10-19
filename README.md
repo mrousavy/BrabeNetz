@@ -13,6 +13,14 @@ Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/
 
 ## Benchmarks
 
+> **Build:** Release x64 | Windows 10 64bit
+>
+> **CPU:** Intel i7 6700k @ 4.0GHz x 8cores
+>
+> **RAM:** HyperX Fury DDR4 32GB CL14 2400MHz
+>
+> **SSD:** Samsung 850 EVO 540MB/s
+
 <p align="center">
    <img align="center" src="Images/cout.png" alt="Console output with elapsed time (2ms)">
    <p align="center">Training a <b>XOR</b> 1000 times takes just <b>2ms</b></p>
