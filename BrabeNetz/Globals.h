@@ -9,6 +9,8 @@
 #define FORCE_MULTITHREADED false
 // Minimum Neurons in a layer to start multithreading instead of serial
 #define MIN_NEURONS_MULTITHREAD 10
+// Amount of iterations each thread is expected to do
+#define ITERS_PER_THREAD 4
 
 // --- Trainer.cpp:
 // Use a constant learn rate (LEARN_RATE) for training instead of small decreasing one

@@ -151,8 +151,8 @@ double network::adjust(double* expected_output, double* actual_output) const
 	for (int on = 0; on < output_length; on++) // Loop through each neuron on the output layer "on"
 	{
 		// TODO:
-		//const double error = (expected_output[on] - actual_output[on]) * squash_derivative(actual_output[on]); // Error of this neuron in output layer
-		//const double error = (expected_output[on] - actual_output[on]) * (expected_output[on] - actual_output[on]) / 2; // Error of this neuron in output layer
+		//double error = (expected_output[on] - actual_output[on]) * squash_derivative(actual_output[on]); // Error of this neuron in output layer
+		//double error = (expected_output[on] - actual_output[on]) * (expected_output[on] - actual_output[on]) / 2; // Error of this neuron in output layer
 		const double error = expected_output[on] - actual_output[on]; // Error of this neuron in output layer
 		error_sum += error;
 		errors[layers_count_ - 1][on] = error; // Set error on output layer at neuron "on" to calculated error
@@ -165,7 +165,8 @@ double network::adjust(double* expected_output, double* actual_output) const
 		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
 		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
 
-		#pragma omp parallel for if(neurons > 10 || FORCE_MULTITHREADED) // OMP.Parallel if worth the thread spawn
+		const int iterations = neurons * next_neurons;
+		#pragma omp parallel for if(FORCE_MULTITHREADED || iterations >= core_count * ITERS_PER_THREAD) // OMP.Parallel if worth the thread spawn
 		for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer
 		{
 			if (i > 0) // Only calculate error on hidden layers

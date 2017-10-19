@@ -35,6 +35,7 @@ All compile time (`#define`) Definitions inside the `Globals.h` header file:
   * `STATE_FILE`: The default filepath to the network's state file (`"state.nn"`)
   * `FORCE_MULTITHREADED`: Force use of multithreading for Backwards-Propagation algorithm, only use on larger networks (hidden layers with >5 neurons) (Only in Release mode) (`false`)
   * `MIN_NEURONS_MULTITHREAD`: Minimum Neurons in a layer to start multithreading the Backwards-Propagation algorithm - check if it's worth the spawn (`10`)
+  * `ITERS_PER_THREAD`: Amount of iterations in the Backwards-Propagation algorithm each thread is expected to do (`ITERS_PER_THREAD` * `core_count` is the minimum neurons per layer to start multithreading instead of serial if `FORCE_MULTITHREADED` is false) (`4`)
 * `Trainer.h`
   * `CONST_LEARN_RATE`: Use a constant learn rate for training instead of using the thumb-rule formula (`true`)
   * `PRINT_OUTPUT`: Print the output of the training to console (use only for debug, `cout` is very slow, training will take ~1500 times longer) (`false`)
