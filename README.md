@@ -52,12 +52,18 @@ Be sure to [read the network description](https://github.com/mrousavy/BrabeNetz/
 * `network_topology` helper objects for loading/saving state and inspecting network
 
 ## Usage
-1. Constructors
+1. Build library
+  1. Open [Developer Commandprompt for Visual Studio](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs) and navigate to the `BrabeNetz\BrabeNetz` folder
+  2. Run `msbuild BrabeNetz.vcxproj /p:Configuration=Release /p:Platform=x64` (Use the configuration and platform you need)
+  3. Link the library (in `BrabeNetz\BrabeNetz\x64\Release`)
+  4. Add headers to your project (every file ending with `.h` in `BrabeNetz\BrabeNetz`)
+
+2. Constructors
     * `network(initializer_list<int>)`: Create a new neural network with the given topology vector and fill it with random numbers (`{ 2, 3, 4, 1}` = 2 Input, 3 Hidden, 4 Hidden, 1 Output **Neurons** - total of 4 layers)
     * `network(network_topology&)`: Create a new neural network with the given network topology and load_ it's values
     * `network(string)`: Create a new neural network with the given path to the `sate.nn` file and load it.
 
-2. Functions
+3. Functions
     * `double* feed(double* input_values)`: Feed the network `input_values` and return an array of output values (where the array's length is the size of the output layer in topology)
     * `double* train(double* input_values, double* expected_output, double& out_total_error)`: Feed the network `input_values` and **backwards-propagate** to adjust the weights/biases and reduce error. Returns the output layer's values, `out_total_error` will be set to the total error of the output layer (This can be used to check if more training is needed)
     * `void save(string path)`: Save the current network state (topology, weights, biases) to disk (with the given path or default: `state.nn`)
