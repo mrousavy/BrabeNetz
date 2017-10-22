@@ -1,5 +1,6 @@
 ========================================================================
-		CONSOLE APPLICATION : BrabeNetzConsole Project Overview
+				LIBRARY : BrabeNetz Project Overview
 ========================================================================
 
-This is a Demo Application, showing example usage of the BrabeNetz library
+This is the actual BrabeNetz Library Project, all multithreaded algorithms
+and logic can be located here
