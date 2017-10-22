@@ -30,15 +30,15 @@ All Members of the `Network.cpp`/`Network.h` class:
 # Definitions
 All compile time (`#define`) Definitions inside the `Globals.h` header file:
 
-* `Network.h`
+* `Network.h` (defined in `Globals.h`)
   * `LEARNING_RATE`: The default learning rate if none is manually set (`0.1`)
   * `STATE_FILE`: The default filepath to the network's state file (`"state.nn"`)
   * `FORCE_MULTITHREADED`: Force use of multithreading for Backwards-Propagation algorithm, only use on larger networks (hidden layers with >5 neurons) (Only in Release mode) (`false`)
   * `MIN_NEURONS_MULTITHREAD`: Minimum Neurons in a layer to start multithreading the Backwards-Propagation algorithm - check if it's worth the spawn (`10`)
   * `ITERS_PER_THREAD`: Amount of iterations in the Backwards-Propagation algorithm each thread is expected to do (`ITERS_PER_THREAD` * `core_count` is the minimum neurons per layer to start multithreading instead of serial if `FORCE_MULTITHREADED` is false) (`4`)
-* `Trainer.h`
+* `Trainer.cpp`
   * `CONST_LEARN_RATE`: Use a constant learn rate for training instead of using the thumb-rule formula (`true`)
   * `PRINT_OUTPUT`: Print the output of the training to console (use only for debug, `cout` is very slow, training will take ~1500 times longer) (`false`)
-* `__ConsoleEntry.cpp`:
+* `BrabeNetzConsole.cpp`:
   * `LOAD_STATE`: Load the network's state when starting the program instead of generating a new random network each time (`false`)
   * `TRAIN_TIMES_EACH`: Amount of times to train the network (depending on the training this has to scale) (`1000` for XOR)
