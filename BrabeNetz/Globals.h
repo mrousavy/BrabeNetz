@@ -11,9 +11,3 @@
 #define MIN_NEURONS_MULTITHREAD 10
 // Amount of iterations each thread is expected to do
 #define ITERS_PER_THREAD 50
-
-// --- Trainer.cpp:
-// Use a constant learn rate (LEARN_RATE) for training instead of small decreasing one
-#define CONST_LEARN_RATE true
-// Print the input, expected and actual output to console (that's hella slow!)
-#define PRINT_OUTPUT true

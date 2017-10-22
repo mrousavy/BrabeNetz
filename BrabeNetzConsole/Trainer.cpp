@@ -4,6 +4,11 @@
 #include <fstream>
 #include <bitset>
 
+// Use a constant learn rate (LEARN_RATE) for training instead of small decreasing one
+#define CONST_LEARN_RATE true
+// Print the input, expected and actual output to console (that's hella slow!)
+#define PRINT_OUTPUT true
+
 typedef bitset<8> byte; // byte
 
 void trainer::train_xor(network& net, const int train_times)
