@@ -7,8 +7,8 @@
 #include <chrono>
 #include <fstream>
 #include <omp.h>
+#include "Trainer.h"
 #include "../BrabeNetz/Network.h"
-#include "../BrabeNetz/Trainer.h"
 using namespace std;
 
 // Load saved network state from disk instead of randomizing a new one each start

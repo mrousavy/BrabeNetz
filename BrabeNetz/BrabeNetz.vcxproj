@@ -26,7 +26,6 @@
     <ClCompile Include="Network.cpp" />
     <ClCompile Include="NetworkTopology.cpp" />
     <ClCompile Include="Neuron.cpp" />
-    <ClCompile Include="Trainer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Connection.h" />
@@ -37,7 +36,6 @@
     <ClInclude Include="Network.h" />
     <ClInclude Include="NetworkTopology.h" />
     <ClInclude Include="Neuron.h" />
-    <ClInclude Include="Trainer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
