@@ -55,10 +55,9 @@ void trainer::train_xor(network& net, const int train_times)
 			default:
 				output = net.train(oo, oo_e, *total_error);
 				if (PRINT_OUTPUT) printf(format.c_str(), oo[0], oo[1], output[0]);
+				if (UPDATE_STATUS) console::set_title("XOR: " + to_string(i + 1) + "/" + to_string(train_times));
 				break;
 		}
-
-		if (UPDATE_STATUS) console::set_title("XOR: " + to_string(i + 1) + "/" + to_string(train_times));
 
 		// Cleanup
 		delete total_error;

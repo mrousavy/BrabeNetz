@@ -7,6 +7,7 @@
 #include <chrono>
 #include <fstream>
 #include <omp.h>
+#include "Console.h"
 #include "Trainer.h"
 #include "../BrabeNetz/Network.h"
 using namespace std;
@@ -41,6 +42,8 @@ void print_info()
 
 int main()
 {
+	console::set_title("BrabeNetz - Neural Network");
+
 	srand(time(nullptr));
 
 	print_info();
