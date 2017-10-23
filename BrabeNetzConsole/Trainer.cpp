@@ -25,7 +25,7 @@ void trainer::train_xor(network& net, const int train_times)
 	double* oo = new double[2]{ 1,1 };
 	double* oo_e = new double[1]{ 0 };
 
-	for (int i = 0; i < train_times * 4; i++) // Loop train_times (1000) * possibilities for XOR (4)
+	for (int i = 0; i < train_times; i++) // Loop train_times (should be %4 = 0)
 	{
 		#if !CONST_LEARN_RATE
 		const double learn_rate = 1.0 / ((i / 4) + 1.0);
