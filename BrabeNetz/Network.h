@@ -50,7 +50,7 @@ private:
 	// The network topology, only for logic representation and weights initialization
 	network_topology topology_;
 	// Amount of cores/threads on this machine
-	const int core_count = std::thread::hardware_concurrency();;
+	const int core_count = std::thread::hardware_concurrency();
 
 
 	////////////////
