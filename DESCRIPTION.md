@@ -39,6 +39,7 @@ All compile time (`#define`) Definitions inside the `Globals.h` header file:
 * `Trainer.cpp`
   * `CONST_LEARN_RATE`: Use a constant learn rate for training instead of using the thumb-rule formula (`true`)
   * `PRINT_OUTPUT`: Print the output of the training to console (use only for debug, `cout` is very slow, training will take ~1500 times longer) (`false`)
+  * `UPDATE_STATUS`: Update Titlebar of Console Window with status of iteration (i/total)
 * `BrabeNetzConsole.cpp`:
   * `LOAD_STATE`: Load the network's state when starting the program instead of generating a new random network each time (`false`)
   * `TRAIN_TIMES_EACH`: Amount of times to train the network (depending on the training this has to scale) (`1000` for XOR)

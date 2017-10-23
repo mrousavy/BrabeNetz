@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Trainer.h"
+#include "Console.h"
 #include <iostream>
 #include <fstream>
 #include <bitset>
@@ -8,6 +9,8 @@
 #define CONST_LEARN_RATE true
 // Print the input, expected and actual output to console (that's hella slow!)
 #define PRINT_OUTPUT true
+// Update Titlebar of Console Window with status of iteration (i/total)
+#define UPDATE_STATUS true
 
 typedef bitset<8> byte; // byte
 
@@ -54,6 +57,8 @@ void trainer::train_xor(network& net, const int train_times)
 				if (PRINT_OUTPUT) printf(format.c_str(), oo[0], oo[1], output[0]);
 				break;
 		}
+
+		if (UPDATE_STATUS) console::set_title("XOR: " + to_string(i + 1) + "/" + to_string(train_times));
 
 		// Cleanup
 		delete total_error;
