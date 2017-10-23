@@ -41,4 +41,4 @@ All compile time (`#define`) Definitions inside the `Globals.h` header file:
   * `UPDATE_STATUS`: Update Titlebar of Console Window with status of iteration (i/total) (use only for debug, I/O like setting title is slow, training will take ~0.12ms longer per iteration) (`true`)
 * `BrabeNetzConsole.cpp`:
   * `LOAD_STATE`: Load the network's state when starting the program instead of generating a new random network each time (`false`)
-  * `TRAIN_TIMES_EACH`: Amount of times to train the network (depending on the training this has to scale) (`1000` for XOR)
+  * `TRAIN_TIMES_EACH`: Amount of times to train the network (depending on the training this has to scale, e.g. `4000 / 4` for XOR, so `1000` for each possibility) (`4000`)

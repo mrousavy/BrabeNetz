@@ -15,7 +15,7 @@ using namespace std;
 // Load saved network state from disk instead of randomizing a new one each start
 #define LOAD_STATE false
 // Amount of times to train the network
-#define TRAIN_TIMES_EACH 1000
+#define TRAIN_TIMES_EACH 4000
 
 void print_info()
 {
