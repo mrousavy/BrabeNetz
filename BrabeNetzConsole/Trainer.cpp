@@ -13,6 +13,7 @@ typedef bitset<8> byte; // byte
 
 void trainer::train_xor(network& net, const int train_times)
 {
+	const string format = "{ %.0f, %.0f } = %.3f\n";
 	const int size = 2;
 
 	double* zz = new double[2]{ 0,0 };
@@ -38,20 +39,20 @@ void trainer::train_xor(network& net, const int train_times)
 		{
 			case 0:
 				output = net.train(zz, zz_e, *total_error);
-				if (PRINT_OUTPUT) cout << "{ " << zz[0] << ", " << zz[1] << " } = " << output[0] << " | Error: " << *total_error << endl;
+				if (PRINT_OUTPUT) printf(format.c_str(), zz[0], zz[1], output[0]);
 				break;
 			case 1:
 				output = net.train(oz, oz_e, *total_error);
-				if (PRINT_OUTPUT) cout << "{ " << oz[0] << ", " << oz[1] << " } = " << output[0] << " | Error: " << *total_error << endl;
+				if (PRINT_OUTPUT) printf(format.c_str(), oz[0], oz[1], output[0]);
 				break;
 			case 2:
 				output = net.train(zo, zo_e, *total_error);
-				if (PRINT_OUTPUT) cout << "{ " << zo[0] << ", " << zo[1] << " } = " << output[0] << " | Error: " << *total_error << endl;
+				if (PRINT_OUTPUT) printf(format.c_str(), zo[0], zo[1], output[0]);
 				break;
 			case 3:
 			default:
 				output = net.train(oo, oo_e, *total_error);
-				if (PRINT_OUTPUT) cout << "{ " << oo[0] << ", " << oo[1] << " } = " << output[0] << " | Error: " << *total_error << endl;
+				if (PRINT_OUTPUT) printf(format.c_str(), oo[0], oo[1], output[0]);
 				break;
 		}
 
@@ -73,6 +74,8 @@ void trainer::train_xor(network& net, const int train_times)
 // TODO: Fix MSB first (Little/Big endian)
 void trainer::train_handwritten_digits(network& net, int train_times, const string mnist_images, const string mnist_labels)
 {
+	const string format = "File \"%s\" = %.3f\n";
+
 	// Open streams
 	ifstream images_stream(mnist_images, fstream::in | fstream::binary); // Open the images file
 	ifstream labels_stream(mnist_labels, fstream::in | fstream::binary); // Open the labels file
