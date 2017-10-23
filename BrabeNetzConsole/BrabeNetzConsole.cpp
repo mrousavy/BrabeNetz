@@ -22,21 +22,21 @@ void print_info()
 	{
 		if (omp_in_parallel())
 		{
-			#pragma omp single  
-			cout << "Running in parallel with " << omp_get_num_threads() << " OpenMP threads." << omp_get_num_procs() << endl;
+			#pragma omp single
+			printf("Running in parallel with %i OpenMP threads.\n", omp_get_num_threads());
 		} else
 		{
-			#pragma omp single  
-			cout << "Running in serial, no multithreading is used." << omp_get_num_threads()  << endl;
+			#pragma omp single
+			printf("Running in serial, no multithreading is used.\n");
 		}
 	}
 
 	const bool use_cuda = false;
 	const int core_count = 0;
 	if (use_cuda)
-		cout << "Using NVIDIA CUDA with " << core_count << " cores" << endl;
+		printf("Using NVIDIA CUDA with %i cores\n", core_count);
 	else
-		cout << "Not using NVIDIA CUDA" << endl;
+		printf("Not using NVIDIA CUDA.\n");
 }
 
 int main()
@@ -63,10 +63,7 @@ int main()
 	const auto boot_time = std::chrono::duration_cast<chrono::microseconds>(boot_finish - boot_start).count() / 1000.0;
 	const auto train_time = std::chrono::duration_cast<chrono::microseconds>(train_finish - train_start).count() / 1000.0;
 
-	cout << "Bootup time: " << boot_time
-		<< "ms | Train time: " << train_time
-		<< "ms | Total: " << boot_time + train_time
-		<< "ms" << endl;
+	printf("Bootup time: %.3fms | Train time: %.3fms | Total: %.3fms", boot_time, train_time, boot_time + train_time);
 
 	net->save();
 
