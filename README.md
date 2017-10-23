@@ -27,7 +27,7 @@ Be sure to [read the network description](DESCRIPTION.md)
 </p>
 <p align="center">
    <img align="center" src="Images/results.png" alt="Actual trained network prediction output">
-   <p align="center"><b>Actual prediction</b> of the XOR trained network (<code>cout</code> is very slow, hence 3.3s)</p>
+   <p align="center"><b>Actual prediction</b> of the XOR trained network (<code>printf</code> is slow, hence 620ms)</p>
 </p>
 <p align="center">
    <img align="center" src="Images/cpuload.png" alt="Using 24/24 cores in Taskmanager">
