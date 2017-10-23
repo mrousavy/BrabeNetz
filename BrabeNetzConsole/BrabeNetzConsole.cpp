@@ -63,7 +63,7 @@ int main()
 	const auto boot_time = std::chrono::duration_cast<chrono::microseconds>(boot_finish - boot_start).count() / 1000.0;
 	const auto train_time = std::chrono::duration_cast<chrono::microseconds>(train_finish - train_start).count() / 1000.0;
 
-	printf("Bootup time: %.3fms | Train time: %.3fms | Total: %.3fms", boot_time, train_time, boot_time + train_time);
+	printf("Bootup time: %.2fms | Train time: %.2fms | Total: %.2fms", boot_time, train_time, boot_time + train_time);
 
 	net->save();
 
