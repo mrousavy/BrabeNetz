@@ -54,11 +54,15 @@ int main()
 		net = new network({ 2,3,1 });
 	const auto boot_finish = chrono::high_resolution_clock::now();
 
+	printf("Starting network training for %i times..\n", TRAIN_TIMES_EACH);
+
 	// Train neural network with trainer
 	const auto train_start = chrono::high_resolution_clock::now();
 	trainer::train_xor(*net, TRAIN_TIMES_EACH);
 	//trainer::train_handwritten_digits(*net, TRAIN_TIMES_EACH, "train-images.idx3-ubyte", "train-labels.idx1-ubyte");
 	const auto train_finish = chrono::high_resolution_clock::now();
+
+	printf("Training done!\n");
 
 	const auto boot_time = std::chrono::duration_cast<chrono::microseconds>(boot_finish - boot_start).count() / 1000.0;
 	const auto train_time = std::chrono::duration_cast<chrono::microseconds>(train_finish - train_start).count() / 1000.0;
