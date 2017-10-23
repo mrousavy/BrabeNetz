@@ -19,11 +19,11 @@ Be sure to [read the network description](DESCRIPTION.md)
 >
 > **SSD:** Samsung 850 EVO 540MB/s
 >
-> **Commit:** [8c67527](https://github.com/mrousavy/BrabeNetz/commit/8c675272ee0318905930357bd089f40148c88dbf)
+> **Commit:** [53328c3](https://github.com/mrousavy/BrabeNetz/commit/53328c3f6cc2f166ad79c7c8d01a4e6a739c3b93)
 
 <p align="center">
    <img align="center" src="Images/cout.png" alt="Console output with elapsed time (2ms)">
-   <p align="center">Training a <b>XOR</b> 1000 times takes just <b>2ms</b></p>
+   <p align="center">Training a <b>XOR</b> 1000 times takes just <b>0.49ms</b></p>
 </p>
 <p align="center">
    <img align="center" src="Images/results.png" alt="Actual trained network prediction output">

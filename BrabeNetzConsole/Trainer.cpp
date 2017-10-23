@@ -14,7 +14,6 @@ typedef bitset<8> byte; // byte
 void trainer::train_xor(network& net, const int train_times)
 {
 	const string format = "{ %.0f, %.0f } = %.3f\n";
-	const int size = 2;
 
 	double* zz = new double[2]{ 0,0 };
 	double* zz_e = new double[1]{ 0 };
