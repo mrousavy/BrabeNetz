@@ -117,9 +117,11 @@ void trainer::train_handwritten_digits(network& net, const string mnist_images, 
 			image[p] = (double)pixel.to_ulong();
 		}
 
-		double* total_error = new double();
-		//net.train(image, label, *total_error);
+		double* output = net.train(image, expected, *total_error);
+		auto output_l = array_to_bits_rounded(output, 9).to_ulong();
 
+		if (PRINT_OUTPUT) printf(format.c_str(), casted, output_l);
+		if (UPDATE_STATUS) console::set_title("Learning Characters: " + to_string(i + 1) + "/" + to_string(images_count));
 		// cleanup
 		delete[] image;
 	}
