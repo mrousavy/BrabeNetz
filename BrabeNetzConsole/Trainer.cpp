@@ -76,9 +76,9 @@ void trainer::train_xor(network& net, const int train_times)
 }
 
 // TODO: Fix MSB first (Little/Big endian)
-void trainer::train_handwritten_digits(network& net, int train_times, const string mnist_images, const string mnist_labels)
+void trainer::train_handwritten_digits(network& net, const string mnist_images, const string mnist_labels)
 {
-	const string format = "File \"%s\" = %.3f\n";
+	const string format = "File \"%i\" = %i\n";
 
 	// Open streams
 	ifstream images_stream(mnist_images, fstream::in | fstream::binary); // Open the images file
@@ -89,7 +89,7 @@ void trainer::train_handwritten_digits(network& net, int train_times, const stri
 
 	// First 32 bit: MAGIC NUMBER
 	int i_magic_number = read_int(images_stream);
-	int32_t l_magic_number = read_int(labels_stream);
+	int l_magic_number = read_int(labels_stream);
 
 	// 32 bit: ELEMENTS COUNT
 	int images_count = read_int(images_stream);
@@ -102,26 +102,30 @@ void trainer::train_handwritten_digits(network& net, int train_times, const stri
 	int image_hpx = read_int(images_stream);
 	int image_vpx = read_int(images_stream);
 	const int pixels = image_hpx * image_vpx;
+	double* total_error = new double();
 
 	for (int i = 0; i < images_count; i++) // loop through each image/label
 	{
-		byte label = read_byte(labels_stream); // read 1 label
+		byte label = read_byte(labels_stream); // read 1 label (image's number)
+		auto casted = label.to_ulong();
+		double* expected = new double(casted);
 
 		double* image = new double[pixels];
 		for (int p = 0; p < pixels; p++) // Loop through each pixel on this image
 		{
 			byte pixel = read_byte(images_stream); // read 1 pixel
-			//image[p] = reinterpret_cast<double>(&pixel);
+			image[p] = (double)pixel.to_ulong();
 		}
 
 		double* total_error = new double();
 		//net.train(image, label, *total_error);
 
 		// cleanup
-		delete total_error;
 		delete[] image;
 	}
 
+	// cleanup
+	delete total_error;
 	images_stream.close();
 	labels_stream.close();
 }
