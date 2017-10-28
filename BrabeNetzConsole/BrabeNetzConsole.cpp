@@ -13,7 +13,7 @@
 using namespace std;
 
 // Load saved network state from disk instead of randomizing a new one each start
-#define LOAD_STATE false
+#define LOAD_STATE true
 // Amount of times to train the network
 #define TRAIN_TIMES_EACH 4000
 
@@ -54,15 +54,15 @@ int main()
 	if (LOAD_STATE && ifstream("state.nn", fstream::in | fstream::binary)) // Load if file exists
 		net = new network("state.nn");
 	else // Else create random network
-		net = new network({ 2,3,1 });
+		net = new network({ 784,500,100,9 });
 	const auto boot_finish = chrono::high_resolution_clock::now();
 
 	printf("\nStarting network training for %i times..\n", TRAIN_TIMES_EACH);
 
 	// Train neural network with trainer
 	const auto train_start = chrono::high_resolution_clock::now();
-	trainer::train_xor(*net, TRAIN_TIMES_EACH);
-	//trainer::train_handwritten_digits(*net, TRAIN_TIMES_EACH, "train-images.idx3-ubyte", "train-labels.idx1-ubyte");
+	//trainer::train_xor(*net, TRAIN_TIMES_EACH);
+	trainer::train_handwritten_digits(*net, "train-images.idx3-ubyte", "train-labels.idx1-ubyte");
 	const auto train_finish = chrono::high_resolution_clock::now();
 
 	printf("Training done!\n\n");
