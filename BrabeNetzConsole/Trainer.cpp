@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Trainer.h"
 #include "Console.h"
+#include "Helper.h"
 #include <iostream>
 #include <fstream>
 #include <bitset>
@@ -87,37 +88,29 @@ void trainer::train_handwritten_digits(network& net, int train_times, const stri
 		throw "Images/Labels training file not found!";
 
 	// First 32 bit: MAGIC NUMBER
-	int32_t i_magic_number = 0;
-	int32_t l_magic_number = 0;
-	images_stream.read(reinterpret_cast<char*>(&i_magic_number), sizeof(i_magic_number));
-	labels_stream.read(reinterpret_cast<char*>(&l_magic_number), sizeof(l_magic_number));
+	int i_magic_number = read_int(images_stream);
+	int32_t l_magic_number = read_int(labels_stream);
 
 	// 32 bit: ELEMENTS COUNT
-	int images_count = 0;
-	int labels_count = 0;
-	images_stream.read(reinterpret_cast<char*>(&images_count), sizeof(images_count));
-	labels_stream.read(reinterpret_cast<char*>(&labels_count), sizeof(labels_count));
+	int images_count = read_int(images_stream);
+	int labels_count = read_int(labels_stream);
 
 	if (images_count != labels_count)
 		throw "Images count != Labels count - Aborting!";
 
 	// 2x 32 bit: IMAGE ROWS/COLUMNS (PIXELS)
-	int image_hpx = 0;
-	int image_vpx = 0;
-	images_stream.read(reinterpret_cast<char*>(&image_hpx), sizeof(image_hpx));
-	images_stream.read(reinterpret_cast<char*>(&image_vpx), sizeof(image_vpx));
+	int image_hpx = read_int(images_stream);
+	int image_vpx = read_int(images_stream);
 	const int pixels = image_hpx * image_vpx;
 
 	for (int i = 0; i < images_count; i++) // loop through each image/label
 	{
-		byte label;
-		labels_stream.read(reinterpret_cast<char*>(&label), sizeof(label)); // read 1 label
+		byte label = read_byte(labels_stream); // read 1 label
 
 		double* image = new double[pixels];
 		for (int p = 0; p < pixels; p++) // Loop through each pixel on this image
 		{
-			byte pixel;
-			labels_stream.read(reinterpret_cast<char*>(&pixel), sizeof(pixel)); // read 1 pixel
+			byte pixel = read_byte(images_stream); // read 1 pixel
 			//image[p] = reinterpret_cast<double>(&pixel);
 		}
 
