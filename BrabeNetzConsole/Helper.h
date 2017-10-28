@@ -1,5 +1,7 @@
 #pragma once
 #include <fstream>
+#include <bitset>
+#include <math.h>
 
 inline uint32_t read_int(std::ifstream &fileStream)
 {
@@ -19,4 +21,18 @@ inline uint16_t read_short(std::ifstream &fileStream)
 inline uint8_t read_byte(std::ifstream &fileStream)
 {
 	return (uint8_t)fileStream.get();
+}
+
+inline std::bitset<8> array_to_bits_rounded(const double* input, const int length)
+{
+	std::bitset<8> bits{};
+	for (int i = 0; i < length; i++)
+	{
+		// TODO:
+		bits <<= 1;
+		double rounded = round(input[i]);
+		std::bitset<8> bits_tmp{ (unsigned long)rounded };
+		bits |= bits_tmp;
+	}
+	return bits;
 }
