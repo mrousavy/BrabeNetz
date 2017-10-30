@@ -75,10 +75,11 @@ void trainer::train_xor(network& net, const int train_times)
 	delete[] oo_e;
 }
 
-// TODO: Fix MSB first (Little/Big endian)
+// TODO: Something's not right here...
 void trainer::train_handwritten_digits(network& net, const string mnist_images, const string mnist_labels)
 {
-	const string format = "File \"%i\" = %i\n";
+	//const string format = "\"%i\" = %.3f\n";
+	const string format = "\"%i\" = %i\n";
 
 	// Open streams
 	ifstream images_stream(mnist_images, fstream::in | fstream::binary); // Open the images file
@@ -108,7 +109,9 @@ void trainer::train_handwritten_digits(network& net, const string mnist_images, 
 	{
 		byte label = read_byte(labels_stream); // read 1 label (image's number)
 		auto casted = label.to_ulong();
-		double* expected = new double(casted);
+		double expected[10]; // Create empty array
+		for (int i = 0; i < 10; i++) expected[i] = 0; // set every value to 0
+		expected[casted] = 1; // Set expected number to 1
 
 		double* image = new double[pixels];
 		for (int p = 0; p < pixels; p++) // Loop through each pixel on this image
@@ -118,7 +121,7 @@ void trainer::train_handwritten_digits(network& net, const string mnist_images, 
 		}
 
 		double* output = net.train(image, expected, *total_error);
-		auto output_l = array_to_bits_rounded(output, 9).to_ulong();
+		auto output_l = highest_index(output, 10);
 
 		if (PRINT_OUTPUT) printf(format.c_str(), casted, output_l);
 		if (UPDATE_STATUS) console::set_title("Learning Characters: " + to_string(i + 1) + "/" + to_string(images_count));
