@@ -32,3 +32,18 @@ inline double highest_element(const double* input, const int length)
 	}
 	return highest;
 }
+
+inline int highest_index(const double* input, const int length)
+{
+	double highest = 0.0;
+	int index = 0;
+	for (int i = 0; i < length; i++)
+	{
+		if (input[i] > highest)
+		{
+			highest = input[i];
+			index = i;
+		}
+	}
+	return index;
+}
