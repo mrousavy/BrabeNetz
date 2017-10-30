@@ -23,16 +23,12 @@ inline uint8_t read_byte(std::ifstream &fileStream)
 	return (uint8_t)fileStream.get();
 }
 
-inline std::bitset<8> array_to_bits_rounded(const double* input, const int length)
+inline double highest_element(const double* input, const int length)
 {
-	std::bitset<8> bits{};
+	double highest = 0.0;
 	for (int i = 0; i < length; i++)
 	{
-		// TODO:
-		bits <<= 1;
-		double rounded = round(input[i]);
-		std::bitset<8> bits_tmp{ (unsigned long)rounded };
-		bits |= bits_tmp;
+		if (input[i] > highest) highest = input[i];
 	}
-	return bits;
+	return highest;
 }
