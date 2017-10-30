@@ -54,7 +54,7 @@ int main()
 	if (LOAD_STATE && ifstream("state.nn", fstream::in | fstream::binary)) // Load if file exists
 		net = new network("state.nn");
 	else // Else create random network
-		net = new network({ 784,500,100,9 });
+		net = new network({ 784,500,100,10 });
 	const auto boot_finish = chrono::high_resolution_clock::now();
 
 	printf("\nStarting network training for %i times..\n", TRAIN_TIMES_EACH);
@@ -70,12 +70,14 @@ int main()
 	const auto boot_time = std::chrono::duration_cast<chrono::microseconds>(boot_finish - boot_start).count() / 1000.0;
 	const auto train_time = std::chrono::duration_cast<chrono::microseconds>(train_finish - train_start).count() / 1000.0;
 
-	printf("Bootup time: %.2fms | Train time: %.2fms | Total: %.2fms", boot_time, train_time, boot_time + train_time);
+	printf("Bootup time: %.2fms | Train time: %.2fms | Total: %.2fms\n", boot_time, train_time, boot_time + train_time);
 
 	net->save();
+	printf("Saved state to state.nn file.\n\n");
 
 	delete net;
 
 	// Exit on user input
+	printf("Press any key to exit..");
 	getchar();
 }
