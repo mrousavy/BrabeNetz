@@ -3,9 +3,9 @@
 
 > **BrabeNetz** is a **supervised neural network** written in C++, aiming to be as fast as possible. It can effectively multithread on the **CPU** where needed, allocate and free fast (by `malloc`/`free`), access values faster (pointer-arrays instead of `vector`) and is well documented.
 
-I've written an example of using **BrabeNetz** in the [Trainer class](https://github.com/mrousavy/BrabeNetz/blob/master/BrabeNetzConsole/Trainer.cpp) to train a **XOR** (`{0,0}=0`, `{0,1}=1`, ..) and **recognize handwritten characters**.
+I've written two examples of using **BrabeNetz** in the [Trainer class](https://github.com/mrousavy/BrabeNetz/blob/master/BrabeNetzConsole/Trainer.cpp) to train a **XOR** (`{0,0}=0`, `{0,1}=1`, ..) and **recognize handwritten characters**.
 
-In my XOR example, I'm using a `{2,3,1}` topology (`2` input-, `3` hidden- and `1` output-neurons), but **BrabeNetz** is scalable until the hardware reaches its limits. You may easily rewrite it to, for example, recognize handwritten characters (from the [MNIST DB](http://yann.lecun.com/exdb/mnist/)) with larger topologies.
+In my XOR example, I'm using a `{2,3,1}` topology (`2` input-, `3` hidden- and `1` output-neurons), but **BrabeNetz** is scalable until the hardware reaches its limits. The digits recognizer is using a `{784,500,100,10}` network to train handwritten digits from the [MNIST DB](http://yann.lecun.com/exdb/mnist/).
 
 Be sure to [read the network description](DESCRIPTION.md)
 
@@ -26,8 +26,12 @@ Be sure to [read the network description](DESCRIPTION.md)
    <p align="center">Training a <b>XOR</b> 1000 times takes just <b>0.49ms</b></p>
 </p>
 <p align="center">
-   <img align="center" src="Images/results.png" alt="Actual trained network prediction output">
+   <img align="center" src="Images/results_xor.png" alt="Actual trained network prediction output for XOR">
    <p align="center"><b>Actual prediction</b> of the XOR trained network (<code>printf</code> is slow, hence 620ms)</p>
+</p>
+<p align="center">
+   <img align="center" src="Images/results_digits.png" alt="Actual trained network prediction output for digit recognition">
+   <p align="center"><b>Actual prediction</b> of the digit recognizer network</p>
 </p>
 <p align="center">
    <img align="center" src="Images/cpuload.png" alt="Using 24/24 cores in Taskmanager">
