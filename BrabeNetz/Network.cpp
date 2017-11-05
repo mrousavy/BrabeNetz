@@ -41,7 +41,7 @@ void network::init(network_topology& topology)
 	{
 		const int layer_size = topology.layer_at(i).size; // Size of this layer (Neurons count)
 		this->neurons_count_[i] = layer_size; // Set neuron count on this hidden layer
-		this->layers_[i] = new double[layer_size];
+		this->layers_[i] = static_cast<double*>(malloc(sizeof(double) * layer_size));
 	}
 	fill_weights();
 }
@@ -117,6 +117,7 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 double* network::train(double* input_values, double* expected_output, double& out_total_error) const
 {
 	const int length = this->neurons_count_[0]; // Count of input neurons
+	if (this->layers_[0] != nullptr) free(this->layers_[0]);
 	this->layers_[0] = static_cast<double*>(malloc(sizeof(double) * length));
 	// Copy over inputs (we need this for adjust(..))
 	for (int n = 0; n < length; n++) // Loop through each input neuron "n"
@@ -132,7 +133,6 @@ double* network::train(double* input_values, double* expected_output, double& ou
 	}
 
 	out_total_error = adjust(expected_output, values);
-	free(this->layers_[0]);
 	delete values_length;
 	return values;
 }
