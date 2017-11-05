@@ -15,6 +15,9 @@
 
 typedef bitset<8> byte; // byte
 
+/*
+	Train the network to recognize a XOR input (recommended topology: {2,3,1})
+*/
 void trainer::train_xor(network& net, const int train_times)
 {
 	const string format = "{ %.0f, %.0f } = %.3f\n";
@@ -75,10 +78,11 @@ void trainer::train_xor(network& net, const int train_times)
 	delete[] oo_e;
 }
 
-// TODO: Something's not right here...
+/*
+	Train the network to recognize handwritten digits from the MNIST data set (recommended topology: {784,16,16,10})
+*/
 void trainer::train_handwritten_digits(network& net, const string mnist_images, const string mnist_labels)
 {
-	//const string format = "\"%i\" = %.3f\n";
 	const string format = "\"%i\" = %i\n";
 
 	// Open streams
@@ -105,6 +109,7 @@ void trainer::train_handwritten_digits(network& net, const string mnist_images, 
 	const int pixels = image_hpx * image_vpx;
 	double* total_error = new double();
 
+	// TODO: label from previous train is current output - shifted by 1, why?
 	for (int i = 0; i < images_count; i++) // loop through each image/label
 	{
 		uint8_t label = read_byte(labels_stream); // read 1 label (the expected image's number)
