@@ -117,6 +117,7 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 // Train network and adjust weights to expectedOutput
 double* network::train(double* input_values, double* expected_output, double& out_total_error) const
 {
+	if (this->layers_[0] != nullptr) free(this->layers_[0]); // cleanup
 	const int length = this->neurons_count_[0]; // Count of input neurons
 	this->layers_[0] = static_cast<double*>(malloc(sizeof(double) * length));
 	// Copy over inputs (we need this for adjust(..))

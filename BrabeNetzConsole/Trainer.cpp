@@ -33,34 +33,34 @@ void trainer::train_xor(network& net, const int train_times)
 
 	for (int i = 0; i < train_times; i++) // Loop train_times (should be %4 = 0)
 	{
-		#if !CONST_LEARN_RATE
+#if !CONST_LEARN_RATE
 		const double learn_rate = 1.0 / ((i / 4) + 1.0);
 		net.set_learnrate(learn_rate);
-		#endif
+#endif
 
 		double* total_error = new double(0);
 		double* output;
 
 		switch (i % 4) // Train all 4 cases alternately
 		{
-			case 0:
-				output = net.train(zz, zz_e, *total_error);
-				if (PRINT_OUTPUT) printf(format.c_str(), zz[0], zz[1], output[0]);
-				break;
-			case 1:
-				output = net.train(oz, oz_e, *total_error);
-				if (PRINT_OUTPUT) printf(format.c_str(), oz[0], oz[1], output[0]);
-				break;
-			case 2:
-				output = net.train(zo, zo_e, *total_error);
-				if (PRINT_OUTPUT) printf(format.c_str(), zo[0], zo[1], output[0]);
-				break;
-			case 3:
-			default:
-				output = net.train(oo, oo_e, *total_error);
-				if (PRINT_OUTPUT) printf(format.c_str(), oo[0], oo[1], output[0]);
-				if (UPDATE_STATUS) console::set_title("XOR: " + to_string(i + 1) + "/" + to_string(train_times));
-				break;
+		case 0:
+			output = net.train(zz, zz_e, *total_error);
+			if (PRINT_OUTPUT) printf(format.c_str(), zz[0], zz[1], output[0]);
+			break;
+		case 1:
+			output = net.train(oz, oz_e, *total_error);
+			if (PRINT_OUTPUT) printf(format.c_str(), oz[0], oz[1], output[0]);
+			break;
+		case 2:
+			output = net.train(zo, zo_e, *total_error);
+			if (PRINT_OUTPUT) printf(format.c_str(), zo[0], zo[1], output[0]);
+			break;
+		case 3:
+		default:
+			output = net.train(oo, oo_e, *total_error);
+			if (PRINT_OUTPUT) printf(format.c_str(), oo[0], oo[1], output[0]);
+			if (UPDATE_STATUS) console::set_title("XOR: " + to_string(i + 1) + "/" + to_string(train_times));
+			break;
 		}
 
 		// Cleanup
@@ -89,19 +89,19 @@ void trainer::train_handwritten_digits(network& net, const string mnist_images, 
 	ifstream images_stream(mnist_images, fstream::in | fstream::binary); // Open the images file
 	ifstream labels_stream(mnist_labels, fstream::in | fstream::binary); // Open the labels file
 
-	if (!images_stream.is_open() || !labels_stream.is_open()) // Check if exists
+	if (!images_stream.good() || !labels_stream.good()) // Check if exists
 		throw "Images/Labels training file not found!";
 
 	// First 32 bit: MAGIC NUMBER
 	int i_magic_number = read_int(images_stream);
 	int l_magic_number = read_int(labels_stream);
 
+	if (i_magic_number != 2051 || l_magic_number != 2049) // Check if valid
+		throw "Images/Labels magic number not valid!";
+
 	// 32 bit: ELEMENTS COUNT
 	int images_count = read_int(images_stream);
 	int labels_count = read_int(labels_stream);
-
-	if (images_count != labels_count)
-		throw "Images count != Labels count - Aborting!";
 
 	// 2x 32 bit: IMAGE ROWS/COLUMNS (PIXELS)
 	int image_hpx = read_int(images_stream);
