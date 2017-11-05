@@ -37,6 +37,8 @@ public:
 	void save(string path = STATE_FILE);
 	// Set the network's learning rate (should be 1/i, where i = train iterations so far)
 	void set_learnrate(double value);
+	// Build and set the network topology object of the current network's state
+	network_topology& build_topology();
 private:
 	////////////////
 	// properties //

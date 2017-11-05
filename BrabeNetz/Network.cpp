@@ -65,7 +65,6 @@ void network::set_learnrate(const double value)
 {
 	learn_rate_ = value;
 }
-
 #pragma endregion
 
 #pragma region Forwards Propagation
@@ -122,7 +121,7 @@ double* network::train(double* input_values, double* expected_output, double& ou
 	// Copy over inputs (we need this for adjust(..))
 	for (int n = 0; n < length; n++) // Loop through each input neuron "n"
 	{
-		this->layers_[0][n] = input_values[n]; // Squash Input
+		this->layers_[0][n] = input_values[n]; // TODO: Squash Input?
 	}
 
 	double* values = input_values; // Values of current layer
@@ -133,7 +132,6 @@ double* network::train(double* input_values, double* expected_output, double& ou
 	}
 
 	out_total_error = adjust(expected_output, values);
-	// cleanup
 	free(this->layers_[0]);
 	delete values_length;
 	return values;
@@ -192,8 +190,8 @@ double network::adjust(double* expected_output, double* actual_output) const
 		}
 	}
 
-	for (int i = 0; i < layers_count_; i++) // Loop through each error
-		free(errors[i]); // Cleanup
+	for (int i = 0; i < layers_count_; i++) // Loop through each layer (error)
+		free(errors[i]);
 	free(errors);
 	return error_sum;
 }
@@ -236,9 +234,9 @@ void network::fill_weights()
 	}
 }
 
-void network::save(const string path)
+network_topology & network::build_topology()
 {
-#pragma omp parallel for
+	// TODO: Parallel for this?
 	for (int i = 0; i < layers_count_ - 1; i++) // Loop through each layer until last hidden layer
 	{
 		layer& layer = this->topology_.layer_at(i);
@@ -253,7 +251,13 @@ void network::save(const string path)
 			}
 		}
 	}
-	network_topology::save(this->topology_, path);
+
+	return this->topology_;
+}
+
+void network::save(const string path)
+{
+	network_topology::save(build_topology(), path);
 }
 
 void network::load(const string path)
