@@ -87,7 +87,7 @@ double* network::feed(double* input_values) const
 // This function focuses on only one layer, so in theory we have 1 input layer, the layer we focus on, and 1 output
 // FORWARD-PROPAGATION ALGORITHM
 double* network::to_next_layer(double* input_values, const int input_length, const int layer_index,
-							   int& out_length) const
+	int& out_length) const
 {
 	const int n_count = this->neurons_count_[layer_index]; // Count of neurons in the next layer (w/ layerIndex)
 	double** weights = this->weights_[layer_index - 1]; // ptr to weights of neurons from prev. to this layer
@@ -117,7 +117,6 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 // Train network and adjust weights to expectedOutput
 double* network::train(double* input_values, double* expected_output, double& out_total_error) const
 {
-	if (this->layers_[0] != nullptr) free(this->layers_[0]); // cleanup
 	const int length = this->neurons_count_[0]; // Count of input neurons
 	this->layers_[0] = static_cast<double*>(malloc(sizeof(double) * length));
 	// Copy over inputs (we need this for adjust(..))
@@ -134,6 +133,8 @@ double* network::train(double* input_values, double* expected_output, double& ou
 	}
 
 	out_total_error = adjust(expected_output, values);
+	// cleanup
+	free(this->layers_[0]);
 	delete values_length;
 	return values;
 }
@@ -164,7 +165,7 @@ double network::adjust(double* expected_output, double* actual_output) const
 		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
 
 		const bool worth = FORCE_MULTITHREADED || neurons * next_neurons > core_count * ITERS_PER_THREAD; // Worth the multithread-spawning?
-		#pragma omp parallel for if(worth) // OMP.Parallel loop on each CPU Core if worth the thread spawn
+#pragma omp parallel for if(worth) // OMP.Parallel loop on each CPU Core if worth the thread spawn
 		for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer
 		{
 			if (i > 0) // Only calculate error on hidden layers
@@ -213,7 +214,7 @@ void network::fill_weights()
 	const int lcount = this->topology_.size; // Count of layers
 	this->biases_ = new double*[lcount];
 	this->weights_ = new double**[lcount];
-	#pragma omp parallel for
+#pragma omp parallel for
 	for (int l = 0; l < lcount; l++) // Loop through each layer
 	{
 		layer& layer = this->topology_.layer_at(l);
@@ -237,7 +238,7 @@ void network::fill_weights()
 
 void network::save(const string path)
 {
-	#pragma omp parallel for
+#pragma omp parallel for
 	for (int i = 0; i < layers_count_ - 1; i++) // Loop through each layer until last hidden layer
 	{
 		layer& layer = this->topology_.layer_at(i);
