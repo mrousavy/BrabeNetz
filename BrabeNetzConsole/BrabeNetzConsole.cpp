@@ -54,9 +54,9 @@ int main()
 	if (LOAD_STATE && ifstream("state.nn", fstream::in | fstream::binary)) // Load if file exists
 		net = new network("state.nn");
 	else // Else create random network
-		net = new network({ 784,500,100,10 });
+		net = new network({ 784,500,100,10 }); //TODO: {784,16,16,10} ?
 	const auto boot_finish = chrono::high_resolution_clock::now();
-
+	
 	printf("\nStarting network training for %i times..\n", TRAIN_TIMES_EACH);
 
 	// Train neural network with trainer

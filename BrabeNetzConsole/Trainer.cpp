@@ -107,23 +107,22 @@ void trainer::train_handwritten_digits(network& net, const string mnist_images, 
 
 	for (int i = 0; i < images_count; i++) // loop through each image/label
 	{
-		byte label = read_byte(labels_stream); // read 1 label (image's number)
-		auto casted = label.to_ulong();
+		uint8_t label = read_byte(labels_stream); // read 1 label (the expected image's number)
 		double expected[10]; // Create empty array
 		for (int i = 0; i < 10; i++) expected[i] = 0; // set every value to 0
-		expected[casted] = 1; // Set expected number to 1
+		expected[label] = 1; // Set expected number to 1
 
 		double* image = new double[pixels];
 		for (int p = 0; p < pixels; p++) // Loop through each pixel on this image
 		{
-			byte pixel = read_byte(images_stream); // read 1 pixel
-			image[p] = (double)pixel.to_ulong();
+			uint8_t pixel = read_byte(images_stream); // read 1 pixel
+			image[p] = (double)pixel;
 		}
 
-		double* output = net.train(image, expected, *total_error);
-		auto output_l = highest_index(output, 10);
+		double* output = net.train(image, expected, *total_error); // actually train the network
+		auto output_l = highest_index(output, 10); // get the highest index of the output array (actual result)
 
-		if (PRINT_OUTPUT) printf(format.c_str(), casted, output_l);
+		if (PRINT_OUTPUT) printf(format.c_str(), label, output_l);
 		if (UPDATE_STATUS) console::set_title("Learning Characters: " + to_string(i + 1) + "/" + to_string(images_count));
 		// cleanup
 		delete[] image;
