@@ -19,15 +19,16 @@ using namespace std;
 
 void print_info()
 {
-	#pragma omp parallel
+#pragma omp parallel
 	{
 		if (omp_in_parallel())
 		{
-			#pragma omp single
+#pragma omp single
 			printf("Running in parallel with %i OpenMP threads.\n", omp_get_num_threads());
-		} else
+		}
+		else
 		{
-			#pragma omp single
+#pragma omp single
 			printf("Running in serial, no multithreading is used.\n");
 		}
 	}
@@ -42,40 +43,48 @@ void print_info()
 
 int main()
 {
-	console::set_title("BrabeNetz - Neural Network");
+	try {
+		console::set_title("BrabeNetz - Neural Network");
 
-	srand(time(nullptr));
+		srand(time(nullptr));
 
-	print_info();
+		print_info();
 
-	// boot up/load neuronal network
-	const auto boot_start = chrono::high_resolution_clock::now();
-	network* net;
-	if (LOAD_STATE && ifstream("state.nn", fstream::in | fstream::binary)) // Load if file exists
-		net = new network("state.nn");
-	else // Else create random network
-		net = new network({ 784,500,100,10 }); //TODO: {784,16,16,10} ?
-	const auto boot_finish = chrono::high_resolution_clock::now();
-	
-	printf("\nStarting network training for %i times..\n", TRAIN_TIMES_EACH);
+		// boot up/load neuronal network
+		const auto boot_start = chrono::high_resolution_clock::now();
+		network* net;
+		if (LOAD_STATE && ifstream("state.nn", fstream::in | fstream::binary)) // Load if file exists
+			net = new network("state.nn");
+		else // Else create random network
+			net = new network({ 784,500,100,10 }); //TODO: {784,16,16,10} ?
+		const auto boot_finish = chrono::high_resolution_clock::now();
 
-	// Train neural network with trainer
-	const auto train_start = chrono::high_resolution_clock::now();
-	//trainer::train_xor(*net, TRAIN_TIMES_EACH);
-	trainer::train_handwritten_digits(*net, "train-images.idx3-ubyte", "train-labels.idx1-ubyte");
-	const auto train_finish = chrono::high_resolution_clock::now();
+		printf("\nStarting network training for %i times..\n", TRAIN_TIMES_EACH);
 
-	printf("Training done!\n\n");
+		// Train neural network with trainer
+		const auto train_start = chrono::high_resolution_clock::now();
+		//trainer::train_xor(*net, TRAIN_TIMES_EACH);
+		trainer::train_handwritten_digits(*net, "train-images.idx3-ubyte", "train-labels.idx1-ubyte");
+		const auto train_finish = chrono::high_resolution_clock::now();
 
-	const auto boot_time = std::chrono::duration_cast<chrono::microseconds>(boot_finish - boot_start).count() / 1000.0;
-	const auto train_time = std::chrono::duration_cast<chrono::microseconds>(train_finish - train_start).count() / 1000.0;
+		printf("Training done!\n\n");
 
-	printf("Bootup time: %.2fms | Train time: %.2fms | Total: %.2fms\n", boot_time, train_time, boot_time + train_time);
+		const auto boot_time = std::chrono::duration_cast<chrono::microseconds>(boot_finish - boot_start).count() / 1000.0;
+		const auto train_time = std::chrono::duration_cast<chrono::microseconds>(train_finish - train_start).count() / 1000.0;
 
-	net->save();
-	printf("Saved state to state.nn file.\n\n");
+		printf("Bootup time: %.2fms | Train time: %.2fms | Total: %.2fms\n", boot_time, train_time, boot_time + train_time);
 
-	delete net;
+		net->save();
+		printf("Saved state to state.nn file.\n\n");
+
+		delete net;
+	}
+	catch (exception exc) {
+		cout << exc.what() << endl;
+	}
+	catch (string error) {
+		cout << error << endl;
+	}
 
 	// Exit on user input
 	printf("Press any key to exit..");
