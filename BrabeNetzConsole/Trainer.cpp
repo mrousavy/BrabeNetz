@@ -4,21 +4,19 @@
 #include "Helper.h"
 #include <iostream>
 #include <fstream>
-#include <bitset>
+#include <chrono>
 
 // Use a constant learn rate (LEARN_RATE) for training instead of small decreasing one
 #define CONST_LEARN_RATE true
 // Print the input, expected and actual output to console (that's hella slow!)
-#define PRINT_OUTPUT true
+#define PRINT_OUTPUT false
 // Update Titlebar of Console Window with status of iteration (i/total)
 #define UPDATE_STATUS true
-
-typedef bitset<8> byte; // byte
 
 /*
 	Train the network to recognize a XOR input (recommended topology: {2,3,1})
 */
-void trainer::train_xor(network& net, const int train_times)
+long long trainer::train_xor(network& net, const int train_times)
 {
 	const string format = "{ %.0f, %.0f } = %.3f\n";
 
@@ -31,6 +29,7 @@ void trainer::train_xor(network& net, const int train_times)
 	double* oo = new double[2]{ 1,1 };
 	double* oo_e = new double[1]{ 0 };
 
+	const auto train_start = chrono::high_resolution_clock::now();
 	for (int i = 0; i < train_times; i++) // Loop train_times (should be %4 = 0)
 	{
 #if !CONST_LEARN_RATE
@@ -66,6 +65,7 @@ void trainer::train_xor(network& net, const int train_times)
 		// Cleanup
 		delete total_error;
 	}
+	const auto train_finish = chrono::high_resolution_clock::now();
 
 	// Cleanup
 	delete[] zz;
@@ -76,12 +76,14 @@ void trainer::train_xor(network& net, const int train_times)
 	delete[] zo_e;
 	delete[] oo;
 	delete[] oo_e;
+
+	return std::chrono::duration_cast<chrono::microseconds>(train_finish - train_start).count();
 }
 
 /*
 	Train the network to recognize handwritten digits from the MNIST data set (recommended topology: {784,16,16,10})
 */
-void trainer::train_handwritten_digits(network& net, const string mnist_images, const string mnist_labels)
+long long trainer::train_handwritten_digits(network& net, const string mnist_images, const string mnist_labels)
 {
 	const string format = "\"%i\" = %i\n";
 
@@ -130,6 +132,7 @@ void trainer::train_handwritten_digits(network& net, const string mnist_images, 
 
 	printf("60000/60000 training sets loaded, starting training...\n");
 
+	const auto train_start = chrono::high_resolution_clock::now();
 	for (int i = 0; i < images_count; i++) // loop through each image/label
 	{
 		uint8_t label = labels[i];
@@ -147,9 +150,12 @@ void trainer::train_handwritten_digits(network& net, const string mnist_images, 
 		// cleanup
 		delete[] image;
 	}
+	const auto train_finish = chrono::high_resolution_clock::now();
 
 	// cleanup
 	delete total_error;
 	images_stream.close();
 	labels_stream.close();
+
+	return std::chrono::duration_cast<chrono::microseconds>(train_finish - train_start).count();
 }

@@ -50,6 +50,8 @@ int main()
 
 		print_info();
 
+		printf("\nLoading state.nn/randomizing new network..\n");
+
 		// boot up/load neuronal network
 		const auto boot_start = chrono::high_resolution_clock::now();
 		network* net;
@@ -59,18 +61,16 @@ int main()
 			net = new network({ 784,500,100,10 }); //TODO: {784,16,16,10} ?
 		const auto boot_finish = chrono::high_resolution_clock::now();
 
-		printf("\nStarting network training for %i times..\n", TRAIN_TIMES_EACH);
+		printf("Starting network training for %i times..\n", TRAIN_TIMES_EACH);
 
 		// Train neural network with trainer
-		const auto train_start = chrono::high_resolution_clock::now();
-		//trainer::train_xor(*net, TRAIN_TIMES_EACH);
-		trainer::train_handwritten_digits(*net, "train-images.idx3-ubyte", "train-labels.idx1-ubyte");
-		const auto train_finish = chrono::high_resolution_clock::now();
+		//const auto train_microsecs = trainer::train_xor(*net, TRAIN_TIMES_EACH);
+		const auto train_microsecs = trainer::train_handwritten_digits(*net, "train-images.idx3-ubyte", "train-labels.idx1-ubyte");
+		const double train_time = train_microsecs / 1000.0;
 
 		printf("Training done!\n\n");
 
 		const auto boot_time = std::chrono::duration_cast<chrono::microseconds>(boot_finish - boot_start).count() / 1000.0;
-		const auto train_time = std::chrono::duration_cast<chrono::microseconds>(train_finish - train_start).count() / 1000.0;
 
 		printf("Bootup time: %.2fms | Train time: %.2fms | Total: %.2fms\n", boot_time, train_time, boot_time + train_time);
 
