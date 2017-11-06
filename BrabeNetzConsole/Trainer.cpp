@@ -85,6 +85,8 @@ void trainer::train_handwritten_digits(network& net, const string mnist_images, 
 {
 	const string format = "\"%i\" = %i\n";
 
+	printf("Loading training sets from disk... (%s & %s)\n", mnist_images.c_str(), mnist_labels.c_str());
+
 	// Open streams
 	ifstream images_stream(mnist_images, fstream::in | fstream::binary); // Open the images file
 	ifstream labels_stream(mnist_labels, fstream::in | fstream::binary); // Open the labels file
@@ -109,25 +111,37 @@ void trainer::train_handwritten_digits(network& net, const string mnist_images, 
 	const int pixels = image_hpx * image_vpx;
 	double* total_error = new double();
 
-	// TODO: label from previous train is current output - shifted by 1, why?
+	double** images = new double*[images_count]; // Images (in memory)
+	uint8_t* labels = new uint8_t[labels_count];
+
+	// Load into memory
 	for (int i = 0; i < images_count; i++) // loop through each image/label
 	{
-		uint8_t label = read_byte(labels_stream); // read 1 label (the expected image's number)
-		double expected[10]; // Create empty array
-		for (int i = 0; i < 10; i++) expected[i] = 0; // set every value to 0
-		expected[label] = 1; // Set expected number to 1
+		labels[i] = read_byte(labels_stream); // read 1 label (the expected image's number)
 
 		double* image = new double[pixels];
 		for (int p = 0; p < pixels; p++) // Loop through each pixel on this image
 		{
-			uint8_t pixel = read_byte(images_stream); // read 1 pixel
-			
-			//printf(pixel > 0 ? "X" : " ");
-			//if (p % 28 == 0) printf("\n");
+			image[p] = (double)read_byte(images_stream); // read 1 pixel
 
-			image[p] = (double)pixel;
+			//printf(image[p] > 0 ? "X" : " ");
+			//if (p % 28 == 0) printf("\n");
 		}
 		//printf("\n");
+
+		images[i] = image; // Push loaded image back to memory
+	}
+
+	printf("60000/60000 training sets loaded, starting training...");
+
+	for (int i = 0; i < images_count; i++) // loop through each image/label
+	{
+		uint8_t label = labels[i];
+		double* image = images[i];
+
+		double expected[10]; // Create empty array
+		for (int i = 0; i < 10; i++) expected[i] = 0; // set every value to 0
+		expected[label] = 1; // Set expected number to 1, all others are 0
 
 		double* output = net.train(image, expected, *total_error); // actually train the network
 		auto output_l = highest_index(output, 10); // get the highest index of the output array (actual result)
