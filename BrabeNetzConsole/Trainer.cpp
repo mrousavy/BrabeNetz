@@ -139,6 +139,20 @@ void trainer::train_handwritten_digits(network& net, const string mnist_images, 
 		for (int i = 0; i < 10; i++) expected[i] = 0; // set every value to 0
 		expected[label] = 1; // Set expected number to 1, all others are 0
 
+		images[i] = image; // Push loaded image back to memory
+	}
+
+	printf("60000/60000 training sets loaded, starting training...");
+
+	for (int i = 0; i < images_count; i++) // loop through each image/label
+	{
+		uint8_t label = labels[i];
+		double* image = images[i];
+
+		double expected[10]; // Create empty array
+		for (int i = 0; i < 10; i++) expected[i] = 0; // set every value to 0
+		expected[label] = 1; // Set expected number to 1, all others are 0
+
 		double* output = net.train(image, expected, *total_error); // actually train the network
 		auto output_l = highest_index(output, 10); // get the highest index of the output array (actual result)
 
