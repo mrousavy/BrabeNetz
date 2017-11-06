@@ -7,7 +7,7 @@ I've written two examples of using **BrabeNetz** in the [Trainer class](https://
 
 In my XOR example, I'm using a `{2,3,1}` topology (`2` input-, `3` hidden- and `1` output-neurons), but **BrabeNetz** is scalable until the hardware reaches its limits. The digits recognizer is using a `{784,500,100,10}` network to train handwritten digits from the [MNIST DB](http://yann.lecun.com/exdb/mnist/).
 
-Be sure to [read the network description](DESCRIPTION.md)
+Be sure to [read the network description](DESCRIPTION.md), and **check out my [digit recognizer written in Qt](https://github.com/mrousavy/DigitRecognizer)** (using a trained BrabeNetz MNIST dataset)
 
 ## Benchmarks
 
