@@ -9,7 +9,7 @@
 // Use a constant learn rate (LEARN_RATE) for training instead of small decreasing one
 #define CONST_LEARN_RATE true
 // Print the input, expected and actual output to console (that's hella slow!)
-#define PRINT_OUTPUT false
+#define PRINT_OUTPUT true
 // Update Titlebar of Console Window with status of iteration (i/total)
 #define UPDATE_STATUS true
 
