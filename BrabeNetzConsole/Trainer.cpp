@@ -142,6 +142,15 @@ long long trainer::train_handwritten_digits(network& net, const string mnist_ima
 		for (int i = 0; i < 10; i++) expected[i] = 0; // set every value to 0
 		expected[label] = 1; // Set expected number to 1, all others are 0
 
+		// Remove if not necessary
+		if (PRINT_OUTPUT) {
+			for (int p = 0; p < 784; p++) {
+				printf(image[p] > 0 ? "X" : " ");
+				if (p % 28 == 0) printf("\n");
+			}
+			printf("\n");
+		}
+
 		double* output = net.train(image, expected, *total_error); // actually train the network
 		auto output_l = highest_index(output, 10); // get the highest index of the output array (actual result)
 
