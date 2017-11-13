@@ -15,9 +15,9 @@ public:
 
 	double bias = 0;
 
-	int size()
+	int size() const
 	{
-		return connections_.size();
+		return static_cast<int>(connections_.size());
 	}
 
 private:

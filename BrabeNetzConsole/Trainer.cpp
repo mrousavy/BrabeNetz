@@ -97,24 +97,24 @@ long long trainer::train_handwritten_digits(network& net, const string mnist_ima
 		throw "Images/Labels training file not found!";
 
 	// First 32 bit: MAGIC NUMBER
-	int i_magic_number = read_int(images_stream);
-	int l_magic_number = read_int(labels_stream);
+	const int i_magic_number = read_int(images_stream);
+	const int l_magic_number = read_int(labels_stream);
 
 	if (i_magic_number != 2051 || l_magic_number != 2049) // Check if valid
 		throw "Images/Labels magic number not valid!";
 
 	// 32 bit: ELEMENTS COUNT
-	int images_count = read_int(images_stream);
-	int labels_count = read_int(labels_stream);
+	const int images_count = read_int(images_stream);
+	const int labels_count = read_int(labels_stream);
 
 	// 2x 32 bit: IMAGE ROWS/COLUMNS (PIXELS)
-	int image_hpx = read_int(images_stream);
-	int image_vpx = read_int(images_stream);
-	const int pixels = image_hpx * image_vpx;
-	double* total_error = new double();
+	const int image_hpx = read_int(images_stream);
+	const int image_vpx = read_int(images_stream);
+	const auto pixels = image_hpx * image_vpx;
+	const auto total_error = new double();
 
-	double** images = new double*[images_count]; // Images (in memory)
-	uint8_t* labels = new uint8_t[labels_count];
+	const auto images = new double*[images_count]; // Images (in memory)
+	const auto labels = new uint8_t[labels_count];
 
 	// Load into memory
 	for (int i = 0; i < images_count; i++) // loop through each image/label
@@ -124,7 +124,7 @@ long long trainer::train_handwritten_digits(network& net, const string mnist_ima
 		double* image = new double[pixels];
 		for (int p = 0; p < pixels; p++) // Loop through each pixel on this image
 		{
-			image[p] = (double)read_byte(images_stream); // read 1 pixel
+			image[p] = static_cast<double>(read_byte(images_stream)); // read 1 pixel
 		}
 
 		images[i] = image; // Push loaded image back to memory
@@ -135,11 +135,11 @@ long long trainer::train_handwritten_digits(network& net, const string mnist_ima
 	const auto train_start = chrono::high_resolution_clock::now();
 	for (int i = 0; i < images_count; i++) // loop through each image/label
 	{
-		uint8_t label = labels[i];
+		const uint8_t label = labels[i];
 		double* image = images[i];
 
 		double expected[10]; // Create empty array
-		for (int i = 0; i < 10; i++) expected[i] = 0; // set every value to 0
+		for (int ii = 0; ii < 10; ii++) expected[ii] = 0; // set every value to 0
 		expected[label] = 1; // Set expected number to 1, all others are 0
 
 		// Remove if not necessary
@@ -154,7 +154,7 @@ long long trainer::train_handwritten_digits(network& net, const string mnist_ima
 		}
 
 		double* output = net.train(image, expected, *total_error); // actually train the network
-		auto output_l = highest_index(output, 10); // get the highest index of the output array (actual result)
+		const int output_l = highest_index(output, 10); // get the highest index of the output array (actual result)
 
 		if (PRINT_OUTPUT) printf(format.c_str(), label, output_l);
 		if (UPDATE_STATUS) console::set_title("Learning Characters: " + to_string(i + 1) + "/" + to_string(images_count));
@@ -165,6 +165,8 @@ long long trainer::train_handwritten_digits(network& net, const string mnist_ima
 
 	// cleanup
 	delete total_error;
+	delete[] images;
+	delete[] labels;
 	images_stream.close();
 	labels_stream.close();
 

@@ -7,10 +7,10 @@
 #include <Windows.h>
 #endif
 
-Point::Point(int x, int y)
+point::point(int x, int y)
 {
-	this->X = x;
-	this->Y = y;
+	this->x = x;
+	this->y = y;
 }
 
 int console::get_width()
@@ -39,38 +39,37 @@ int console::get_height()
 #endif
 }
 
-Point console::get_pos()
+point console::get_pos()
 {
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
-	return Point(csbi.dwCursorPosition.X, csbi.dwCursorPosition.Y);
+	return point(csbi.dwCursorPosition.X, csbi.dwCursorPosition.Y);
 }
 
-void console::set_pos(int x, int y)
+void console::set_pos(const int x, const int y)
 {
 #ifdef linux
 	//TODO
 #else
-	HWND consoleWindow = GetConsoleWindow();
-	SetWindowPos(consoleWindow, nullptr, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+	const HWND console_window = GetConsoleWindow();
+	SetWindowPos(console_window, nullptr, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 #endif
 }
 
-void console::set_title(std::string title)
+void console::set_title(const std::string title)
 {
 #ifdef linux
 
 #else
-	SetConsoleTitle(s2ws(title).c_str());
+	SetConsoleTitle(s2_ws(title).c_str());
 #endif
 }
 
 #ifndef linux
-std::wstring console::s2ws(const std::string& s)
+std::wstring console::s2_ws(const std::string& s)
 {
-	int len;
-	int slength = (int)s.length() + 1;
-	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, nullptr, 0);
+	const int slength = static_cast<int>(s.length()) + 1;
+	const int len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, nullptr, 0);
 	wchar_t* buf = new wchar_t[len];
 	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
 	std::wstring r(buf);

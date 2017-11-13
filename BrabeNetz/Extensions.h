@@ -9,12 +9,4 @@ namespace extensions
 	{
 		return input.data(); // > C++ 11
 	}
-
-
-	// Convert an array to a vector of type T
-	template <typename T>
-	std::vector<T> to_vector(T* input, const int length)
-	{
-		return input.data(); // > C++ 11
-	}
 };

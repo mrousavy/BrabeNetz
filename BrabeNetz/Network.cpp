@@ -8,7 +8,7 @@ using namespace std;
 // ctor
 network::network(initializer_list<int> initializer_list)
 {
-	srand(time(nullptr));
+	srand(static_cast<unsigned>(time(nullptr)));
 
 	if (initializer_list.size() < 3)
 		throw
@@ -20,13 +20,13 @@ network::network(initializer_list<int> initializer_list)
 
 network::network(network_topology& topology)
 {
-	srand(time(nullptr));
+	srand(static_cast<unsigned>(time(nullptr)));
 	init(topology);
 }
 
 network::network(const string path)
 {
-	srand(time(nullptr));
+	srand(static_cast<unsigned>(time(nullptr)));
 	load(path);
 }
 
@@ -122,7 +122,7 @@ double* network::train(double* input_values, double* expected_output, double& ou
 	// Copy over inputs (we need this for adjust(..))
 	for (int n = 0; n < length; n++) // Loop through each input neuron "n"
 	{
-		this->layers_[0][n] = input_values[n]; // TODO: Squash Input?
+		this->layers_[0][n] = input_values[n];
 	}
 
 	double* values = input_values; // Values of current layer
@@ -163,7 +163,7 @@ double network::adjust(double* expected_output, double* actual_output) const
 		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
 		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
 
-		const bool worth = FORCE_MULTITHREADED || neurons * next_neurons > core_count * ITERS_PER_THREAD;
+		const bool worth = FORCE_MULTITHREADED || neurons * next_neurons > core_count_ * ITERS_PER_THREAD;
 		// Worth the multithread-spawning?
 #pragma omp parallel for if(worth) // OMP.Parallel loop on each CPU Core if worth the thread spawn
 		for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer

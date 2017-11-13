@@ -13,9 +13,9 @@ public:
 	void add_layer(layer& layer);
 	layer& layer_at(int index);
 
-	int size()
+	int size() const
 	{
-		return (int)layers_.size();
+		return static_cast<int>(layers_.size());
 	}
 
 	static network_topology random(std::vector<int> layers);
