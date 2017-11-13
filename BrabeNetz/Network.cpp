@@ -224,7 +224,7 @@ void network::fill_weights()
 			neuron& neuron = layer.neuron_at(n);
 
 			this->biases_[l][n] = neuron.bias;
-			const int ccount = neuron.size; // Count of connection on this neuron
+			const int ccount = neuron.size(); // Count of connection on this neuron
 			this->weights_[l][n] = new double[ccount];
 			for (int c = 0; c < ccount; c++) // Loop through each connection on this neuron
 			{
