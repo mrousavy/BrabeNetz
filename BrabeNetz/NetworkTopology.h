@@ -12,7 +12,11 @@ public:
 	~network_topology();
 	void add_layer(layer& layer);
 	layer& layer_at(int index);
-	int size;
+
+	inline int size()
+	{
+		return (int)layers_.size();
+	}
 
 	static network_topology random(std::vector<int> layers);
 	static network_topology load(std::string path);

@@ -33,7 +33,7 @@ network::network(const string path)
 void network::init(network_topology& topology)
 {
 	this->topology_ = topology;
-	this->layers_count_ = topology.size; // Count of layers = input (1) + hidden + output (1)
+	this->layers_count_ = topology.size(); // Count of layers = input (1) + hidden + output (1)
 	this->layers_ = new double*[this->layers_count_];
 	this->neurons_count_ = new int[this->layers_count_];
 
@@ -209,7 +209,7 @@ void network::fill_weights()
 	const int count = this->layers_count_ - 1; // Count of layers with connections
 	this->weights_ = new double**[count]; // init first dimension; count of layers with connections
 
-	const int lcount = this->topology_.size; // Count of layers
+	const int lcount = this->topology_.size(); // Count of layers
 	this->biases_ = new double*[lcount];
 	this->weights_ = new double**[lcount];
 #pragma omp parallel for

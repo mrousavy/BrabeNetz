@@ -21,6 +21,7 @@ std::istream& operator>>(std::istream& is, layer& l)
 {
 	int size;
 	is.read(reinterpret_cast<char*>(&size), sizeof(size));
+	l.neurons_.reserve(size);
 	for (int i = 0; i < size; i++) // From last index to 0
 		l.neurons_.push_back(layer::read_neuron(is));
 	return is;
