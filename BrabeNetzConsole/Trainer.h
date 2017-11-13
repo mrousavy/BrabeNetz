@@ -1,5 +1,5 @@
 #pragma once
-#include "../BrabeNetz/Network.h"
+#include "Network.h"
 
 /// <summary>
 /// A Neuronal Network Trainer supporting bools

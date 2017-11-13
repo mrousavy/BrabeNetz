@@ -9,7 +9,7 @@
 #include <omp.h>
 #include "Console.h"
 #include "Trainer.h"
-#include "../BrabeNetz/Network.h"
+#include "Network.h"
 using namespace std;
 
 // Load saved network state from disk instead of randomizing a new one each start

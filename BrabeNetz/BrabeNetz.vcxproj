@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="Extensions.cpp" />
-    <ClCompile Include="Functions.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Network.cpp" />
     <ClCompile Include="NetworkTopology.cpp" />
