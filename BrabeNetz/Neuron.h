@@ -12,12 +12,14 @@ public:
 	~neuron();
 	void add_connection(connection& connection);
 	connection& connection_at(int index);
-	
+
 	double bias = 0;
-	inline int size()
+
+	int size()
 	{
 		return connections_.size();
 	}
+
 private:
 	std::vector<connection> connections_;
 	static connection read_connection(std::istream& is);

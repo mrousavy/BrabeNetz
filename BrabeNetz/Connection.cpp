@@ -2,12 +2,12 @@
 
 
 connection::connection()
-	:weight(1)
+	: weight(1)
 {
 }
 
 connection::connection(const double weight)
-	:weight(weight)
+	: weight(weight)
 {
 }
 

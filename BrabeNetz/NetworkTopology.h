@@ -13,7 +13,7 @@ public:
 	void add_layer(layer& layer);
 	layer& layer_at(int index);
 
-	inline int size()
+	int size()
 	{
 		return (int)layers_.size();
 	}

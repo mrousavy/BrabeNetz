@@ -5,7 +5,7 @@ namespace extensions
 {
 	// Convert a vector to an array of type T
 	template <typename T>
-	inline T* to_array(std::vector<T>& input)
+	T* to_array(std::vector<T>& input)
 	{
 		return input.data(); // > C++ 11
 	}
@@ -13,7 +13,7 @@ namespace extensions
 
 	// Convert an array to a vector of type T
 	template <typename T>
-	inline std::vector<T> to_vector(T* input, const int length)
+	std::vector<T> to_vector(T* input, const int length)
 	{
 		return input.data(); // > C++ 11
 	}

@@ -7,7 +7,8 @@ network_topology::network_topology()
 }
 
 network_topology::~network_topology()
-{}
+{
+}
 
 std::ostream& operator<<(std::ostream& os, network_topology& nt)
 {

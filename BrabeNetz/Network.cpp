@@ -12,7 +12,7 @@ network::network(initializer_list<int> initializer_list)
 
 	if (initializer_list.size() < 3)
 		throw
-		"Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
+			"Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
 
 	this->topology_ = network_topology::random(initializer_list);
 	init(this->topology_);
@@ -86,7 +86,7 @@ double* network::feed(double* input_values) const
 // This function focuses on only one layer, so in theory we have 1 input layer, the layer we focus on, and 1 output
 // FORWARD-PROPAGATION ALGORITHM
 double* network::to_next_layer(double* input_values, const int input_length, const int layer_index,
-	int& out_length) const
+                               int& out_length) const
 {
 	const int n_count = this->neurons_count_[layer_index]; // Count of neurons in the next layer (w/ layerIndex)
 	double** weights = this->weights_[layer_index - 1]; // ptr to weights of neurons from prev. to this layer
@@ -127,7 +127,8 @@ double* network::train(double* input_values, double* expected_output, double& ou
 
 	double* values = input_values; // Values of current layer
 	int* values_length = new int(length); // Copy input length to variable
-	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++) // Loop through each hidden layer + output
+	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++)
+		// Loop through each hidden layer + output
 	{
 		values = to_next_layer(values, *values_length, hidden_index, *values_length);
 	}
@@ -162,7 +163,8 @@ double network::adjust(double* expected_output, double* actual_output) const
 		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
 		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
 
-		const bool worth = FORCE_MULTITHREADED || neurons * next_neurons > core_count * ITERS_PER_THREAD; // Worth the multithread-spawning?
+		const bool worth = FORCE_MULTITHREADED || neurons * next_neurons > core_count * ITERS_PER_THREAD;
+		// Worth the multithread-spawning?
 #pragma omp parallel for if(worth) // OMP.Parallel loop on each CPU Core if worth the thread spawn
 		for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer
 		{
@@ -234,7 +236,7 @@ void network::fill_weights()
 	}
 }
 
-network_topology & network::build_topology()
+network_topology& network::build_topology()
 {
 	// TODO: Parallel for this?
 	for (int i = 0; i < layers_count_ - 1; i++) // Loop through each layer until last hidden layer
