@@ -4,7 +4,7 @@
 #include <math.h>
 
 // Read a 32 bit Integer (int) from a high endian filestream and flip it
-inline uint32_t read_int(std::ifstream &fileStream)
+inline uint32_t read_int(ifstream& fileStream)
 {
 	unsigned char bytes[4];
 	fileStream.read((char*)bytes, 4);
@@ -13,7 +13,7 @@ inline uint32_t read_int(std::ifstream &fileStream)
 }
 
 // Read a 16 bit Integer (short) from a high endian filestream and flip it
-inline uint16_t read_short(std::ifstream &fileStream)
+inline uint16_t read_short(ifstream& fileStream)
 {
 	unsigned char bytes[2];
 	fileStream.read((char*)bytes, 2);
@@ -21,7 +21,7 @@ inline uint16_t read_short(std::ifstream &fileStream)
 }
 
 // Read a 8 bit Integer (byte) from a filestream
-inline uint8_t read_byte(std::ifstream &fileStream)
+inline uint8_t read_byte(ifstream& fileStream)
 {
 	return (uint8_t)fileStream.get();
 }

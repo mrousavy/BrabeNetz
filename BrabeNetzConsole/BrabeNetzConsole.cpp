@@ -37,13 +37,13 @@ void print_info()
 	const int core_count = 0;
 	if (use_cuda)
 		printf("Using NVIDIA CUDA with %i cores\n", core_count);
-	else
-		printf("Not using NVIDIA CUDA.\n");
+	printf("Not using NVIDIA CUDA.\n");
 }
 
 int main()
 {
-	try {
+	try
+	{
 		console::set_title("BrabeNetz - Neural Network");
 
 		srand(time(nullptr));
@@ -78,10 +78,12 @@ int main()
 
 		delete net;
 	}
-	catch (exception exc) {
+	catch (exception exc)
+	{
 		cout << exc.what() << endl;
 	}
-	catch (string error) {
+	catch (string error)
+	{
 		cout << error << endl;
 	}
 

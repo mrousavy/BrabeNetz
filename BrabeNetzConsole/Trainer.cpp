@@ -143,8 +143,10 @@ long long trainer::train_handwritten_digits(network& net, const string mnist_ima
 		expected[label] = 1; // Set expected number to 1, all others are 0
 
 		// Remove if not necessary
-		if (PRINT_OUTPUT) {
-			for (int p = 0; p < 784; p++) {
+		if (PRINT_OUTPUT)
+		{
+			for (int p = 0; p < 784; p++)
+			{
 				printf(image[p] > 0 ? "X" : " ");
 				if (p % 28 == 0) printf("\n");
 			}

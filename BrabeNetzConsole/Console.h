@@ -17,8 +17,7 @@ namespace console
 	void set_pos(int x, int y);
 	void set_title(std::string title);
 
-	#ifndef linux
+#ifndef linux
 	std::wstring s2ws(const std::string& input);
-	#endif
+#endif
 };
-
