@@ -9,17 +9,16 @@ public:
 	int Y;
 };
 
-class console
+namespace console
 {
-public:
-	static int get_width();
-	static int get_height();
-	static Point get_pos();
-	static void set_pos(int x, int y);
-	static void set_title(std::string title);
-private:
+	int get_width();
+	int get_height();
+	Point get_pos();
+	void set_pos(int x, int y);
+	void set_title(std::string title);
+
 	#ifndef linux
-	static std::wstring s2ws(const std::string& input);
+	std::wstring s2ws(const std::string& input);
 	#endif
 };
 
