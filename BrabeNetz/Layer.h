@@ -12,7 +12,11 @@ public:
 	~layer();
 	void add_neuron(neuron& neuron);
 	neuron& neuron_at(int index);
-	int size = 0;
+
+	inline int size()
+	{
+		return (int)neurons_.size();
+	}
 private:
 	std::vector<neuron> neurons_;
 
