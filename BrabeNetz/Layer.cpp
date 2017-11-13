@@ -1,8 +1,8 @@
 #include "Layer.h"
 
 layer::layer()
+	: size(0)
 {
-	this->size = 0;
 }
 
 layer::~layer()
@@ -24,14 +24,6 @@ std::istream& operator>>(std::istream& is, layer& l)
 		l.neurons_.push_back(layer::read_neuron(is));
 	return is;
 }
-
-neuron layer::read_neuron(std::istream& is)
-{
-	neuron n;
-	is >> n;
-	return n;
-}
-
 
 void layer::add_neuron(neuron& neuron)
 {

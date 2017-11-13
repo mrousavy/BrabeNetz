@@ -8,7 +8,7 @@ class connection
 	friend std::istream& operator>>(std::istream& is, connection& c);
 public:
 	connection();
-	explicit connection(double weight);
 	~connection();
-	double weight;
+	connection(const double weight);
+	double weight = 1;
 };
