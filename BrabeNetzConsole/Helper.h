@@ -4,26 +4,26 @@
 #include <math.h>
 
 // Read a 32 bit Integer (int) from a high endian filestream and flip it
-inline uint32_t read_int(ifstream& fileStream)
+inline uint32_t read_int(ifstream& file_stream)
 {
 	unsigned char bytes[4];
-	fileStream.read((char*)bytes, 4);
+	file_stream.read(reinterpret_cast<char*>(bytes), 4);
 
-	return (uint32_t)((bytes[0] << 24) | (bytes[1] << 16) | (bytes[2] << 8) | bytes[3]); // Flip the byte
+	return static_cast<uint32_t>((bytes[0] << 24) | (bytes[1] << 16) | (bytes[2] << 8) | bytes[3]); // Flip the byte
 }
 
 // Read a 16 bit Integer (short) from a high endian filestream and flip it
-inline uint16_t read_short(ifstream& fileStream)
+inline uint16_t read_short(ifstream& file_stream)
 {
 	unsigned char bytes[2];
-	fileStream.read((char*)bytes, 2);
-	return (uint16_t)((bytes[0] << 8) | bytes[1]); // Flip the byte
+	file_stream.read(reinterpret_cast<char*>(bytes), 2);
+	return static_cast<uint16_t>(bytes[0] << 8 | bytes[1]); // Flip the byte
 }
 
 // Read a 8 bit Integer (byte) from a filestream
-inline uint8_t read_byte(ifstream& fileStream)
+inline uint8_t read_byte(ifstream& file_stream)
 {
-	return (uint8_t)fileStream.get();
+	return static_cast<uint8_t>(file_stream.get());
 }
 
 inline double highest_element(const double* input, const int length)
