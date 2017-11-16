@@ -46,7 +46,7 @@ int main()
 	{
 		console::set_title("BrabeNetz - Neural Network");
 
-		srand(time(nullptr));
+		srand(static_cast<unsigned>(time(nullptr)));
 
 		print_info();
 
@@ -63,8 +63,8 @@ int main()
 
 
 		// Train neural network with trainer
-		const auto train_microsecs = trainer::train_xor(*net, TRAIN_TIMES_EACH);
-		//const auto train_microsecs = trainer::train_handwritten_digits(*net, "train-images.idx3-ubyte", "train-labels.idx1-ubyte");
+		//const auto train_microsecs = trainer::train_xor(*net, TRAIN_TIMES_EACH);
+		const auto train_microsecs = trainer::train_handwritten_digits(*net, "train-images.idx3-ubyte", "train-labels.idx1-ubyte");
 		const double train_time = train_microsecs / 1000.0;
 
 		printf("Training done!\n\n");
