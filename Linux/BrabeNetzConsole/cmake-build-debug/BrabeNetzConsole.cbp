@@ -84,22 +84,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/BrabeNetzConsole.cpp">
-			<Option target="BrabeNetzConsole"/>
-		</Unit>
-		<Unit filename="/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/Console.cpp">
-			<Option target="BrabeNetzConsole"/>
-		</Unit>
-		<Unit filename="/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/Console.h">
-			<Option target="BrabeNetzConsole"/>
-		</Unit>
-		<Unit filename="/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/Helper.h">
-			<Option target="BrabeNetzConsole"/>
-		</Unit>
-		<Unit filename="/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/Trainer.cpp">
-			<Option target="BrabeNetzConsole"/>
-		</Unit>
-		<Unit filename="/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/Trainer.h">
+		<Unit filename="/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/main.cpp">
 			<Option target="BrabeNetzConsole"/>
 		</Unit>
 		<Unit filename="/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/CMakeLists.txt">

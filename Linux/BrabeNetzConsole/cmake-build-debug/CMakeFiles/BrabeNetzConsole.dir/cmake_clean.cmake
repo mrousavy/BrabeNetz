@@ -1,7 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o"
-  "CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o"
-  "CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o"
+  "CMakeFiles/BrabeNetzConsole.dir/main.cpp.o"
   "BrabeNetzConsole.pdb"
   "BrabeNetzConsole"
 )

@@ -1,1 +1,1 @@
-/usr/bin/c++   -fopenmp -g   CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o  -o BrabeNetzConsole 
+/usr/bin/c++  -g   CMakeFiles/BrabeNetzConsole.dir/main.cpp.o  -o BrabeNetzConsole 

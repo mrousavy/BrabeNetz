@@ -57,93 +57,41 @@ include CMakeFiles/BrabeNetzConsole.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/BrabeNetzConsole.dir/flags.make
 
-CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o: CMakeFiles/BrabeNetzConsole.dir/flags.make
-CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o: ../BrabeNetzConsole.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o -c /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/BrabeNetzConsole.cpp
+CMakeFiles/BrabeNetzConsole.dir/main.cpp.o: CMakeFiles/BrabeNetzConsole.dir/flags.make
+CMakeFiles/BrabeNetzConsole.dir/main.cpp.o: ../main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/BrabeNetzConsole.dir/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BrabeNetzConsole.dir/main.cpp.o -c /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/main.cpp
 
-CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/BrabeNetzConsole.cpp > CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.i
+CMakeFiles/BrabeNetzConsole.dir/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BrabeNetzConsole.dir/main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/main.cpp > CMakeFiles/BrabeNetzConsole.dir/main.cpp.i
 
-CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/BrabeNetzConsole.cpp -o CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.s
+CMakeFiles/BrabeNetzConsole.dir/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BrabeNetzConsole.dir/main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/main.cpp -o CMakeFiles/BrabeNetzConsole.dir/main.cpp.s
 
-CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o.requires:
+CMakeFiles/BrabeNetzConsole.dir/main.cpp.o.requires:
 
-.PHONY : CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o.requires
+.PHONY : CMakeFiles/BrabeNetzConsole.dir/main.cpp.o.requires
 
-CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o.provides: CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o.requires
-	$(MAKE) -f CMakeFiles/BrabeNetzConsole.dir/build.make CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o.provides.build
-.PHONY : CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o.provides
+CMakeFiles/BrabeNetzConsole.dir/main.cpp.o.provides: CMakeFiles/BrabeNetzConsole.dir/main.cpp.o.requires
+	$(MAKE) -f CMakeFiles/BrabeNetzConsole.dir/build.make CMakeFiles/BrabeNetzConsole.dir/main.cpp.o.provides.build
+.PHONY : CMakeFiles/BrabeNetzConsole.dir/main.cpp.o.provides
 
-CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o.provides.build: CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o
-
-
-CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o: CMakeFiles/BrabeNetzConsole.dir/flags.make
-CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o: ../Console.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o -c /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/Console.cpp
-
-CMakeFiles/BrabeNetzConsole.dir/Console.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BrabeNetzConsole.dir/Console.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/Console.cpp > CMakeFiles/BrabeNetzConsole.dir/Console.cpp.i
-
-CMakeFiles/BrabeNetzConsole.dir/Console.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BrabeNetzConsole.dir/Console.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/Console.cpp -o CMakeFiles/BrabeNetzConsole.dir/Console.cpp.s
-
-CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o.requires:
-
-.PHONY : CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o.requires
-
-CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o.provides: CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o.requires
-	$(MAKE) -f CMakeFiles/BrabeNetzConsole.dir/build.make CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o.provides.build
-.PHONY : CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o.provides
-
-CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o.provides.build: CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o
-
-
-CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o: CMakeFiles/BrabeNetzConsole.dir/flags.make
-CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o: ../Trainer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o -c /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/Trainer.cpp
-
-CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/Trainer.cpp > CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.i
-
-CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/Trainer.cpp -o CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.s
-
-CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o.requires:
-
-.PHONY : CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o.requires
-
-CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o.provides: CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o.requires
-	$(MAKE) -f CMakeFiles/BrabeNetzConsole.dir/build.make CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o.provides.build
-.PHONY : CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o.provides
-
-CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o.provides.build: CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o
+CMakeFiles/BrabeNetzConsole.dir/main.cpp.o.provides.build: CMakeFiles/BrabeNetzConsole.dir/main.cpp.o
 
 
 # Object files for target BrabeNetzConsole
 BrabeNetzConsole_OBJECTS = \
-"CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o" \
-"CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o" \
-"CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o"
+"CMakeFiles/BrabeNetzConsole.dir/main.cpp.o"
 
 # External object files for target BrabeNetzConsole
 BrabeNetzConsole_EXTERNAL_OBJECTS =
 
-BrabeNetzConsole: CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o
-BrabeNetzConsole: CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o
-BrabeNetzConsole: CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o
+BrabeNetzConsole: CMakeFiles/BrabeNetzConsole.dir/main.cpp.o
 BrabeNetzConsole: CMakeFiles/BrabeNetzConsole.dir/build.make
 BrabeNetzConsole: CMakeFiles/BrabeNetzConsole.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable BrabeNetzConsole"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable BrabeNetzConsole"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/BrabeNetzConsole.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -151,9 +99,7 @@ CMakeFiles/BrabeNetzConsole.dir/build: BrabeNetzConsole
 
 .PHONY : CMakeFiles/BrabeNetzConsole.dir/build
 
-CMakeFiles/BrabeNetzConsole.dir/requires: CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o.requires
-CMakeFiles/BrabeNetzConsole.dir/requires: CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o.requires
-CMakeFiles/BrabeNetzConsole.dir/requires: CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o.requires
+CMakeFiles/BrabeNetzConsole.dir/requires: CMakeFiles/BrabeNetzConsole.dir/main.cpp.o.requires
 
 .PHONY : CMakeFiles/BrabeNetzConsole.dir/requires
 

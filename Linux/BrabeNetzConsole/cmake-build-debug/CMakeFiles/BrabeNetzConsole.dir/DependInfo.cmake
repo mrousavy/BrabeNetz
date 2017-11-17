@@ -4,9 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/BrabeNetzConsole.cpp" "/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/cmake-build-debug/CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o"
-  "/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/Console.cpp" "/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/cmake-build-debug/CMakeFiles/BrabeNetzConsole.dir/Console.cpp.o"
-  "/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/Trainer.cpp" "/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/cmake-build-debug/CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o"
+  "/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/main.cpp" "/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/cmake-build-debug/CMakeFiles/BrabeNetzConsole.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
