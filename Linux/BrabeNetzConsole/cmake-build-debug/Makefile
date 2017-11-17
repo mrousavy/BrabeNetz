@@ -123,32 +123,59 @@ BrabeNetzConsole/fast:
 	$(MAKE) -f CMakeFiles/BrabeNetzConsole.dir/build.make CMakeFiles/BrabeNetzConsole.dir/build
 .PHONY : BrabeNetzConsole/fast
 
-main.o: main.cpp.o
+BrabeNetzConsole.o: BrabeNetzConsole.cpp.o
 
-.PHONY : main.o
+.PHONY : BrabeNetzConsole.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/BrabeNetzConsole.dir/build.make CMakeFiles/BrabeNetzConsole.dir/main.cpp.o
-.PHONY : main.cpp.o
+BrabeNetzConsole.cpp.o:
+	$(MAKE) -f CMakeFiles/BrabeNetzConsole.dir/build.make CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o
+.PHONY : BrabeNetzConsole.cpp.o
 
-main.i: main.cpp.i
+BrabeNetzConsole.i: BrabeNetzConsole.cpp.i
 
-.PHONY : main.i
+.PHONY : BrabeNetzConsole.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/BrabeNetzConsole.dir/build.make CMakeFiles/BrabeNetzConsole.dir/main.cpp.i
-.PHONY : main.cpp.i
+BrabeNetzConsole.cpp.i:
+	$(MAKE) -f CMakeFiles/BrabeNetzConsole.dir/build.make CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.i
+.PHONY : BrabeNetzConsole.cpp.i
 
-main.s: main.cpp.s
+BrabeNetzConsole.s: BrabeNetzConsole.cpp.s
 
-.PHONY : main.s
+.PHONY : BrabeNetzConsole.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/BrabeNetzConsole.dir/build.make CMakeFiles/BrabeNetzConsole.dir/main.cpp.s
-.PHONY : main.cpp.s
+BrabeNetzConsole.cpp.s:
+	$(MAKE) -f CMakeFiles/BrabeNetzConsole.dir/build.make CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.s
+.PHONY : BrabeNetzConsole.cpp.s
+
+Trainer.o: Trainer.cpp.o
+
+.PHONY : Trainer.o
+
+# target to build an object file
+Trainer.cpp.o:
+	$(MAKE) -f CMakeFiles/BrabeNetzConsole.dir/build.make CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o
+.PHONY : Trainer.cpp.o
+
+Trainer.i: Trainer.cpp.i
+
+.PHONY : Trainer.i
+
+# target to preprocess a source file
+Trainer.cpp.i:
+	$(MAKE) -f CMakeFiles/BrabeNetzConsole.dir/build.make CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.i
+.PHONY : Trainer.cpp.i
+
+Trainer.s: Trainer.cpp.s
+
+.PHONY : Trainer.s
+
+# target to generate assembly for a file
+Trainer.cpp.s:
+	$(MAKE) -f CMakeFiles/BrabeNetzConsole.dir/build.make CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.s
+.PHONY : Trainer.cpp.s
 
 # Help Target
 help:
@@ -159,9 +186,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... BrabeNetzConsole"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... BrabeNetzConsole.o"
+	@echo "... BrabeNetzConsole.i"
+	@echo "... BrabeNetzConsole.s"
+	@echo "... Trainer.o"
+	@echo "... Trainer.i"
+	@echo "... Trainer.s"
 .PHONY : help
 
 
