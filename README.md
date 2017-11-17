@@ -28,10 +28,6 @@ Be sure to [read the network description](DESCRIPTION.md), and **check out my [d
    <p align="center">Training a <b>XOR</b> 1000 times takes just <b>0.49ms</b></p>
 </p>
 <p align="center">
-   <img align="center" src="Images/results_xor.png" alt="Actual trained network prediction output for XOR">
-   <p align="center"><b>Actual prediction</b> of the XOR trained network (<code>printf</code> is slow, hence 620ms)</p>
-</p>
-<p align="center">
    <img align="center" src="Images/results_digits.png" alt="Actual trained network prediction output for digit recognition">
    <p align="center"><b>Actual prediction</b> of the digit recognizer network</p>
 </p>
@@ -40,8 +36,12 @@ Be sure to [read the network description](DESCRIPTION.md), and **check out my [d
    <p align="center">Effectively using <b>all available cores</b> (24/24, 100% workload)</p>
 </p>
 <p align="center">
-   <img align="center" src="Images/linux_cout.png" alt="Running on Linux">
-   <p align="center">BrabeNetz running on Linux</p>
+   <img align="center" src="Images/linux_cout.png" alt="Running on Linux (Output)">
+   <p align="center">BrabeNetz running on <a href="https://github.com/mrousavy/BrabeNetz/tree/master/Linux">Linux</a> (Debian 9, Linux 4.9.62, KDE Plasma)</p>
+</p>
+<p align="center">
+   <img align="center" src="Images/linux_htop.png" alt="Running on Linux (Task View - htop)">
+   <p align="center">Task Resource viewer (htop) on <a href="https://github.com/mrousavy/BrabeNetz/tree/master/Linux">Linux</a> (Debian 9, Linux 4.9.62, KDE Plasma)</p>
 </p>
 
 ## Specs
