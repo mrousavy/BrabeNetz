@@ -1,2 +1,0 @@
-/usr/bin/ar qc libBrabeNetz.a  CMakeFiles/BrabeNetz.dir/Connection.cpp.o CMakeFiles/BrabeNetz.dir/Layer.cpp.o CMakeFiles/BrabeNetz.dir/Network.cpp.o CMakeFiles/BrabeNetz.dir/NetworkTopology.cpp.o CMakeFiles/BrabeNetz.dir/Neuron.cpp.o
-/usr/bin/ranlib libBrabeNetz.a
