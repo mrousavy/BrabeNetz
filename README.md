@@ -37,6 +37,10 @@ Be sure to [read the network description](DESCRIPTION.md), and **check out my [d
    <img align="center" src="Images/cpuload.png" alt="Using 24/24 cores in Taskmanager">
    <p align="center">Effectively using <b>all available cores</b> (24/24, 100% workload)</p>
 </p>
+<p align="center">
+   <img align="center" src="Images/linux_cout.png" alt="Running on Linux">
+   <p align="center">BrabeNetz running on Linux</p>
+</p>
 
 ## Specs
 * **Faster algorithms** via `malloc`/`free` instead of `new`/`delete`, and **pointers** instead of `std::vector`
