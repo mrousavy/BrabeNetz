@@ -46,9 +46,9 @@ layer& network_topology::layer_at(const int index)
 	return this->layers_.at(index);
 }
 
-network_topology network_topology::random(std::vector<int> layers)
+network_topology& network_topology::random(std::vector<int> layers)
 {
-	network_topology topology;
+	auto * topology = new network_topology(); // Alloc on heap
 
 	for (int l = 0; l < layers.size(); l++) // Loop through each layer
 	{
@@ -77,19 +77,19 @@ network_topology network_topology::random(std::vector<int> layers)
 			layer.add_neuron(neuron); // Add Neuron from layer `l`
 		}
 
-		topology.add_layer(layer); // Add Layer
+		topology->add_layer(layer); // Add Layer
 	}
 
-	return topology;
+	return *topology;
 }
 
-network_topology network_topology::load(const std::string path)
+network_topology* network_topology::load(const std::string path)
 {
-	network_topology topology;
+	network_topology* topology = new network_topology();
 
 	std::ifstream file;
 	file.open(path, std::fstream::in | std::fstream::binary); // Open the file
-	file >> topology; // Deserialize network topology with operator>>
+	file >> *topology; // Deserialize network topology with operator>>
 	file.close();
 
 	return topology;

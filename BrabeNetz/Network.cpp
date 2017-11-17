@@ -12,34 +12,35 @@ network::network(initializer_list<int> initializer_list)
 	srand(static_cast<unsigned>(time(nullptr)));
 
 	if (initializer_list.size() < 3)
-		throw
-			"Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
+		throw exception(
+			"Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output");
 
-	init(this->topology_);
+	init();
 }
 
 network::network(network_topology& topology)
+	: topology_(topology)
 {
 	srand(static_cast<unsigned>(time(nullptr)));
-	init(topology);
+	init();
 }
 
 network::network(const string path)
+	: topology_(*network_topology::load(path))
 {
 	srand(static_cast<unsigned>(time(nullptr)));
-	load(path);
+	init();
 }
 
-void network::init(network_topology& topology)
+void network::init()
 {
-	this->topology_ = topology;
-	this->layers_count_ = topology.size(); // Count of layers = input (1) + hidden + output (1)
+	this->layers_count_ = topology_.size(); // Count of layers = input (1) + hidden + output (1)
 	this->layers_ = new double*[this->layers_count_];
 	this->neurons_count_ = new int[this->layers_count_];
 
 	for (int i = 0; i < this->layers_count_; i++)
 	{
-		const int layer_size = topology.layer_at(i).size(); // Size of this layer (Neurons count)
+		const int layer_size = topology_.layer_at(i).size(); // Size of this layer (Neurons count)
 		this->neurons_count_[i] = layer_size; // Set neuron count on this hidden layer
 		this->layers_[i] = static_cast<double*>(malloc(sizeof(double) * layer_size));
 	}
@@ -163,6 +164,7 @@ double network::adjust(double* expected_output, double* actual_output) const
 		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
 		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
 
+		// ReSharper disable once CppRedundantBooleanExpressionArgument
 		const bool worth = FORCE_MULTITHREADED || neurons * next_neurons > core_count_ * ITERS_PER_THREAD;
 		// Worth the multithread-spawning?
 #pragma omp parallel for if(worth) // OMP.Parallel loop on each CPU Core if worth the thread spawn
@@ -262,11 +264,6 @@ void network::save(const string path)
 	network_topology::save(build_topology(), path);
 }
 
-void network::load(const string path)
-{
-	// ReSharper disable once CppMsExtBindingRValueToLvalueReference
-	init(network_topology::load(path));
-}
 
 void network::delete_weights() const
 {
