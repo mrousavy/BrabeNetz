@@ -83,7 +83,7 @@ network_topology& network_topology::random(std::vector<int> layers)
 	return *topology;
 }
 
-network_topology* network_topology::load(const std::string path)
+network_topology& network_topology::load(const std::string path)
 {
 	network_topology* topology = new network_topology();
 
@@ -92,7 +92,7 @@ network_topology* network_topology::load(const std::string path)
 	file >> *topology; // Deserialize network topology with operator>>
 	file.close();
 
-	return topology;
+	return *topology;
 }
 
 void network_topology::save(network_topology& topology, const std::string path)

@@ -26,7 +26,7 @@ network::network(network_topology& topology)
 }
 
 network::network(const string path)
-	: topology_(*network_topology::load(path))
+	: topology_(network_topology::load(path))
 {
 	srand(static_cast<unsigned>(time(nullptr)));
 	init();
