@@ -3,7 +3,7 @@
 
 > **BrabeNetz** is a **supervised neural network** written in C++, aiming to be as fast as possible. It can effectively multithread on the **CPU** where needed, allocate and free fast (by `malloc`/`free`), access values faster (pointer-arrays instead of `vector`) and is well documented.
 
-[![View latest release](https://img.shields.io/github/downloads/mrousavy/BrabeNetz/total.svg)](https://github.com/mrousavy/BrabeNetz/releases/latest)
+[![View latest release](https://img.shields.io/github/downloads/mrousavy/BrabeNetz/total.svg)](https://github.com/mrousavy/BrabeNetz/releases)
 
 I've written two examples of using **BrabeNetz** in the [Trainer class](https://github.com/mrousavy/BrabeNetz/blob/master/BrabeNetzConsole/Trainer.cpp) to train a **XOR** (`{0,0}=0`, `{0,1}=1`, ..) and **recognize handwritten characters**.
 
