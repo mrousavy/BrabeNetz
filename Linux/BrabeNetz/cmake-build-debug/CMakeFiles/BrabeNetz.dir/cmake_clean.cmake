@@ -1,7 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/BrabeNetz.dir/Connection.cpp.o"
-  "CMakeFiles/BrabeNetz.dir/Extensions.cpp.o"
-  "CMakeFiles/BrabeNetz.dir/Functions.cpp.o"
   "CMakeFiles/BrabeNetz.dir/Layer.cpp.o"
   "CMakeFiles/BrabeNetz.dir/Network.cpp.o"
   "CMakeFiles/BrabeNetz.dir/NetworkTopology.cpp.o"

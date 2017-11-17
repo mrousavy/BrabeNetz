@@ -12,12 +12,16 @@ public:
 	~network_topology();
 	void add_layer(layer& layer);
 	layer& layer_at(int index);
-	int size;
 
-	static network_topology random(std::vector<int> layers);
-	static network_topology load(std::string path);
+	int size() const
+	{
+		return static_cast<int>(layers_.size());
+	}
+
+	static network_topology* random(std::vector<int> layers);
+	static network_topology* load(std::string path);
 	static void save(network_topology& topology, std::string path);
-	static int clear(const std::string path);
+	static int clear(std::string path);
 private:
 	std::vector<layer> layers_;
 	static layer read_layer(std::istream& is);

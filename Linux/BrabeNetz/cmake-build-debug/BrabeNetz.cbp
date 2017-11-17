@@ -90,13 +90,7 @@
 		<Unit filename="/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/Connection.h">
 			<Option target="BrabeNetz"/>
 		</Unit>
-		<Unit filename="/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/Extensions.cpp">
-			<Option target="BrabeNetz"/>
-		</Unit>
 		<Unit filename="/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/Extensions.h">
-			<Option target="BrabeNetz"/>
-		</Unit>
-		<Unit filename="/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/Functions.cpp">
 			<Option target="BrabeNetz"/>
 		</Unit>
 		<Unit filename="/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/Functions.h">

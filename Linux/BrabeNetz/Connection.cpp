@@ -2,13 +2,13 @@
 
 
 connection::connection()
+	: weight(1)
 {
-	this->weight = 1;
 }
 
 connection::connection(const double weight)
+	: weight(weight)
 {
-	this->weight = weight;
 }
 
 connection::~connection()

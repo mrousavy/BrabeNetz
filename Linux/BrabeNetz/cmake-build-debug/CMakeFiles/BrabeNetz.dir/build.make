@@ -81,57 +81,9 @@ CMakeFiles/BrabeNetz.dir/Connection.cpp.o.provides: CMakeFiles/BrabeNetz.dir/Con
 CMakeFiles/BrabeNetz.dir/Connection.cpp.o.provides.build: CMakeFiles/BrabeNetz.dir/Connection.cpp.o
 
 
-CMakeFiles/BrabeNetz.dir/Extensions.cpp.o: CMakeFiles/BrabeNetz.dir/flags.make
-CMakeFiles/BrabeNetz.dir/Extensions.cpp.o: ../Extensions.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/BrabeNetz.dir/Extensions.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BrabeNetz.dir/Extensions.cpp.o -c /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/Extensions.cpp
-
-CMakeFiles/BrabeNetz.dir/Extensions.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BrabeNetz.dir/Extensions.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/Extensions.cpp > CMakeFiles/BrabeNetz.dir/Extensions.cpp.i
-
-CMakeFiles/BrabeNetz.dir/Extensions.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BrabeNetz.dir/Extensions.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/Extensions.cpp -o CMakeFiles/BrabeNetz.dir/Extensions.cpp.s
-
-CMakeFiles/BrabeNetz.dir/Extensions.cpp.o.requires:
-
-.PHONY : CMakeFiles/BrabeNetz.dir/Extensions.cpp.o.requires
-
-CMakeFiles/BrabeNetz.dir/Extensions.cpp.o.provides: CMakeFiles/BrabeNetz.dir/Extensions.cpp.o.requires
-	$(MAKE) -f CMakeFiles/BrabeNetz.dir/build.make CMakeFiles/BrabeNetz.dir/Extensions.cpp.o.provides.build
-.PHONY : CMakeFiles/BrabeNetz.dir/Extensions.cpp.o.provides
-
-CMakeFiles/BrabeNetz.dir/Extensions.cpp.o.provides.build: CMakeFiles/BrabeNetz.dir/Extensions.cpp.o
-
-
-CMakeFiles/BrabeNetz.dir/Functions.cpp.o: CMakeFiles/BrabeNetz.dir/flags.make
-CMakeFiles/BrabeNetz.dir/Functions.cpp.o: ../Functions.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/BrabeNetz.dir/Functions.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BrabeNetz.dir/Functions.cpp.o -c /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/Functions.cpp
-
-CMakeFiles/BrabeNetz.dir/Functions.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BrabeNetz.dir/Functions.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/Functions.cpp > CMakeFiles/BrabeNetz.dir/Functions.cpp.i
-
-CMakeFiles/BrabeNetz.dir/Functions.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BrabeNetz.dir/Functions.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/Functions.cpp -o CMakeFiles/BrabeNetz.dir/Functions.cpp.s
-
-CMakeFiles/BrabeNetz.dir/Functions.cpp.o.requires:
-
-.PHONY : CMakeFiles/BrabeNetz.dir/Functions.cpp.o.requires
-
-CMakeFiles/BrabeNetz.dir/Functions.cpp.o.provides: CMakeFiles/BrabeNetz.dir/Functions.cpp.o.requires
-	$(MAKE) -f CMakeFiles/BrabeNetz.dir/build.make CMakeFiles/BrabeNetz.dir/Functions.cpp.o.provides.build
-.PHONY : CMakeFiles/BrabeNetz.dir/Functions.cpp.o.provides
-
-CMakeFiles/BrabeNetz.dir/Functions.cpp.o.provides.build: CMakeFiles/BrabeNetz.dir/Functions.cpp.o
-
-
 CMakeFiles/BrabeNetz.dir/Layer.cpp.o: CMakeFiles/BrabeNetz.dir/flags.make
 CMakeFiles/BrabeNetz.dir/Layer.cpp.o: ../Layer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/BrabeNetz.dir/Layer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/BrabeNetz.dir/Layer.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BrabeNetz.dir/Layer.cpp.o -c /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/Layer.cpp
 
 CMakeFiles/BrabeNetz.dir/Layer.cpp.i: cmake_force
@@ -155,7 +107,7 @@ CMakeFiles/BrabeNetz.dir/Layer.cpp.o.provides.build: CMakeFiles/BrabeNetz.dir/La
 
 CMakeFiles/BrabeNetz.dir/Network.cpp.o: CMakeFiles/BrabeNetz.dir/flags.make
 CMakeFiles/BrabeNetz.dir/Network.cpp.o: ../Network.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/BrabeNetz.dir/Network.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/BrabeNetz.dir/Network.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BrabeNetz.dir/Network.cpp.o -c /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/Network.cpp
 
 CMakeFiles/BrabeNetz.dir/Network.cpp.i: cmake_force
@@ -179,7 +131,7 @@ CMakeFiles/BrabeNetz.dir/Network.cpp.o.provides.build: CMakeFiles/BrabeNetz.dir/
 
 CMakeFiles/BrabeNetz.dir/NetworkTopology.cpp.o: CMakeFiles/BrabeNetz.dir/flags.make
 CMakeFiles/BrabeNetz.dir/NetworkTopology.cpp.o: ../NetworkTopology.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/BrabeNetz.dir/NetworkTopology.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/BrabeNetz.dir/NetworkTopology.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BrabeNetz.dir/NetworkTopology.cpp.o -c /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/NetworkTopology.cpp
 
 CMakeFiles/BrabeNetz.dir/NetworkTopology.cpp.i: cmake_force
@@ -203,7 +155,7 @@ CMakeFiles/BrabeNetz.dir/NetworkTopology.cpp.o.provides.build: CMakeFiles/BrabeN
 
 CMakeFiles/BrabeNetz.dir/Neuron.cpp.o: CMakeFiles/BrabeNetz.dir/flags.make
 CMakeFiles/BrabeNetz.dir/Neuron.cpp.o: ../Neuron.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/BrabeNetz.dir/Neuron.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/BrabeNetz.dir/Neuron.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BrabeNetz.dir/Neuron.cpp.o -c /home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/Neuron.cpp
 
 CMakeFiles/BrabeNetz.dir/Neuron.cpp.i: cmake_force
@@ -228,8 +180,6 @@ CMakeFiles/BrabeNetz.dir/Neuron.cpp.o.provides.build: CMakeFiles/BrabeNetz.dir/N
 # Object files for target BrabeNetz
 BrabeNetz_OBJECTS = \
 "CMakeFiles/BrabeNetz.dir/Connection.cpp.o" \
-"CMakeFiles/BrabeNetz.dir/Extensions.cpp.o" \
-"CMakeFiles/BrabeNetz.dir/Functions.cpp.o" \
 "CMakeFiles/BrabeNetz.dir/Layer.cpp.o" \
 "CMakeFiles/BrabeNetz.dir/Network.cpp.o" \
 "CMakeFiles/BrabeNetz.dir/NetworkTopology.cpp.o" \
@@ -239,15 +189,13 @@ BrabeNetz_OBJECTS = \
 BrabeNetz_EXTERNAL_OBJECTS =
 
 libBrabeNetz.a: CMakeFiles/BrabeNetz.dir/Connection.cpp.o
-libBrabeNetz.a: CMakeFiles/BrabeNetz.dir/Extensions.cpp.o
-libBrabeNetz.a: CMakeFiles/BrabeNetz.dir/Functions.cpp.o
 libBrabeNetz.a: CMakeFiles/BrabeNetz.dir/Layer.cpp.o
 libBrabeNetz.a: CMakeFiles/BrabeNetz.dir/Network.cpp.o
 libBrabeNetz.a: CMakeFiles/BrabeNetz.dir/NetworkTopology.cpp.o
 libBrabeNetz.a: CMakeFiles/BrabeNetz.dir/Neuron.cpp.o
 libBrabeNetz.a: CMakeFiles/BrabeNetz.dir/build.make
 libBrabeNetz.a: CMakeFiles/BrabeNetz.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library libBrabeNetz.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetz/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library libBrabeNetz.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/BrabeNetz.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/BrabeNetz.dir/link.txt --verbose=$(VERBOSE)
 
@@ -257,8 +205,6 @@ CMakeFiles/BrabeNetz.dir/build: libBrabeNetz.a
 .PHONY : CMakeFiles/BrabeNetz.dir/build
 
 CMakeFiles/BrabeNetz.dir/requires: CMakeFiles/BrabeNetz.dir/Connection.cpp.o.requires
-CMakeFiles/BrabeNetz.dir/requires: CMakeFiles/BrabeNetz.dir/Extensions.cpp.o.requires
-CMakeFiles/BrabeNetz.dir/requires: CMakeFiles/BrabeNetz.dir/Functions.cpp.o.requires
 CMakeFiles/BrabeNetz.dir/requires: CMakeFiles/BrabeNetz.dir/Layer.cpp.o.requires
 CMakeFiles/BrabeNetz.dir/requires: CMakeFiles/BrabeNetz.dir/Network.cpp.o.requires
 CMakeFiles/BrabeNetz.dir/requires: CMakeFiles/BrabeNetz.dir/NetworkTopology.cpp.o.requires

@@ -1,4 +1,5 @@
 #pragma once
+#include <math.h>
 
 // Doubles instead of floats because they are hardware implemented on most architectures
 //				(_X86_ || _M_IX86 || _M_IA64 || _M_ARM || _WIN64 || _WIN32)

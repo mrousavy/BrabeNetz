@@ -7,39 +7,39 @@ using namespace std;
 
 // ctor
 network::network(initializer_list<int> initializer_list)
+	: topology_(network_topology::random(initializer_list))
 {
-	srand(time(nullptr));
+	srand(static_cast<unsigned>(time(nullptr)));
 
 	if (initializer_list.size() < 3)
 		throw
-		"Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
+			"Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output";
 
-	this->topology_ = network_topology::random(initializer_list);
 	init(this->topology_);
 }
 
-network::network(network_topology& topology)
+network::network(network_topology* topology)
 {
-	srand(time(nullptr));
+	srand(static_cast<unsigned>(time(nullptr)));
 	init(topology);
 }
 
 network::network(const string path)
 {
-	srand(time(nullptr));
+	srand(static_cast<unsigned>(time(nullptr)));
 	load(path);
 }
 
-void network::init(network_topology& topology)
+void network::init(network_topology* topology)
 {
 	this->topology_ = topology;
-	this->layers_count_ = topology.size; // Count of layers = input (1) + hidden + output (1)
+	this->layers_count_ = topology->size(); // Count of layers = input (1) + hidden + output (1)
 	this->layers_ = new double*[this->layers_count_];
 	this->neurons_count_ = new int[this->layers_count_];
 
 	for (int i = 0; i < this->layers_count_; i++)
 	{
-		const int layer_size = topology.layer_at(i).size; // Size of this layer (Neurons count)
+		const int layer_size = topology->layer_at(i).size(); // Size of this layer (Neurons count)
 		this->neurons_count_[i] = layer_size; // Set neuron count on this hidden layer
 		this->layers_[i] = static_cast<double*>(malloc(sizeof(double) * layer_size));
 	}
@@ -59,6 +59,7 @@ network::~network()
 	delete[] this->layers_;
 	delete[] this->biases_;
 	delete[] this->neurons_count_;
+    delete this->topology_;
 }
 
 void network::set_learnrate(const double value)
@@ -73,7 +74,7 @@ void network::set_learnrate(const double value)
 double* network::feed(double* input_values) const
 {
 	double* values = input_values; // Values of current layer
-	int* length = new int(this->neurons_count_[0]); // Copy input length to ptr variable
+	auto* length = new int(this->neurons_count_[0]); // Copy input length to ptr variable
 	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++) // Loop through each hidden layer
 	{
 		values = to_next_layer(values, *length, hidden_index, *length);
@@ -86,7 +87,7 @@ double* network::feed(double* input_values) const
 // This function focuses on only one layer, so in theory we have 1 input layer, the layer we focus on, and 1 output
 // FORWARD-PROPAGATION ALGORITHM
 double* network::to_next_layer(double* input_values, const int input_length, const int layer_index,
-	int& out_length) const
+                               int& out_length) const
 {
 	const int n_count = this->neurons_count_[layer_index]; // Count of neurons in the next layer (w/ layerIndex)
 	double** weights = this->weights_[layer_index - 1]; // ptr to weights of neurons from prev. to this layer
@@ -122,12 +123,13 @@ double* network::train(double* input_values, double* expected_output, double& ou
 	// Copy over inputs (we need this for adjust(..))
 	for (int n = 0; n < length; n++) // Loop through each input neuron "n"
 	{
-		this->layers_[0][n] = input_values[n]; // TODO: Squash Input?
+		this->layers_[0][n] = input_values[n];
 	}
 
 	double* values = input_values; // Values of current layer
 	int* values_length = new int(length); // Copy input length to variable
-	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++) // Loop through each hidden layer + output
+	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++)
+		// Loop through each hidden layer + output
 	{
 		values = to_next_layer(values, *values_length, hidden_index, *values_length);
 	}
@@ -141,7 +143,7 @@ double* network::train(double* input_values, double* expected_output, double& ou
 double network::adjust(double* expected_output, double* actual_output) const
 {
 	const int output_length = this->neurons_count_[layers_count_ - 1]; // Count of neurons in output layer
-	double** errors = static_cast<double**>(malloc(sizeof(double*) * layers_count_));
+    auto ** errors = static_cast<double**>(malloc(sizeof(double*) * layers_count_));
 	// Each error value on the neurons (2D: [layer][neuron])
 	errors[layers_count_ - 1] = static_cast<double*>(malloc(sizeof(double) * output_length));
 	// Allocate output layer error size
@@ -162,7 +164,8 @@ double network::adjust(double* expected_output, double* actual_output) const
 		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
 		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
 
-		const bool worth = FORCE_MULTITHREADED || neurons * next_neurons > core_count * ITERS_PER_THREAD; // Worth the multithread-spawning?
+		const bool worth = FORCE_MULTITHREADED || neurons * next_neurons > core_count_ * ITERS_PER_THREAD;
+		// Worth the multithread-spawning?
 #pragma omp parallel for if(worth) // OMP.Parallel loop on each CPU Core if worth the thread spawn
 		for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer
 		{
@@ -209,14 +212,14 @@ void network::fill_weights()
 	const int count = this->layers_count_ - 1; // Count of layers with connections
 	this->weights_ = new double**[count]; // init first dimension; count of layers with connections
 
-	const int lcount = this->topology_.size; // Count of layers
+	const int lcount = this->topology_->size(); // Count of layers
 	this->biases_ = new double*[lcount];
 	this->weights_ = new double**[lcount];
 #pragma omp parallel for
 	for (int l = 0; l < lcount; l++) // Loop through each layer
 	{
-		layer& layer = this->topology_.layer_at(l);
-		const int ncount = layer.size; // Count of neurons in this layer
+		layer& layer = this->topology_->layer_at(l);
+		const int ncount = layer.size(); // Count of neurons in this layer
 		this->biases_[l] = new double[ncount];
 		this->weights_[l] = new double*[ncount];
 		for (int n = 0; n < ncount; n++) // Loop through each neuron in this layer
@@ -224,7 +227,7 @@ void network::fill_weights()
 			neuron& neuron = layer.neuron_at(n);
 
 			this->biases_[l][n] = neuron.bias;
-			const int ccount = neuron.size; // Count of connection on this neuron
+			const int ccount = neuron.size(); // Count of connection on this neuron
 			this->weights_[l][n] = new double[ccount];
 			for (int c = 0; c < ccount; c++) // Loop through each connection on this neuron
 			{
@@ -234,12 +237,12 @@ void network::fill_weights()
 	}
 }
 
-network_topology & network::build_topology()
+network_topology& network::build_topology()
 {
 	// TODO: Parallel for this?
 	for (int i = 0; i < layers_count_ - 1; i++) // Loop through each layer until last hidden layer
 	{
-		layer& layer = this->topology_.layer_at(i);
+		layer& layer = this->topology_->layer_at(i);
 		for (int n = 0; n < neurons_count_[i]; n++) // Loop through each neuron on this layer
 		{
 			neuron& neuron = layer.neuron_at(n);
@@ -252,7 +255,7 @@ network_topology & network::build_topology()
 		}
 	}
 
-	return this->topology_;
+	return *this->topology_;
 }
 
 void network::save(const string path)
@@ -262,9 +265,7 @@ void network::save(const string path)
 
 void network::load(const string path)
 {
-	// ReSharper disable once CppMsExtBindingRValueToLvalueReference
-	network_topology topology = network_topology::load(path);
-	init(topology);
+	init(network_topology::load(path));
 }
 
 void network::delete_weights() const

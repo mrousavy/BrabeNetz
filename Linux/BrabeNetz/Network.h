@@ -21,7 +21,7 @@ public:
 	// initializerList: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output
 	network(initializer_list<int> initializer_list);
 	// initializerList: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output
-	explicit network(network_topology& topology);
+	explicit network(network_topology* topology);
 	// initializerList: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output
 	explicit network(string state_path);
 	~network();
@@ -53,21 +53,19 @@ private:
 	double** layers_;
 	// Each neuron's bias (has length of layers_count_, but every item in [0] is 0 because input layer has no bias)
 	double** biases_;
-	// Each neuron's error values
-	double** errors_;
 	// Weight of each neuron's connection, 3D Array: [layer][neuron][connection]
 	double*** weights_;
 	// The network topology, only for logic representation and weights initialization
-	network_topology topology_;
+	network_topology* topology_;
 	// Amount of cores/threads on this machine
-	const int core_count = std::thread::hardware_concurrency();
+	const int core_count_ = thread::hardware_concurrency();
 
 
 	////////////////
 	// functions  //
 	////////////////
 	// Init Network
-	void init(network_topology& topology);
+	void init(network_topology* topology);
 	// Load the network's state from disk by deserializing and loading weights/biases
 	void load(string path = STATE_FILE);
 	// Forwards Propagate given input_values by one layer and return the new output layer with length of out_length

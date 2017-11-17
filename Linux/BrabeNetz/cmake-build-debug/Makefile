@@ -150,60 +150,6 @@ Connection.cpp.s:
 	$(MAKE) -f CMakeFiles/BrabeNetz.dir/build.make CMakeFiles/BrabeNetz.dir/Connection.cpp.s
 .PHONY : Connection.cpp.s
 
-Extensions.o: Extensions.cpp.o
-
-.PHONY : Extensions.o
-
-# target to build an object file
-Extensions.cpp.o:
-	$(MAKE) -f CMakeFiles/BrabeNetz.dir/build.make CMakeFiles/BrabeNetz.dir/Extensions.cpp.o
-.PHONY : Extensions.cpp.o
-
-Extensions.i: Extensions.cpp.i
-
-.PHONY : Extensions.i
-
-# target to preprocess a source file
-Extensions.cpp.i:
-	$(MAKE) -f CMakeFiles/BrabeNetz.dir/build.make CMakeFiles/BrabeNetz.dir/Extensions.cpp.i
-.PHONY : Extensions.cpp.i
-
-Extensions.s: Extensions.cpp.s
-
-.PHONY : Extensions.s
-
-# target to generate assembly for a file
-Extensions.cpp.s:
-	$(MAKE) -f CMakeFiles/BrabeNetz.dir/build.make CMakeFiles/BrabeNetz.dir/Extensions.cpp.s
-.PHONY : Extensions.cpp.s
-
-Functions.o: Functions.cpp.o
-
-.PHONY : Functions.o
-
-# target to build an object file
-Functions.cpp.o:
-	$(MAKE) -f CMakeFiles/BrabeNetz.dir/build.make CMakeFiles/BrabeNetz.dir/Functions.cpp.o
-.PHONY : Functions.cpp.o
-
-Functions.i: Functions.cpp.i
-
-.PHONY : Functions.i
-
-# target to preprocess a source file
-Functions.cpp.i:
-	$(MAKE) -f CMakeFiles/BrabeNetz.dir/build.make CMakeFiles/BrabeNetz.dir/Functions.cpp.i
-.PHONY : Functions.cpp.i
-
-Functions.s: Functions.cpp.s
-
-.PHONY : Functions.s
-
-# target to generate assembly for a file
-Functions.cpp.s:
-	$(MAKE) -f CMakeFiles/BrabeNetz.dir/build.make CMakeFiles/BrabeNetz.dir/Functions.cpp.s
-.PHONY : Functions.cpp.s
-
 Layer.o: Layer.cpp.o
 
 .PHONY : Layer.o
@@ -324,12 +270,6 @@ help:
 	@echo "... Connection.o"
 	@echo "... Connection.i"
 	@echo "... Connection.s"
-	@echo "... Extensions.o"
-	@echo "... Extensions.i"
-	@echo "... Extensions.s"
-	@echo "... Functions.o"
-	@echo "... Functions.i"
-	@echo "... Functions.s"
 	@echo "... Layer.o"
 	@echo "... Layer.i"
 	@echo "... Layer.s"
