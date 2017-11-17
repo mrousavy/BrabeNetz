@@ -1,6 +1,5 @@
 #include "Network.h"
 #include "Functions.h"
-#include <ctime>
 using namespace std;
 
 #pragma region ctor
@@ -86,7 +85,7 @@ double* network::feed(double* input_values) const
 
 // This function focuses on only one layer, so in theory we have 1 input layer, the layer we focus on, and 1 output
 // FORWARD-PROPAGATION ALGORITHM
-double* network::to_next_layer(double* input_values, const int input_length, const int layer_index,
+double* network::to_next_layer(const double* input_values, const int input_length, const int layer_index,
                                int& out_length) const
 {
 	const int n_count = this->neurons_count_[layer_index]; // Count of neurons in the next layer (w/ layerIndex)
@@ -127,7 +126,7 @@ double* network::train(double* input_values, double* expected_output, double& ou
 	}
 
 	double* values = input_values; // Values of current layer
-	int* values_length = new int(length); // Copy input length to variable
+    auto * values_length = new int(length); // Copy input length to variable
 	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++)
 		// Loop through each hidden layer + output
 	{
@@ -140,7 +139,7 @@ double* network::train(double* input_values, double* expected_output, double& ou
 }
 
 // BACKWARDS-PROPAGATION ALGORITHM
-double network::adjust(double* expected_output, double* actual_output) const
+double network::adjust(const double* expected_output, const double* actual_output) const
 {
 	const int output_length = this->neurons_count_[layers_count_ - 1]; // Count of neurons in output layer
     auto ** errors = static_cast<double**>(malloc(sizeof(double*) * layers_count_));
