@@ -44,6 +44,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/../BrabeNetz"/>
 					<Add directory="/usr/include/c++/6"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/6"/>
 					<Add directory="/usr/include/c++/6/backward"/>
@@ -67,6 +68,7 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/../BrabeNetz"/>
 					<Add directory="/usr/include/c++/6"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/6"/>
 					<Add directory="/usr/include/c++/6/backward"/>

@@ -116,6 +116,7 @@ BrabeNetzConsole_EXTERNAL_OBJECTS =
 BrabeNetzConsole: CMakeFiles/BrabeNetzConsole.dir/BrabeNetzConsole.cpp.o
 BrabeNetzConsole: CMakeFiles/BrabeNetzConsole.dir/Trainer.cpp.o
 BrabeNetzConsole: CMakeFiles/BrabeNetzConsole.dir/build.make
+BrabeNetzConsole: ../../BrabeNetz/cmake-build-debug/libBrabeNetz.a
 BrabeNetzConsole: CMakeFiles/BrabeNetzConsole.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable BrabeNetzConsole"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/BrabeNetzConsole.dir/link.txt --verbose=$(VERBOSE)

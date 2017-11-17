@@ -6,5 +6,5 @@ CXX_FLAGS =  -fopenmp -g   -std=gnu++1z
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = 
+CXX_INCLUDES = -I/home/mrousavy/Documents/Projects/BrabeNetz/Linux/BrabeNetzConsole/../BrabeNetz 
 

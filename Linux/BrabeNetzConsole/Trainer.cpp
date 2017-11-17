@@ -1,9 +1,8 @@
 #include "Trainer.h"
 #include "Console.h"
 #include "Helper.h"
-#include <iostream>
-#include <fstream>
-#include <chrono>
+
+using namespace std;
 
 // Use a constant learn rate (LEARN_RATE) for training instead of small decreasing one
 #define CONST_LEARN_RATE true
@@ -93,14 +92,14 @@ long long trainer::train_handwritten_digits(network& net, const string mnist_ima
 	ifstream labels_stream(mnist_labels, fstream::in | fstream::binary); // Open the labels file
 
 	if (!images_stream.good() || !labels_stream.good()) // Check if exists
-		throw exception("Images/Labels training file not found! Download and unzip from http://yann.lecun.com/exdb/mnist");
+		throw runtime_error("Images/Labels training file not found! Download and unzip from http://yann.lecun.com/exdb/mnist");
 
 	// First 32 bit: MAGIC NUMBER
 	const int i_magic_number = read_int(images_stream);
 	const int l_magic_number = read_int(labels_stream);
 
 	if (i_magic_number != 2051 || l_magic_number != 2049) // Check if valid
-		throw exception("Images/Labels magic number not valid!");
+		throw runtime_error("Images/Labels magic number not valid!");
 
 	// 32 bit: ELEMENTS COUNT
 	const int images_count = read_int(images_stream);
