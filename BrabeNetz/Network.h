@@ -1,17 +1,9 @@
 #pragma once
 #include "NetworkTopology.h"
+#include "Properties.h"
 #include <thread>
-using namespace std;
 
-// Default learning rate for the backpropagation weights/bias adjusting
-#define LEARNING_RATE 0.01
-// Filename for the state file
-#define STATE_FILE "state.nn"
-// Force use of multithreading for backpropagation (only use on larger layers, experiment yourself)
-#define FORCE_MULTITHREADED false
-// Amount of iterations each thread is expected to do (thread spawning takes ~270.000ns, the loop ~250ns)
-#define ITERS_PER_THREAD 600
-
+/// \brief An actual neural network
 class network
 {
 public:
@@ -19,11 +11,11 @@ public:
 	//    ctor    //
 	////////////////
 	// initializerList: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output
-	network(initializer_list<int> initializer_list);
+	network(std::initializer_list<int> initializer_list, properties& properties);
 	// initializerList: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output
-	explicit network(network_topology& topology);
+	explicit network(network_topology& topology, properties& properties);
 	// initializerList: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output
-	explicit network(string state_path = STATE_FILE);
+	explicit network(properties& properties);
 	~network();
 
 	////////////////
@@ -34,17 +26,17 @@ public:
 	// Feed the network information and return the output layer with it's length "out_length"
 	double* feed(double* input_values) const;
 	// Save the network's state to disk by serializing weights
-	void save(string path = STATE_FILE);
+	void save(char* path = "state.nn") const;
 	// Set the network's learning rate (should be 1/i, where i = train iterations so far)
 	void set_learnrate(double value);
 	// Build and set the network topology object of the current network's state
-	network_topology& build_topology();
+	network_topology& build_topology() const;
 private:
 	////////////////
 	// properties //
 	////////////////
 	// Learning rate of this network (1/i, where i = train iterations so far)
-	double learn_rate_ = LEARNING_RATE;
+	double learn_rate_;
 	// Count of Layers in this network
 	int layers_count_;
 	// Count of Neurons in Layers (Left to right in Topology)
@@ -58,7 +50,9 @@ private:
 	// The network topology, only for logic representation and weights initialization
 	network_topology& topology_;
 	// Amount of cores/threads on this machine
-	const int core_count_ = thread::hardware_concurrency();
+	const int core_count_ = std::thread::hardware_concurrency();
+	// The network's initializer properties
+	properties& properties_;
 
 
 	////////////////

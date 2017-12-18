@@ -1,6 +1,8 @@
 #pragma once
 #include "Network.h"
 
+using namespace std;
+
 /// <summary>
 /// A Neuronal Network Trainer supporting bools
 /// </summary>

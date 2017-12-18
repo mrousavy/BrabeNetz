@@ -1,13 +1,14 @@
 #include "Network.h"
 #include "Functions.h"
+#include "Properties.h"
 #include <ctime>
 using namespace std;
 
 #pragma region ctor
 
 // ctor
-network::network(initializer_list<int> initializer_list)
-	: topology_(network_topology::random(initializer_list))
+network::network(initializer_list<int> initializer_list, properties& properties)
+	: topology_(network_topology::random(initializer_list)), properties_(properties_)
 {
 	srand(static_cast<unsigned>(time(nullptr)));
 
@@ -18,15 +19,15 @@ network::network(initializer_list<int> initializer_list)
 	init();
 }
 
-network::network(network_topology& topology)
-	: topology_(topology)
+network::network(network_topology& topology, properties& properties)
+	: topology_(topology), properties_(properties_)
 {
 	srand(static_cast<unsigned>(time(nullptr)));
 	init();
 }
 
-network::network(const string path)
-	: topology_(network_topology::load(path))
+network::network(properties& properties)
+	: topology_(network_topology::load(properties.state_file)), properties_(properties)
 {
 	srand(static_cast<unsigned>(time(nullptr)));
 	init();
@@ -165,7 +166,8 @@ double network::adjust(double* expected_output, double* actual_output) const
 		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
 
 		// ReSharper disable once CppRedundantBooleanExpressionArgument
-		const bool worth = FORCE_MULTITHREADED || neurons * next_neurons > core_count_ * ITERS_PER_THREAD;
+		const bool worth = properties_.force_multithreaded 
+						|| neurons * next_neurons > core_count_ * properties_.iters_per_thread;
 		// Worth the multithread-spawning?
 #pragma omp parallel for if(worth) // OMP.Parallel loop on each CPU Core if worth the thread spawn
 		for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer
@@ -238,7 +240,7 @@ void network::fill_weights()
 	}
 }
 
-network_topology& network::build_topology()
+network_topology& network::build_topology() const
 {
 	// TODO: Parallel for this?
 	for (int i = 0; i < layers_count_ - 1; i++) // Loop through each layer until last hidden layer
@@ -259,7 +261,7 @@ network_topology& network::build_topology()
 	return this->topology_;
 }
 
-void network::save(const string path)
+void network::save(char* path) const
 {
 	network_topology::save(build_topology(), path);
 }

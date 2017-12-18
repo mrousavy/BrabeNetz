@@ -1,7 +1,8 @@
 #pragma once
 #include <fstream>
 #include <bitset>
-#include <math.h>
+
+using namespace std;
 
 // Read a 32 bit Integer (int) from a high endian filestream and flip it
 inline uint32_t read_int(ifstream& file_stream)

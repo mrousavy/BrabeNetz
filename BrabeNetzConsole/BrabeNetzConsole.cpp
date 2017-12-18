@@ -52,13 +52,15 @@ int main()
 
 		printf("\nLoading state.nn/randomizing new network..\n");
 
+		properties properties;
+
 		// boot up/load neuronal network
 		const auto boot_start = chrono::high_resolution_clock::now();
 		network* net;
 		if (LOAD_STATE && ifstream("state.nn", fstream::in | fstream::binary)) // Load if file exists
-			net = new network("state.nn");
+			net = new network(properties);
 		else // Else create random network
-			net = new network({ 2,3,1 });//new network({ 784,500,100,10 }); //TODO: {784,16,16,10} ?
+			net = new network({ 784,16,16,10 }, properties);
 		const auto boot_finish = chrono::high_resolution_clock::now();
 
 
