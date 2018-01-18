@@ -10,18 +10,25 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Platform)' == 'x64'">
     <Link>
-      <AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)bin\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)bin\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Platform)' == 'x86' Or '$(Platform)' == 'Win32'">
+    <Link>
+      <AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)bin\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
 
-  <!-- static libraries -->
-  <ItemDefinitionGroup Condition="'$(Platform)' == 'x64' And $(Configuration.IndexOf('Release')) != -1">
+  <!-- static libraries x64 -->
+  <ItemDefinitionGroup Condition="$(Configuration.IndexOf('Release')) != -1">
     <Link>
       <AdditionalDependencies>BrabeNetz.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Platform)' == 'x64' And $(Configuration.IndexOf('Debug')) != -1">
+  <ItemDefinitionGroup Condition="$(Configuration.IndexOf('Debug')) != -1">
     <Link>
       <AdditionalDependencies>BrabeNetz_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -32,6 +39,11 @@
   <Target Name="BrabeNetz_AfterBuild_x64_Debug"
           Condition="'$(Platform)' == 'x64' And $(Configuration.IndexOf('Debug')) != -1"
           AfterTargets="BrabeNetz_AfterBuild">
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)bin\BrabeNetz_d.pdb" DestinationFiles="$(TargetDir)BrabeNetz_d.pdb" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)bin\x64\BrabeNetz_d.pdb" DestinationFiles="$(TargetDir)BrabeNetz_d.pdb" SkipUnchangedFiles="true" />
+  </Target>
+  <Target Name="BrabeNetz_AfterBuild_x64_Debug"
+          Condition="'$(Platform)' == 'x86' And $(Configuration.IndexOf('Debug')) != -1"
+          AfterTargets="BrabeNetz_AfterBuild">
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)bin\x86\BrabeNetz_d.pdb" DestinationFiles="$(TargetDir)BrabeNetz_d.pdb" SkipUnchangedFiles="true" />
   </Target>
 </Project>
