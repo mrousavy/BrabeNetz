@@ -23,10 +23,18 @@
     <file src="BrabeNetz.targets" target="build\native\BrabeNetz.targets" />
 	<file src="package.xml" target="build\native\package.xml" />
 
+	<!-- x64 -->
     <!-- .lib: RELEASE -->
-    <file src="..\x64\Release\BrabeNetz.lib" target="build\native\bin\BrabeNetz.lib" />
+    <file src="..\BrabeNetz\x64\Release\BrabeNetz.lib" target="build\native\bin\x64\BrabeNetz.lib" />
     <!-- .lib: DEBUG -->
-    <file src="..\x64\Debug\BrabeNetz.lib" target="build\native\bin\BrabeNetz_d.lib" />
-    <file src="..\x64\Debug\BrabeNetz.pdb" target="build\native\bin\BrabeNetz_d.pdb" />
+    <file src="..\BrabeNetz\x64\Debug\BrabeNetz.lib" target="build\native\bin\x64\BrabeNetz_d.lib" />
+    <file src="..\BrabeNetz\x64\Debug\BrabeNetz.pdb" target="build\native\bin\x64\BrabeNetz_d.pdb" />
+
+	<!-- x86 -->
+    <!-- .lib: RELEASE -->
+    <file src="..\BrabeNetz\Release\BrabeNetz.lib" target="build\native\bin\x86\BrabeNetz.lib" />
+    <!-- .lib: DEBUG -->
+    <file src="..\BrabeNetz\Debug\BrabeNetz.lib" target="build\native\bin\x86\BrabeNetz_d.lib" />
+    <file src="..\BrabeNetz\Debug\BrabeNetz.pdb" target="build\native\bin\x86\BrabeNetz_d.pdb" />
   </files>
 </package>
