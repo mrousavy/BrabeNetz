@@ -14,15 +14,20 @@
     <tags>neural-network, cpp, neurons, xor, cpu, biases, supervised-neural-network, algorithm, machine-learning, digit-recognizer, scalability</tags>
   </metadata>
   <files>
-    <file src="Network.h" target="\lib\native\include\Network.h" />
-    <file src="Properties.h" target="\lib\native\include\Properties.h" />
-    <file src="Neuron.h" target="\lib\native\include\Neuron.h" />
-    <file src="NetworkTopology.h" target="\lib\native\include\NetworkTopology.h" />
-    <file src="Layer.h" target="\lib\native\include\Layer.h" />
-    <file src="Functions.h" target="\lib\native\include\Functions.h" />
-    <file src="Extensions.h" target="\lib\native\include\Extensions.h" />
-    <file src="Connection.h" target="\lib\native\include\Connection.h" />
-    
-    <file src="BrabeNetz.lib" target="\lib\native\lib\BrabeNetz.lib" />
+    <!-- .h: ANY -->
+    <file src="..\BrabeNetz\Network.h" target="headers\Network.h" />
+    <file src="..\BrabeNetz\Properties.h" target="headers\Properties.h" />
+    <file src="..\BrabeNetz\Neuron.h" target="headers\Neuron.h" />
+    <file src="..\BrabeNetz\NetworkTopology.h" target="headers\NetworkTopology.h" />
+    <file src="..\BrabeNetz\Layer.h" target="headers\Layer.h" />
+    <file src="..\BrabeNetz\Functions.h" target="headers\Functions.h" />
+    <file src="..\BrabeNetz\Extensions.h" target="headers\Extensions.h" />
+    <file src="..\BrabeNetz\Connection.h" target="headers\Connection.h" />
+
+    <!-- .lib: RELEASE -->
+    <file src="..\x64\Release\BrabeNetz.lib" target="lib\BrabeNetz.lib" />
+    <!-- .lib: DEBUG -->
+    <file src="..\x64\Debug\BrabeNetz.lib" target="lib\BrabeNetz_d.lib" />
+    <file src="..\x64\Debug\BrabeNetz.lib" target="lib\BrabeNetz_d.pdb" />
   </files>
 </package>
