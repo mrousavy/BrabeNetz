@@ -3,7 +3,7 @@
 You can build BrabeNetz on 3 different ways:
 
 
-1. Use NuGet _(recommended)_
+1. Use [NuGet](https://www.nuget.org/packages/BrabeNetz) _(recommended)_
 	1. Open your Visual Studio Project
 	2. Navigate to `Tools`>`NuGet Package Manager`>`Manage NuGet Packages for Solution`
 	3. Search for **"BrabeNetz"**
