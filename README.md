@@ -61,9 +61,9 @@ Be sure to [read the network description](DESCRIPTION.md), and **check out my [d
     * See: [build/link instructions](BUILD.md)
 
 2. Constructors
-    * `network(initializer_list<int>)`: Create a new neural network with the given topology vector and fill it with random numbers (`{ 2, 3, 4, 1}` = 2 Input, 3 Hidden, 4 Hidden, 1 Output **Neurons** - total of 4 layers)
-    * `network(network_topology&)`: Create a new neural network with the given network topology and load_ it's values
-    * `network(string)`: Create a new neural network with the given path to the `sate.nn` file and load it.
+    1. `network(initializer_list<int>, properties)`: Create a new neural network with the given topology vector and properties and fill it with random numbers (`{ 2, 3, 4, 1}` = 2 Input, 3 Hidden, 4 Hidden, 1 Output **Neurons** - total of 4 layers)
+    2. `network(network_topology&, properties)`: Create a new neural network with the given network topology and load_ it's values
+    3. `network(string, properties)`: Create a new neural network with the given path to the `sate.nn` file and load it
 
 3. Functions
     * `double* feed(double* input_values)`: Feed the network `input_values` and return an array of output values (where the array's length is the size of the output layer in topology)
