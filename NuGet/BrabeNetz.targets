@@ -8,10 +8,10 @@
   <!-- general -->
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)bin\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
 
@@ -32,6 +32,6 @@
   <Target Name="BrabeNetz_AfterBuild_x64_Debug"
           Condition="'$(Platform)' == 'x64' And $(Configuration.IndexOf('Debug')) != -1"
           AfterTargets="BrabeNetz_AfterBuild">
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)lib\BrabeNetz_d.pdb" DestinationFiles="$(TargetDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)bin\BrabeNetz_d.pdb" DestinationFiles="$(TargetDir)BrabeNetz_d.pdb" SkipUnchangedFiles="true" />
   </Target>
 </Project>

@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>BrabeNetz</id>
-    <version>1.4.2</version>
+    <version>1.4.3</version>
     <authors>Marc Rousavy</authors>
     <owners>Marc Rousavy</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -17,23 +17,16 @@
   </metadata>
   <files>
     <!-- .h: ANY -->
-    <file src="..\BrabeNetz\Network.h" target="headers\Network.h" />
-    <file src="..\BrabeNetz\Properties.h" target="headers\Properties.h" />
-    <file src="..\BrabeNetz\Neuron.h" target="headers\Neuron.h" />
-    <file src="..\BrabeNetz\NetworkTopology.h" target="headers\NetworkTopology.h" />
-    <file src="..\BrabeNetz\Layer.h" target="headers\Layer.h" />
-    <file src="..\BrabeNetz\Functions.h" target="headers\Functions.h" />
-    <file src="..\BrabeNetz\Extensions.h" target="headers\Extensions.h" />
-    <file src="..\BrabeNetz\Connection.h" target="headers\Connection.h" />
-
-    <!-- .lib: RELEASE -->
-    <file src="..\x64\Release\BrabeNetz.lib" target="lib\BrabeNetz.lib" />
-    <!-- .lib: DEBUG -->
-    <file src="..\x64\Debug\BrabeNetz.lib" target="lib\BrabeNetz_d.lib" />
-    <file src="..\x64\Debug\BrabeNetz.pdb" target="lib\BrabeNetz_d.pdb" />
+    <file src="..\BrabeNetz\*.h" target="build\native\include" />
 
     <!-- .targets: TARGETS FILE -->
-    <file src="BrabeNetz.targets" target="BrabeNetz.targets" />
-	<file src="package.xml" target="package.xml" />
+    <file src="BrabeNetz.targets" target="build\native\BrabeNetz.targets" />
+	<file src="package.xml" target="build\native\package.xml" />
+
+    <!-- .lib: RELEASE -->
+    <file src="..\x64\Release\BrabeNetz.lib" target="build\native\bin\BrabeNetz.lib" />
+    <!-- .lib: DEBUG -->
+    <file src="..\x64\Debug\BrabeNetz.lib" target="build\native\bin\BrabeNetz_d.lib" />
+    <file src="..\x64\Debug\BrabeNetz.pdb" target="build\native\bin\BrabeNetz_d.pdb" />
   </files>
 </package>
