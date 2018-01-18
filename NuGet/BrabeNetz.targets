@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
+  <!-- user interface -->
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)package.xml" />
+  </ItemGroup>
+  
+  <!-- general -->
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\..\lib\native\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)..\..\lib\native\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>BrabeNetz.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)headers\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
+
+  <!-- static libraries -->
+  <ItemDefinitionGroup Condition="'$(Platform)' == 'x64' And $(Configuration.IndexOf('Release')) != -1">
+    <Link>
+      <AdditionalDependencies>BrabeNetz.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Platform)' == 'x64' And $(Configuration.IndexOf('Debug')) != -1">
+    <Link>
+      <AdditionalDependencies>BrabeNetz_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <!-- Copy over .pdb -->
+  <Target Name="BrabeNetz_AfterBuild" AfterTargets="AfterBuild" />
+  <Target Name="BrabeNetz_AfterBuild_x64_Debug"
+          Condition="'$(Platform)' == 'x64' And $(Configuration.IndexOf('Debug')) != -1"
+          AfterTargets="BrabeNetz_AfterBuild">
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)lib\BrabeNetz_d.pdb" DestinationFiles="$(TargetDir)BrabeNetz_d.pdb" SkipUnchangedFiles="true" />
+  </Target>
 </Project>
