@@ -3,7 +3,7 @@
 
 > **BrabeNetz** is a **supervised neural network** written in C++, aiming to be as fast as possible. It can effectively multithread on the **CPU** where needed, allocate and free fast (by `malloc`/`free`), access values faster (pointer-arrays instead of `vector`) and is well documented.
 
-[![View latest release](https://img.shields.io/github/downloads/mrousavy/BrabeNetz/total.svg)](https://github.com/mrousavy/BrabeNetz/releases)
+[![NuGet](https://img.shields.io/nuget/v/BrabeNetz.svg)](https://www.nuget.org/packages/BrabeNetz/)
 [![Download on NuGet](https://img.shields.io/nuget/dt/BrabeNetz.svg)](https://www.nuget.org/packages/BrabeNetz)
 
 ```sh
