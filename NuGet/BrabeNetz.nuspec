@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>BrabeNetz</id>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
     <authors>Marc Rousavy</authors>
     <owners>Marc Rousavy</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -33,7 +33,7 @@
     <file src="..\x64\Debug\BrabeNetz.pdb" target="lib\BrabeNetz_d.pdb" />
 
     <!-- .targets: TARGETS FILE -->
-    <file src="BrabeNetz.targets" target="build\BrabeNetz.targets" />
-	<file src="package.xml" target="build\package.xml" />
+    <file src="BrabeNetz.targets" target="BrabeNetz.targets" />
+	<file src="package.xml" target="package.xml" />
   </files>
 </package>
