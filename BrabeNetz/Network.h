@@ -26,7 +26,7 @@ public:
 	// Feed the network information and return the output layer with it's length "out_length"
 	double* feed(double* input_values) const;
 	// Save the network's state to disk by serializing weights
-	void save(char* path = "state.nn") const;
+	void save(std::string path = "state.nn") const;
 	// Set the network's learning rate (should be 1/i, where i = train iterations so far)
 	void set_learnrate(double value);
 	// Build and set the network topology object of the current network's state

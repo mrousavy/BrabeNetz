@@ -18,12 +18,12 @@ struct properties
 
 	/// \brief The state file path to save the
 	/// network's save on `network::save()` to
-	char* state_file;
+	std::string state_file;
 
 	explicit properties(const double learn_rate = 0.01,
 	                    const int iters_per_thread = 600,
 	                    const bool force_multithreaded = false,
-						char* state_file = "state.nn")
+						std::string state_file = "state.nn")
 		:	def_learn_rate(learn_rate), 
 			iters_per_thread(iters_per_thread),
 			force_multithreaded(force_multithreaded),

@@ -261,7 +261,7 @@ network_topology& network::build_topology() const
 	return this->topology_;
 }
 
-void network::save(char* path) const
+void network::save(std::string path) const
 {
 	network_topology::save(build_topology(), path);
 }
