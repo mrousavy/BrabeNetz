@@ -11,6 +11,8 @@
     <copyright>Copyright 2017</copyright>
     <title>BrabeNetz</title>
     <summary>A fast and clean supervised neural network in C++, capable of effectively using multiple cores</summary>
+    <projectUrl>https://github.com/mrousavy/BrabeNetz</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/mrousavy/BrabeNetz/master/Images/brain.png</iconUrl>
     <tags>neural-network, cpp, neurons, xor, cpu, biases, supervised-neural-network, algorithm, machine-learning, digit-recognizer, scalability</tags>
   </metadata>
   <files>
