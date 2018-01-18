@@ -30,10 +30,10 @@
     <file src="..\x64\Release\BrabeNetz.lib" target="lib\BrabeNetz.lib" />
     <!-- .lib: DEBUG -->
     <file src="..\x64\Debug\BrabeNetz.lib" target="lib\BrabeNetz_d.lib" />
-    <file src="..\x64\Debug\BrabeNetz.lib" target="lib\BrabeNetz_d.pdb" />
+    <file src="..\x64\Debug\BrabeNetz.pdb" target="lib\BrabeNetz_d.pdb" />
 
     <!-- .targets: TARGETS FILE -->
-    <file src="BrabeNetz.targets" target="lib\BrabeNetz.targets" />
-37  <file src="package.xml" target="lib\package.xml" />
+    <file src="BrabeNetz.targets" target="build\BrabeNetz.targets" />
+	<file src="package.xml" target="build\package.xml" />
   </files>
 </package>
