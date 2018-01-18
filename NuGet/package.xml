@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectSchemaDefinitions xmlns="clr-namespace:Microsoft.Build.Framework.XamlTypes;assembly=Microsoft.Build.Framework">
+  <Rule Name="Linkage-BrabeNetz-uiextension" PageTemplate="tool" DisplayName="NuGet Dependencies" SwitchPrefix="/" Order="1">
+    <Rule.Categories>
+      <Category Name="BrabeNetz" DisplayName="BrabeNetz" />
+    </Rule.Categories>
+    <Rule.DataSource>
+      <DataSource Persistence="ProjectFile" ItemType="" />
+    </Rule.DataSource>
+    <EnumProperty Name="Linkage-BrabeNetz" DisplayName="Linkage" Description="How NuGet BrabeNetz will be linked into the output of this project" Category="BrabeNetz">
+      <EnumValue Name="" DisplayName="Not linked" />
+      <EnumValue Name="static" DisplayName="Static (LIB)" />
+    </EnumProperty>
+  </Rule>
+</ProjectSchemaDefinitions>
