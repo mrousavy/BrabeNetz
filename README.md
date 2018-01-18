@@ -62,7 +62,7 @@ Be sure to [read the network description](DESCRIPTION.md), and **check out my [d
 
 ## Usage
 1. Build & link library
-    * See: [build/link instructions](https://github.com/mrousavy/BrabeNetz/BUILD.md)
+    * See: [build/link instructions](https://github.com/mrousavy/BrabeNetz/blob/master/BUILD.md)
 
 2. Constructors
     1. `network(initializer_list<int>, properties)`: Create a new neural network with the given topology vector and properties and fill it with random numbers (`{ 2, 3, 4, 1}` = 2 Input, 3 Hidden, 4 Hidden, 1 Output **Neurons** - total of 4 layers)
