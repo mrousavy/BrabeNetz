@@ -31,5 +31,9 @@
     <!-- .lib: DEBUG -->
     <file src="..\x64\Debug\BrabeNetz.lib" target="lib\BrabeNetz_d.lib" />
     <file src="..\x64\Debug\BrabeNetz.lib" target="lib\BrabeNetz_d.pdb" />
+
+    <!-- .targets: TARGETS FILE -->
+    <file src="BrabeNetz.targets" target="lib\BrabeNetz.targets" />
+37  <file src="package.xml" target="lib\package.xml" />
   </files>
 </package>

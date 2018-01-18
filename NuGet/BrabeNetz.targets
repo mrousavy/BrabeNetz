@@ -32,6 +32,6 @@
   <Target Name="BrabeNetz_AfterBuild_x64_Debug"
           Condition="'$(Platform)' == 'x64' And $(Configuration.IndexOf('Debug')) != -1"
           AfterTargets="BrabeNetz_AfterBuild">
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)lib\BrabeNetz_d.pdb" DestinationFiles="$(TargetDir)BrabeNetz_d.pdb" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)lib\BrabeNetz_d.pdb" DestinationFiles="$(TargetDir)" SkipUnchangedFiles="true" />
   </Target>
 </Project>
