@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>BrabeNetz</id>
-    <version>1.4</version>
+    <version>1.4.1</version>
     <authors>Marc Rousavy</authors>
     <owners>Marc Rousavy</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
