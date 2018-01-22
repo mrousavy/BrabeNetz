@@ -1,10 +1,10 @@
 # BrabeNetz - Build Instructions
 
-You can build BrabeNetz on 3 different ways:
+You can build BrabeNetz on 3 different ways, choose one:
 
 
 1. Use [NuGet](https://www.nuget.org/packages/BrabeNetz) _(recommended)_
-	1. Open your Visual Studio Project
+	1. Open your Visual Studio C++ Project
 	2. Navigate to `Tools`>`NuGet Package Manager`>`Manage NuGet Packages for Solution`
 	3. Search for **"BrabeNetz"**
 	4. Click **install**
