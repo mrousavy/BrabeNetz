@@ -153,9 +153,12 @@ public:
 	/// </returns>
 	network_topology& build_topology() const;
 
+	friend const double NetworkResult::adjust(const std::vector<double>& expected_output) const;
+
 private:
-	network & network;
-	int feed_count;
-	const double adjust(std::vector<double>& expected_output) const;
+	network _network;
+	int _feed_count;
+
+	const double adjust(const std::vector<double>& expected_output) const;
 };
 
