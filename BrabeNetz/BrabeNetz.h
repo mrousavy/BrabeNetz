@@ -66,5 +66,58 @@ public:
 	///		Destroy the neural network and clear memory
 	/// </summary>
 	~BrabeNetz();
+
+	////////////////
+	// functions  //
+	////////////////
+
+	/// <summary>
+	///		Feed the network input values and forward propagate
+	///		through all neurons to estimate a possible output
+	/// </summary>
+	/// <param name='input_values'>
+	///		The input layer's values (Must be exact size as the
+	///		network's input layer size)
+	/// </param>
+	/// <returns>
+	///		Returns the neural network's output layer's values.
+	/// </returns>
+	const std::vector<double> feed(std::vector<double>& input_values) const;
+
+	/// <summary>
+	///		Save the network's state to disk by serializing weights
+	/// </summary>
+	/// <param name='path'>
+	///		The path to the file which will be created or
+	///		written to
+	/// </param>
+	void save(std::string path = "state.nn") const;
+
+	/// <summary>
+	///		Set the network's learning rate
+	/// </summary>
+	/// <remarks>
+	///		It is good practice and generally recommended to use
+	///		the one divided by the train count, so the learn rate
+	///		decreases the more often you train
+	/// </remarks>
+	/// <param name='value'>
+	///		The new learn rate
+	/// </param>
+	void set_learnrate(double value);
+	/// <summary>
+	///		Build and set the network topology object of the current
+	///		network's state
+	/// </summary>
+	/// <returns>
+	///		Returns the neural network's topology which indicates
+	///		the network structure & size, and it's weights and biases
+	/// </returns>
+	network_topology& build_topology() const;
+
+private:
+	network & network;
+	int feed_count;
+	const double adjust(std::vector<double>& expected_output) const;
 };
 
