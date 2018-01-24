@@ -4,6 +4,44 @@
 #include "Network.h"
 
 /// <summary>
+///		A Neural Network's output result
+/// </summary>
+struct NetworkResult
+{
+public:
+	/// <summary>
+	///		The actual output layer's values
+	/// </summary>
+	const std::vector<double>& values;
+	/// <summary>
+	///		A counter indicating the amount of
+	///		forward propagations that have taken
+	///		place
+	/// </summary>
+	const int feed_count;
+
+	/// <summary>
+	///		Backwards propagate through the whole
+	///		network to adjust wrong neurons for
+	///		result trimming
+	/// </summary>
+	/// <remarks>
+	///		You can only call <c>adjust(..)</c> immediately
+	///		after retrieving this NetworkResult
+	/// </remarks>
+	/// <param name='expected_output'>
+	///		The expected output of the neural network which
+	///		the network will train towards/adjust to
+	/// </param>
+	/// <returns>
+	///		Returns the neural network's total error value
+	/// </returns>
+	const double adjust(const std::vector<double>& expected_output) const;
+private:
+	BrabeNetz & network;
+};
+
+/// <summary>
 ///		A Neural Network proxy class - 
 ///		This is a wrapper for the actual Neural Network
 ///		with modern C++ functions.
