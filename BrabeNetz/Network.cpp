@@ -13,8 +13,7 @@ network::network(initializer_list<int> initializer_list, properties& properties)
 	srand(static_cast<unsigned>(time(nullptr)));
 
 	if (initializer_list.size() < 3)
-		throw exception(
-			"Initializer List can't contain less than 3 elements. E.g: { 2, 3, 4, 1 }: 2 Input, 3 Hidden, 4 Hidden, 1 Output");
+		throw exception("Neural network can't have less than 3 layers!");
 
 	init();
 }
