@@ -158,7 +158,8 @@ public:
 private:
 	network _network;
 	int _feed_count;
+	int _output_size;
 
-	const double adjust(const std::vector<double>& expected_output) const;
+	const double adjust(double* expected_output, double* actual_output) const;
 };
 
