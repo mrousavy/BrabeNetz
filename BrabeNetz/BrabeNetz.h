@@ -3,12 +3,21 @@
 #include "Properties.h"
 #include "Network.h"
 
+class BrabeNetz;
+
 /// <summary>
 ///		A Neural Network's output result
 /// </summary>
 struct NetworkResult
 {
 public:
+	/// <summary>
+	///		Create a new instance of the network result
+	/// </summary>
+	NetworkResult(const BrabeNetz* network, 
+				  std::vector<double>& values, 
+				  const int feed_count);
+
 	/// <summary>
 	///		The actual output layer's values
 	/// </summary>
@@ -38,7 +47,7 @@ public:
 	/// </returns>
 	const double adjust(const std::vector<double>& expected_output) const;
 private:
-	BrabeNetz & network;
+	const BrabeNetz* _network;
 };
 
 /// <summary>
@@ -105,6 +114,7 @@ public:
 	/// </summary>
 	~BrabeNetz();
 
+
 	////////////////
 	// functions  //
 	////////////////
@@ -118,9 +128,10 @@ public:
 	///		network's input layer size)
 	/// </param>
 	/// <returns>
-	///		Returns the neural network's output layer's values.
+	///		Returns the neural network's result. Use this to
+	///		adjust and backpropagate through the network
 	/// </returns>
-	const std::vector<double> feed(std::vector<double>& input_values) const;
+	const NetworkResult feed(std::vector<double>& input_values) const;
 
 	/// <summary>
 	///		Save the network's state to disk by serializing weights
@@ -143,6 +154,7 @@ public:
 	///		The new learn rate
 	/// </param>
 	void set_learnrate(double value);
+
 	/// <summary>
 	///		Build and set the network topology object of the current
 	///		network's state
@@ -154,12 +166,14 @@ public:
 	network_topology& build_topology() const;
 
 	friend const double NetworkResult::adjust(const std::vector<double>& expected_output) const;
-
+	friend NetworkResult::NetworkResult(const BrabeNetz* network, std::vector<double>& values, const int feed_count);
 private:
 	network _network;
+	network_topology& _topology;
+	const int _output_size;
+	const int _input_size;
 	int _feed_count;
-	int _output_size;
 
-	const double adjust(double* expected_output, double* actual_output) const;
+	const double adjust(const double* expected_output, const double* actual_output) const;
 };
 
