@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BrabeNetz.cpp" />
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="Network.cpp" />
@@ -26,6 +27,7 @@
     <ClCompile Include="Neuron.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BrabeNetz.h" />
     <ClInclude Include="Connection.h" />
     <ClInclude Include="Extensions.h" />
     <ClInclude Include="Functions.h" />
