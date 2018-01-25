@@ -34,6 +34,7 @@ network::network(properties& properties)
 
 void network::init()
 {
+	this->learn_rate_ = properties_.def_learn_rate;
 	this->layers_count_ = topology_.size(); // Count of layers = input (1) + hidden + output (1)
 	this->layers_ = new double*[this->layers_count_];
 	this->neurons_count_ = new int[this->layers_count_];
