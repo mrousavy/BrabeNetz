@@ -8,7 +8,7 @@ using namespace std;
 
 // ctor
 network::network(initializer_list<int> initializer_list, properties& properties)
-	: topology_(network_topology::random(initializer_list)), properties_(properties_)
+	: topology_(network_topology::random(initializer_list)), properties_(properties)
 {
 	srand(static_cast<unsigned>(time(nullptr)));
 
@@ -19,7 +19,7 @@ network::network(initializer_list<int> initializer_list, properties& properties)
 }
 
 network::network(network_topology& topology, properties& properties)
-	: topology_(topology), properties_(properties_)
+	: topology_(topology), properties_(properties)
 {
 	srand(static_cast<unsigned>(time(nullptr)));
 	init();
@@ -34,6 +34,7 @@ network::network(properties& properties)
 
 void network::init()
 {
+	this->learn_rate_ = properties_.def_learn_rate;
 	this->layers_count_ = topology_.size(); // Count of layers = input (1) + hidden + output (1)
 	this->layers_ = new double*[this->layers_count_];
 	this->neurons_count_ = new int[this->layers_count_];
@@ -71,16 +72,29 @@ void network::set_learnrate(const double value)
 #pragma region Forwards Propagation
 
 // Feed the network information and return the output
-double* network::feed(double* input_values) const
+double* network::feed(double* input_values, const bool copy_input) const
 {
-	double* values = input_values; // Values of current layer
-	int* length = new int(this->neurons_count_[0]); // Copy input length to ptr variable
-	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++) // Loop through each hidden layer
+	const int length = this->neurons_count_[0]; // Count of input neurons
+	if (copy_input)
 	{
-		values = to_next_layer(values, *length, hidden_index, *length);
+		if (this->layers_[0] != nullptr) free(this->layers_[0]);
+		this->layers_[0] = static_cast<double*>(malloc(sizeof(double) * length));
+		// Copy over inputs (we need this for adjust(..))
+		for (int n = 0; n < length; n++) // Loop through each input neuron "n"
+		{
+			this->layers_[0][n] = input_values[n];
+		}
 	}
 
-	delete length;
+	double* values = input_values; // Values of current layer
+	int* values_length = new int(length); // Copy input length to variable
+	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++)
+		// Loop through each hidden layer + output
+	{
+		values = to_next_layer(values, *values_length, hidden_index, *values_length);
+	}
+
+	delete values_length;
 	return values;
 }
 
@@ -114,33 +128,8 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 
 #pragma region Backwards Propagation
 
-// Train network and adjust weights to expectedOutput
-double* network::train(double* input_values, double* expected_output, double& out_total_error) const
-{
-	const int length = this->neurons_count_[0]; // Count of input neurons
-	if (this->layers_[0] != nullptr) free(this->layers_[0]);
-	this->layers_[0] = static_cast<double*>(malloc(sizeof(double) * length));
-	// Copy over inputs (we need this for adjust(..))
-	for (int n = 0; n < length; n++) // Loop through each input neuron "n"
-	{
-		this->layers_[0][n] = input_values[n];
-	}
-
-	double* values = input_values; // Values of current layer
-	int* values_length = new int(length); // Copy input length to variable
-	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++)
-		// Loop through each hidden layer + output
-	{
-		values = to_next_layer(values, *values_length, hidden_index, *values_length);
-	}
-
-	out_total_error = adjust(expected_output, values);
-	delete values_length;
-	return values;
-}
-
 // BACKWARDS-PROPAGATION ALGORITHM
-double network::adjust(double* expected_output, double* actual_output) const
+double network::adjust(const double* expected_output) const
 {
 	const int output_length = this->neurons_count_[layers_count_ - 1]; // Count of neurons in output layer
 	double** errors = static_cast<double**>(malloc(sizeof(double*) * layers_count_));
@@ -148,6 +137,7 @@ double network::adjust(double* expected_output, double* actual_output) const
 	errors[layers_count_ - 1] = static_cast<double*>(malloc(sizeof(double) * output_length));
 	// Allocate output layer error size
 	double error_sum = 0; // Sum of all errors on the output layer
+	double* actual_output = this->layers_[this->layers_count_ - 1];
 
 	// Backpropagation loop for Output Layer only
 	for (int on = 0; on < output_length; on++) // Loop through each neuron on the output layer "on"
@@ -164,9 +154,9 @@ double network::adjust(double* expected_output, double* actual_output) const
 		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
 		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
 
-		// ReSharper disable once CppRedundantBooleanExpressionArgument
-		const bool worth = properties_.force_multithreaded 
-						|| neurons * next_neurons > core_count_ * properties_.iters_per_thread;
+		// ReSharper disable once CppDeclaratorNeverUsed
+		const bool worth = properties_.force_multithreaded
+			|| neurons * next_neurons > core_count_ * properties_.iters_per_thread;
 		// Worth the multithread-spawning?
 #pragma omp parallel for if(worth) // OMP.Parallel loop on each CPU Core if worth the thread spawn
 		for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer
@@ -260,7 +250,7 @@ network_topology& network::build_topology() const
 	return this->topology_;
 }
 
-void network::save(std::string path) const
+void network::save(const string path) const
 {
 	network_topology::save(build_topology(), path);
 }
