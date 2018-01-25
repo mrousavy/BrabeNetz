@@ -98,9 +98,9 @@ public:
 	explicit brabe_netz(network_topology& topology, properties& properties);
 
 	/// <summary>
-	///		Construct a new neural network with the given network
-	///		topology and load the neural network state from the 
-	///		file specified in <c>properties.state_file</c>
+	///		Construct a new neural network and load the 
+	///		neural network state from the file specified
+	///		in <c>properties.state_file</c>
 	/// </summary>
 	/// <param name="properties">
 	///		Additional Parameters for the neural network - 
