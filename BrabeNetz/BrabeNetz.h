@@ -147,7 +147,7 @@ public:
 	/// </summary>
 	/// <remarks>
 	///		It is good practice and generally recommended to use
-	///		the one divided by the train count, so the learn rate
+	///		one divided by the train count, so the learn rate
 	///		decreases the more often you train
 	/// </remarks>
 	/// <param name="value">
