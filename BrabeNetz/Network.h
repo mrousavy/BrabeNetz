@@ -24,7 +24,7 @@ public:
 	// Feed the network information and return the output layer with it's length "out_length"
 	double* feed(double* input_values, const bool copy_input) const;
 	// Backwards Propagate through the network, adjust weights and biases and return total output error
-	double adjust(const double* expected_output, const double* actual_output) const;
+	double adjust(const double* expected_output) const;
 	// Save the network's state to disk by serializing weights
 	void save(std::string path = "state.nn") const;
 	// Set the network's learning rate (should be 1/i, where i = train iterations so far)

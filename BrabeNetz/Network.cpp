@@ -128,7 +128,7 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 #pragma region Backwards Propagation
 
 // BACKWARDS-PROPAGATION ALGORITHM
-double network::adjust(const double* expected_output, const double* actual_output) const
+double network::adjust(const double* expected_output) const
 {
 	const int output_length = this->neurons_count_[layers_count_ - 1]; // Count of neurons in output layer
 	double** errors = static_cast<double**>(malloc(sizeof(double*) * layers_count_));
@@ -136,6 +136,7 @@ double network::adjust(const double* expected_output, const double* actual_outpu
 	errors[layers_count_ - 1] = static_cast<double*>(malloc(sizeof(double) * output_length));
 	// Allocate output layer error size
 	double error_sum = 0; // Sum of all errors on the output layer
+	double* actual_output = this->layers_[this->layers_count_ - 1];
 
 	// Backpropagation loop for Output Layer only
 	for (int on = 0; on < output_length; on++) // Loop through each neuron on the output layer "on"

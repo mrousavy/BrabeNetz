@@ -174,5 +174,5 @@ private:
 	const int input_size_;
 	int feed_count_;
 
-	double adjust(const double* expected_output, const double* actual_output) const;
+	double adjust(const double* expected_output) const;
 };

@@ -10,7 +10,7 @@ double network_result::adjust(const std::vector<double>& expected_output) const
 	if (this->network_->feed_count_ > this->feed_count)
 		throw std::exception("Invalid use - adjust has to be called immediately after feeding!");
 
-	return this->network_->adjust(expected_output.data(), this->values.data());
+	return this->network_->adjust(expected_output.data());
 }
 
 brabe_netz::brabe_netz(std::initializer_list<int> initializer_list, properties& properties)
@@ -60,7 +60,7 @@ network_topology& brabe_netz::build_topology() const
 	return this->network_.build_topology();
 }
 
-double brabe_netz::adjust(const double* expected_output, const double* actual_output) const
+double brabe_netz::adjust(const double* expected_output) const
 {
-	return this->network_.adjust(expected_output, actual_output);
+	return this->network_.adjust(expected_output);
 }
