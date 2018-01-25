@@ -23,7 +23,7 @@ struct properties
 	explicit properties(const double learn_rate = 0.01,
 	                    const int iters_per_thread = 600,
 	                    const bool force_multithreaded = false,
-						std::string state_file = "state.nn")
+	                    const std::string state_file = "state.nn")
 		:	def_learn_rate(learn_rate), 
 			iters_per_thread(iters_per_thread),
 			force_multithreaded(force_multithreaded),

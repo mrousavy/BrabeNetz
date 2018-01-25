@@ -13,9 +13,9 @@ public:
 	void add_neuron(neuron& neuron);
 	neuron& neuron_at(int index);
 
-	int size()
+	int size() const
 	{
-		return (int)neurons_.size();
+		return static_cast<int>(neurons_.size());
 	}
 
 private:

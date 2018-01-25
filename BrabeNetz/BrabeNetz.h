@@ -3,18 +3,18 @@
 #include "Properties.h"
 #include "Network.h"
 
-class BrabeNetz;
+class brabe_netz;
 
 /// <summary>
 ///		A Neural Network's output result
 /// </summary>
-struct NetworkResult
+struct network_result
 {
 public:
 	/// <summary>
 	///		Create a new instance of the network result
 	/// </summary>
-	NetworkResult(const BrabeNetz* network, 
+	network_result(const brabe_netz* network, 
 				  std::vector<double>& values, 
 				  const int feed_count);
 
@@ -38,16 +38,16 @@ public:
 	///		You can only call <c>adjust(..)</c> immediately
 	///		after retrieving this NetworkResult
 	/// </remarks>
-	/// <param name='expected_output'>
+	/// <param name="expected_output">
 	///		The expected output of the neural network which
 	///		the network will train towards/adjust to
 	/// </param>
 	/// <returns>
 	///		Returns the neural network's total error value
 	/// </returns>
-	const double adjust(const std::vector<double>& expected_output) const;
+	double adjust(const std::vector<double>& expected_output) const;
 private:
-	const BrabeNetz* _network;
+	const brabe_netz* network_;
 };
 
 /// <summary>
@@ -60,7 +60,7 @@ private:
 ///		a bit slower than the raw network, but is by
 ///		far easier and better to use and read.
 /// </remarks>
-class BrabeNetz
+class brabe_netz
 {
 public:
 	////////////////
@@ -71,10 +71,10 @@ public:
 	///		Construct a new neural network with the given network size
 	///		and randomize all base weights and biases
 	/// </summary>
-	/// <param name='initializer_list'>
+	/// <param name="initializer_list">
 	///		The size of the neural network's layers and neurons
 	/// </param>
-	/// <param name='properties'>
+	/// <param name="properties">
 	///		Additional Parameters for the neural network
 	/// </param>
 	/// <example>An example constructor call for a {2,3,4,1} network
@@ -83,36 +83,36 @@ public:
 	/// BrabeNetz network({ 2, 3, 4, 1 }, properties);
 	/// </code>
 	/// </example>
-	BrabeNetz(std::initializer_list<int> initializer_list, properties& properties);
+	brabe_netz(std::initializer_list<int> initializer_list, properties& properties);
 
 	/// <summary>
 	///		Construct a new neural network with the given network
 	///		topology and import it's existing weights and biases
 	/// </summary>
-	/// <param name='topology'>
+	/// <param name="topology">
 	///		A built topology with set weights and biases
 	/// </param>
-	/// <param name='properties'>
+	/// <param name="properties">
 	///		Additional Parameters for the neural network
 	/// </param>
-	explicit BrabeNetz(network_topology& topology, properties& properties);
+	explicit brabe_netz(network_topology& topology, properties& properties);
 
 	/// <summary>
 	///		Construct a new neural network with the given network
 	///		topology and load the neural network state from the 
 	///		file specified in <c>properties.state_file</c>
 	/// </summary>
-	/// <param name='properties'>
+	/// <param name="properties">
 	///		Additional Parameters for the neural network - 
 	///		This constructor will load from the state file
 	///		located at <c>properties.state_file</c>
 	/// </param>
-	explicit BrabeNetz(properties& properties);
+	explicit brabe_netz(properties& properties);
 
 	/// <summary>
 	///		Destroy the neural network and clear memory
 	/// </summary>
-	~BrabeNetz();
+	~brabe_netz();
 
 
 	////////////////
@@ -123,7 +123,7 @@ public:
 	///		Feed the network input values and forward propagate
 	///		through all neurons to estimate a possible output
 	/// </summary>
-	/// <param name='input_values'>
+	/// <param name="input_values">
 	///		The input layer's values (Must be exact size as the
 	///		network's input layer size)
 	/// </param>
@@ -131,12 +131,12 @@ public:
 	///		Returns the neural network's result. Use this to
 	///		adjust and backpropagate through the network
 	/// </returns>
-	const NetworkResult feed(std::vector<double>& input_values) const;
+	network_result feed(std::vector<double>& input_values) const;
 
 	/// <summary>
 	///		Save the network's state to disk by serializing weights
 	/// </summary>
-	/// <param name='path'>
+	/// <param name="path">
 	///		The path to the file which will be created or
 	///		written to
 	/// </param>
@@ -150,7 +150,7 @@ public:
 	///		the one divided by the train count, so the learn rate
 	///		decreases the more often you train
 	/// </remarks>
-	/// <param name='value'>
+	/// <param name="value">
 	///		The new learn rate
 	/// </param>
 	void set_learnrate(double value);
@@ -165,15 +165,15 @@ public:
 	/// </returns>
 	network_topology& build_topology() const;
 
-	friend const double NetworkResult::adjust(const std::vector<double>& expected_output) const;
-	friend NetworkResult::NetworkResult(const BrabeNetz* network, std::vector<double>& values, const int feed_count);
+	friend double network_result::adjust(const std::vector<double>& expected_output) const;
+	friend network_result::network_result(const brabe_netz* network, std::vector<double>& values, const int feed_count);
 private:
-	network _network;
-	network_topology& _topology;
-	const int _output_size;
-	const int _input_size;
-	int _feed_count;
+	network network_;
+	network_topology& topology_;
+	const int output_size_;
+	const int input_size_;
+	int feed_count_;
 
-	const double adjust(const double* expected_output, const double* actual_output) const;
+	double adjust(const double* expected_output, const double* actual_output) const;
 };
 

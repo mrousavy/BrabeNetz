@@ -151,7 +151,7 @@ double network::adjust(const double* expected_output, const double* actual_outpu
 		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
 		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
 		
-		// ReSharper disable once CppRedundantBooleanExpressionArgument
+		// ReSharper disable once CppDeclaratorNeverUsed
 		const bool worth = properties_.force_multithreaded 
 						|| neurons * next_neurons > core_count_ * properties_.iters_per_thread;
 		// Worth the multithread-spawning?
@@ -247,7 +247,7 @@ network_topology& network::build_topology() const
 	return this->topology_;
 }
 
-void network::save(std::string path) const
+void network::save(const std::string path) const
 {
 	network_topology::save(build_topology(), path);
 }
