@@ -32,7 +32,7 @@ network::network(properties& properties)
 	init();
 }
 
-void network::init()
+void network::init() noexcept
 {
 	this->learn_rate_ = properties_.def_learn_rate;
 	this->layers_count_ = topology_.size(); // Count of layers = input (1) + hidden + output (1)
@@ -63,7 +63,7 @@ network::~network()
 	delete[] this->neurons_count_;
 }
 
-void network::set_learnrate(const double value)
+void network::set_learnrate(const double value) noexcept
 {
 	learn_rate_ = value;
 }
@@ -72,7 +72,7 @@ void network::set_learnrate(const double value)
 #pragma region Forwards Propagation
 
 // Feed the network information and return the output
-double* network::feed(double* input_values, const bool copy_input) const
+double* network::feed(double* input_values, const bool copy_input) const noexcept
 {
 	const int length = this->neurons_count_[0]; // Count of input neurons
 	if (copy_input)
@@ -101,7 +101,7 @@ double* network::feed(double* input_values, const bool copy_input) const
 // This function focuses on only one layer, so in theory we have 1 input layer, the layer we focus on, and 1 output
 // FORWARD-PROPAGATION ALGORITHM
 double* network::to_next_layer(double* input_values, const int input_length, const int layer_index,
-                               int& out_length) const
+                               int& out_length) const noexcept
 {
 	const int n_count = this->neurons_count_[layer_index]; // Count of neurons in the next layer (w/ layerIndex)
 	double** weights = this->weights_[layer_index - 1]; // ptr to weights of neurons from prev. to this layer
@@ -129,7 +129,7 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 #pragma region Backwards Propagation
 
 // BACKWARDS-PROPAGATION ALGORITHM
-double network::adjust(const double* expected_output) const
+double network::adjust(const double* expected_output) const noexcept
 {
 	const int output_length = this->neurons_count_[layers_count_ - 1]; // Count of neurons in output layer
 	double** errors = static_cast<double**>(malloc(sizeof(double*) * layers_count_));
@@ -195,7 +195,7 @@ double network::adjust(const double* expected_output) const
 
 #pragma region State modification
 
-void network::fill_weights()
+void network::fill_weights() noexcept
 {
 	// layer weights has a reference on the heap
 	if (this->weights_ != nullptr)
@@ -256,7 +256,7 @@ void network::save(const string path) const
 }
 
 
-void network::delete_weights() const
+void network::delete_weights() const noexcept
 {
 	for (int i = 0; i < this->layers_count_ - 1; i++) // Loop through each layer
 	{
