@@ -20,7 +20,7 @@ using namespace std;
 */
 long long trainer::train_xor(network& net, const int train_times)
 {
-	const string format = "{ %.0f, %.0f } = %.3f\n";
+	const string format = "{ %.0f, %.0f } = %.3f | e=%.3f\n";
 
 	double* zz = new double[2]{ 0,0 };
 	double* zz_e = new double[1]{ 0 };
@@ -46,24 +46,24 @@ long long trainer::train_xor(network& net, const int train_times)
 		{
 		case 0:
 			output = net.feed(zz, true);
-			total_error = net.adjust(zz, zz_e);
-			if (PRINT_OUTPUT) printf(format.c_str(), zz[0], zz[1], output[0]);
+			total_error = net.adjust(zz_e);
+			if (PRINT_OUTPUT) printf(format.c_str(), zz[0], zz[1], output[0], total_error);
 			break;
 		case 1:
 			output = net.feed(oz, true);
-			total_error = net.adjust(oz, oz_e);
-			if (PRINT_OUTPUT) printf(format.c_str(), oz[0], oz[1], output[0]);
+			total_error = net.adjust(oz_e);
+			if (PRINT_OUTPUT) printf(format.c_str(), oz[0], oz[1], output[0], total_error);
 			break;
 		case 2:
 			output = net.feed(zo, true);
-			total_error = net.adjust(zo, zo_e);
-			if (PRINT_OUTPUT) printf(format.c_str(), zo[0], zo[1], output[0]);
+			total_error = net.adjust(zo_e);
+			if (PRINT_OUTPUT) printf(format.c_str(), zo[0], zo[1], output[0], total_error);
 			break;
 		case 3:
 		default:
 			output = net.feed(oo, true);
-			total_error = net.adjust(oo, oo_e);
-			if (PRINT_OUTPUT) printf(format.c_str(), oo[0], oo[1], output[0]);
+			total_error = net.adjust(oo_e);
+			if (PRINT_OUTPUT) printf(format.c_str(), oo[0], oo[1], output[0], total_error);
 			if (UPDATE_STATUS) console::set_title("XOR: " + to_string(i + 1) + "/" + to_string(train_times));
 			break;
 		}
@@ -157,7 +157,7 @@ long long trainer::train_handwritten_digits(network& net, const string mnist_ima
 		}
 
 		double* output = net.feed(image, true); // feed forward
-		net.adjust(image, expected); // backprop
+		net.adjust(expected); // backprop
 		const int output_l = highest_index(output, 10); // get the highest index of the output array (actual result)
 
 		if (PRINT_OUTPUT) printf(format.c_str(), label, output_l);
