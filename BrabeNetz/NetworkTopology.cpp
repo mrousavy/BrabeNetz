@@ -48,7 +48,7 @@ layer& network_topology::layer_at(const int index)
 
 network_topology& network_topology::random(std::vector<int> layers)
 {
-	auto * topology = new network_topology(); // Alloc on heap
+	auto* topology = new network_topology(); // Alloc on heap
 
 	for (int l = 0; l < layers.size(); l++) // Loop through each layer
 	{

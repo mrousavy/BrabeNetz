@@ -2,7 +2,8 @@
 
 network_result::network_result(const brabe_netz* network, std::vector<double>& values, const int feed_count)
 	: values(values), feed_count(feed_count), network_(network)
-{}
+{
+}
 
 double network_result::adjust(const std::vector<double>& expected_output) const
 {
@@ -12,25 +13,30 @@ double network_result::adjust(const std::vector<double>& expected_output) const
 	return this->network_->adjust(expected_output.data(), this->values.data());
 }
 
-brabe_netz::brabe_netz(std::initializer_list<int> initializer_list, properties & properties)
+brabe_netz::brabe_netz(std::initializer_list<int> initializer_list, properties& properties)
 	: network_(initializer_list, properties), topology_(network_.build_topology()), output_size_(*initializer_list.end()),
-	input_size_(*initializer_list.begin()), feed_count_(0)
-{}
+	  input_size_(*initializer_list.begin()), feed_count_(0)
+{
+}
 
 brabe_netz::brabe_netz(network_topology& topology, properties& properties)
 	: network_(topology, properties), topology_(topology), output_size_(topology.layer_at(topology.size() - 1).size()),
-	input_size_(topology.layer_at(0).size()),
-	feed_count_(0)
-{}
+	  input_size_(topology.layer_at(0).size()),
+	  feed_count_(0)
+{
+}
 
-brabe_netz::brabe_netz(properties & properties)
-	: network_(properties), topology_(network_.build_topology()), output_size_(topology_.layer_at(topology_.size() - 1).size()),
-	input_size_(topology_.layer_at(0).size()),
-	feed_count_(0)
-{}
+brabe_netz::brabe_netz(properties& properties)
+	: network_(properties), topology_(network_.build_topology()),
+	  output_size_(topology_.layer_at(topology_.size() - 1).size()),
+	  input_size_(topology_.layer_at(0).size()),
+	  feed_count_(0)
+{
+}
 
 brabe_netz::~brabe_netz()
-{}
+{
+}
 
 network_result brabe_netz::feed(std::vector<double>& input_values) const
 {
@@ -49,7 +55,7 @@ void brabe_netz::set_learnrate(const double value)
 	this->network_.set_learnrate(value);
 }
 
-network_topology & brabe_netz::build_topology() const
+network_topology& brabe_netz::build_topology() const
 {
 	return this->network_.build_topology();
 }

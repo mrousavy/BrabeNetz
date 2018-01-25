@@ -24,16 +24,14 @@ struct properties
 	                    const int iters_per_thread = 600,
 	                    const bool force_multithreaded = false,
 	                    const std::string state_file = "state.nn")
-		:	def_learn_rate(learn_rate), 
-			iters_per_thread(iters_per_thread),
-			force_multithreaded(force_multithreaded),
-			state_file(state_file)
+		: def_learn_rate(learn_rate),
+		  iters_per_thread(iters_per_thread),
+		  force_multithreaded(force_multithreaded),
+		  state_file(state_file)
 	{
-		
 	}
 
 	~properties()
 	{
-		
 	}
 };

@@ -14,9 +14,9 @@ public:
 	/// <summary>
 	///		Create a new instance of the network result
 	/// </summary>
-	network_result(const brabe_netz* network, 
-				  std::vector<double>& values, 
-				  const int feed_count);
+	network_result(const brabe_netz* network,
+	               std::vector<double>& values,
+	               const int feed_count);
 
 	/// <summary>
 	///		The actual output layer's values
@@ -176,4 +176,3 @@ private:
 
 	double adjust(const double* expected_output, const double* actual_output) const;
 };
-

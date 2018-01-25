@@ -87,7 +87,8 @@ double* network::feed(double* input_values, const bool copy_input) const
 
 	double* values = input_values; // Values of current layer
 	int* values_length = new int(length); // Copy input length to variable
-	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++) // Loop through each hidden layer + output
+	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++)
+		// Loop through each hidden layer + output
 	{
 		values = to_next_layer(values, *values_length, hidden_index, *values_length);
 	}
@@ -150,10 +151,10 @@ double network::adjust(const double* expected_output, const double* actual_outpu
 		const int neurons = this->neurons_count_[i]; // Count of neurons in this layer
 		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
 		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
-		
+
 		// ReSharper disable once CppDeclaratorNeverUsed
-		const bool worth = properties_.force_multithreaded 
-						|| neurons * next_neurons > core_count_ * properties_.iters_per_thread;
+		const bool worth = properties_.force_multithreaded
+			|| neurons * next_neurons > core_count_ * properties_.iters_per_thread;
 		// Worth the multithread-spawning?
 #pragma omp parallel for if(worth) // OMP.Parallel loop on each CPU Core if worth the thread spawn
 		for (int n = 0; n < neurons; n++) // Loop through each neuron on this layer
@@ -247,7 +248,7 @@ network_topology& network::build_topology() const
 	return this->topology_;
 }
 
-void network::save(const std::string path) const
+void network::save(const string path) const
 {
 	network_topology::save(build_topology(), path);
 }
