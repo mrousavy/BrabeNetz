@@ -7,7 +7,7 @@ network_result::network_result(const brabe_netz* network, std::vector<double>& v
 
 double network_result::adjust(const std::vector<double>& expected_output) const
 {
-	if (this->network_->feed_count_ > this->feed_count)
+	if (this->network_->feed_count_ != this->feed_count)
 		throw std::exception("Invalid use - adjust has to be called immediately after feeding!");
 
 	return this->network_->adjust(expected_output.data());
@@ -38,20 +38,30 @@ brabe_netz::~brabe_netz()
 {
 }
 
-network_result brabe_netz::feed(std::vector<double>& input_values) const
+network_result brabe_netz::feed(std::vector<double>& input_values)
 {
+	if (input_values.size() != this->input_size_)
+		throw std::invalid_argument("The input values vector does not match the network's input layer's size!");
+
 	double* output = this->network_.feed(input_values.data(), true);
 	const int size = this->output_size_;
+	this->feed_count_++;
 	return network_result(this, std::vector<double>(output, output + size), this->feed_count_);
 }
 
 void brabe_netz::save(const std::string path) const
 {
+	if (path.length() < 1)
+		throw std::invalid_argument("The given path cannot be empty!");
+
 	this->network_.save(path);
 }
 
-void brabe_netz::set_learnrate(const double value)
+void brabe_netz::set_learnrate(const double value) noexcept
 {
+	if (value < 0.0)
+		throw std::invalid_argument("The learn rate can't be less than 0!");
+
 	this->network_.set_learnrate(value);
 }
 
@@ -60,7 +70,7 @@ network_topology& brabe_netz::build_topology() const
 	return this->network_.build_topology();
 }
 
-double brabe_netz::adjust(const double* expected_output) const
+double brabe_netz::adjust(const double* expected_output) const noexcept
 {
 	return this->network_.adjust(expected_output);
 }

@@ -131,7 +131,7 @@ public:
 	///		Returns the neural network's result. Use this to
 	///		adjust and backpropagate through the network
 	/// </returns>
-	network_result feed(std::vector<double>& input_values) const;
+	network_result feed(std::vector<double>& input_values);
 
 	/// <summary>
 	///		Save the network's state to disk by serializing weights
@@ -153,7 +153,7 @@ public:
 	/// <param name="value">
 	///		The new learn rate
 	/// </param>
-	void set_learnrate(double value);
+	void set_learnrate(double value) noexcept;
 
 	/// <summary>
 	///		Build and set the network topology object of the current
@@ -174,5 +174,5 @@ private:
 	const int input_size_;
 	int feed_count_;
 
-	double adjust(const double* expected_output) const;
+	double adjust(const double* expected_output) const noexcept;
 };
