@@ -8,7 +8,7 @@ using namespace std;
 
 // ctor
 network::network(initializer_list<int> initializer_list, properties& properties)
-	: topology_(network_topology::random(initializer_list)), properties_(properties_)
+	: topology_(network_topology::random(initializer_list)), properties_(properties)
 {
 	srand(static_cast<unsigned>(time(nullptr)));
 
@@ -19,7 +19,7 @@ network::network(initializer_list<int> initializer_list, properties& properties)
 }
 
 network::network(network_topology& topology, properties& properties)
-	: topology_(topology), properties_(properties_)
+	: topology_(topology), properties_(properties)
 {
 	srand(static_cast<unsigned>(time(nullptr)));
 	init();
@@ -150,7 +150,7 @@ double network::adjust(const double* expected_output, const double* actual_outpu
 		const int neurons = this->neurons_count_[i]; // Count of neurons in this layer
 		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
 		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
-
+		
 		// ReSharper disable once CppRedundantBooleanExpressionArgument
 		const bool worth = properties_.force_multithreaded 
 						|| neurons * next_neurons > core_count_ * properties_.iters_per_thread;
