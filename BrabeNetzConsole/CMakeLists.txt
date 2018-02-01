@@ -13,7 +13,7 @@ if (OPENMP_FOUND)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 endif()
 
-add_executable(BrabeNetzConsole BrabeNetzConsole.cpp Helper.h Trainer.cpp Trainer.h Console.cpp Console.h)
+add_executable(BrabeNetzConsole BrabeNetzConsole.cpp Helper.h Trainer.cpp Trainer.h Console.cpp Console.h stdafx.h)
 
 #target_include_directories(BrabeNetzConsole PUBLIC
 #        ${BRABENETZ_LIB})
