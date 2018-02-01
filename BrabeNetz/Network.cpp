@@ -13,7 +13,7 @@ network::network(initializer_list<int> initializer_list, properties& properties)
 	srand(static_cast<unsigned>(time(nullptr)));
 
 	if (initializer_list.size() < 3)
-		throw exception("Neural network can't have less than 3 layers!");
+		throw std::runtime_error("Neural network can't have less than 3 layers!");
 
 	init();
 }
