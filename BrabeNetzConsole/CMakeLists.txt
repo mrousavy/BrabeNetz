@@ -29,3 +29,5 @@ include_directories(${BRABENETZ_LIB})
 
 add_executable(BrabeNetzConsole BrabeNetzConsole.cpp Helper.h Trainer.cpp Trainer.h Console.cpp Console.h stdafx.h)
 target_link_libraries(BrabeNetzConsole ${BRABENETZ_BIN})
+
+install (TARGETS BrabeNetzConsole DESTINATION bin)
