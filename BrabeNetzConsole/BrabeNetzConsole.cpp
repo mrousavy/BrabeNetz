@@ -1,15 +1,10 @@
-// BrabeNetzConsole.cpp : Defines the entry point for the console application.
-//
-
 #include "stdafx.h"
 #include <iostream>
-#include <string>
 #include <chrono>
 #include <fstream>
 #include <omp.h>
 #include "Console.h"
 #include "Trainer.h"
-#include "Network.h"
 using namespace std;
 
 // Load saved network state from disk instead of randomizing a new one each start
@@ -81,13 +76,13 @@ int main()
 
 		delete net;
 	}
-	catch (exception exc)
+    catch (runtime_error& error)
+    {
+        cout << error.what() << endl;
+    }
+	catch (string& msg)
 	{
-		cout << exc.what() << endl;
-	}
-	catch (string error)
-	{
-		cout << error << endl;
+		cout << msg << endl;
 	}
 
 	// Exit on user input

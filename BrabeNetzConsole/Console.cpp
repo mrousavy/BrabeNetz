@@ -17,7 +17,7 @@ int console::get_width()
 {
 #ifdef linux
 	struct winsize size;
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
+	ioctl(1, TIOCGWINSZ, &size);
 	return size.ws_row;
 #else
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -30,7 +30,7 @@ int console::get_height()
 {
 #ifdef linux
 	struct winsize size;
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
+	ioctl(1, TIOCGWINSZ, &size);
 	return size.ws_col;
 #else
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -41,9 +41,13 @@ int console::get_height()
 
 point console::get_pos()
 {
+#ifdef linux
+    return {0, 0};
+#else
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
 	return point(csbi.dwCursorPosition.X, csbi.dwCursorPosition.Y);
+#endif
 }
 
 void console::set_pos(const int x, const int y)
