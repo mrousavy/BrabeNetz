@@ -159,7 +159,7 @@ public:
 	/// <param name="value">
 	///		The new learn rate
 	/// </param>
-	void set_learnrate(double value) noexcept;
+	void set_learnrate(double value);
 
 	/// <summary>
 	///		Build and set the network topology object of the current

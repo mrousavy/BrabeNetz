@@ -25,7 +25,7 @@ double network_result::adjust(const std::vector<double>& expected_output) const
 }
 
 brabenetz::brabenetz(std::initializer_list<int> initializer_list, properties& properties)
-	: network_(initializer_list, properties), topology_(network_.build_topology()), 
+	: network_(initializer_list, properties), topology_(network_.build_topology()),
 	  output_size_(std::vector<int>(initializer_list).back()),
 	  input_size_(*initializer_list.begin()), feed_count_(0)
 {
@@ -68,7 +68,7 @@ void brabenetz::save(const std::string path) const
 	this->network_.save(path);
 }
 
-void brabenetz::set_learnrate(const double value) noexcept
+void brabenetz::set_learnrate(const double value)
 {
 	if (value < 0.0)
 		throw std::invalid_argument("The learn rate can't be less than 0!");
