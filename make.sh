@@ -1,8 +1,12 @@
 #!/bin/bash
 
 echo "### BUILDING LIBRARY ##"
-cmake -D CMAKE_BUILD_TYPE=Release BrabeNetz
+cd BrabeNetz
+cmake -D CMAKE_BUILD_TYPE=Release CMakeLists.txt
+cd ..
 echo "# BUILDING EXECUTABLE #"
-cmake -D CMAKE_BUILD_TYPE=Release BrabeNetzConsole
+cd BrabeNetzConsole
+cmake -D CMAKE_BUILD_TYPE=Release CMakeLists.txt
+cd ..
 echo "######## DONE #########"
 
