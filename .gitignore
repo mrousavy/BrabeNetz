@@ -395,3 +395,9 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+# Custom CMake Files
+*.cbp
+bin/
+lib/
+
