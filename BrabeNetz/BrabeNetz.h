@@ -3,7 +3,7 @@
 #include "Properties.h"
 #include "Network.h"
 
-class brabe_netz;
+class brabenetz;
 
 /// <summary>
 ///		A Neural Network's output result
@@ -14,14 +14,17 @@ public:
 	/// <summary>
 	///		Create a new instance of the network result
 	/// </summary>
-	network_result(const brabe_netz* network,
-	               std::vector<double>& values,
+	network_result(const brabenetz* network,
+	               std::vector<double>* values,
 	               const int feed_count);
 
+	~network_result();
+
 	/// <summary>
-	///		The actual output layer's values
+	///		Get the actual output layer's values
 	/// </summary>
-	const std::vector<double>& values;
+	const std::vector<double>& values() const noexcept;
+
 	/// <summary>
 	///		A counter indicating the amount of
 	///		forward propagations that have taken
@@ -46,8 +49,11 @@ public:
 	///		Returns the neural network's total error value
 	/// </returns>
 	double adjust(const std::vector<double>& expected_output) const;
+
 private:
-	const brabe_netz* network_;
+	std::vector<double>* values_;
+private:
+	const brabenetz* network_;
 };
 
 /// <summary>
@@ -60,7 +66,7 @@ private:
 ///		a bit slower than the raw network, but is by
 ///		far easier and better to use and read.
 /// </remarks>
-class brabe_netz
+class brabenetz
 {
 public:
 	////////////////
@@ -83,7 +89,7 @@ public:
 	/// BrabeNetz network({ 2, 3, 4, 1 }, properties);
 	/// </code>
 	/// </example>
-	brabe_netz(std::initializer_list<int> initializer_list, properties& properties);
+	brabenetz(std::initializer_list<int> initializer_list, properties& properties);
 
 	/// <summary>
 	///		Construct a new neural network with the given network
@@ -95,7 +101,7 @@ public:
 	/// <param name="properties">
 	///		Additional Parameters for the neural network
 	/// </param>
-	explicit brabe_netz(network_topology& topology, properties& properties);
+	explicit brabenetz(network_topology& topology, properties& properties);
 
 	/// <summary>
 	///		Construct a new neural network and load the 
@@ -107,12 +113,12 @@ public:
 	///		This constructor will load from the state file
 	///		located at <c>properties.state_file</c>
 	/// </param>
-	explicit brabe_netz(properties& properties);
+	explicit brabenetz(properties& properties);
 
 	/// <summary>
 	///		Destroy the neural network and clear memory
 	/// </summary>
-	~brabe_netz();
+	~brabenetz();
 
 
 	////////////////
@@ -166,7 +172,7 @@ public:
 	network_topology& build_topology() const;
 
 	friend double network_result::adjust(const std::vector<double>& expected_output) const;
-	friend network_result::network_result(const brabe_netz* network, std::vector<double>& values, const int feed_count);
+	friend network_result::network_result(const brabenetz* network, std::vector<double>* values, const int feed_count);
 private:
 	network network_;
 	network_topology& topology_;
