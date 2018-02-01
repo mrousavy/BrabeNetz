@@ -19,7 +19,7 @@ network::network(initializer_list<int> initializer_list, properties& properties)
 }
 
 network::network(network_topology& topology, properties& properties)
-	: topology_(topology), properties_(properties)
+	: topology_(&topology), properties_(properties)
 {
 	srand(static_cast<unsigned>(time(nullptr)));
 	init();
@@ -35,13 +35,13 @@ network::network(properties& properties)
 void network::init() noexcept
 {
 	this->learn_rate_ = properties_.def_learn_rate;
-	this->layers_count_ = topology_.size(); // Count of layers = input (1) + hidden + output (1)
+	this->layers_count_ = topology_->size(); // Count of layers = input (1) + hidden + output (1)
 	this->layers_ = new double*[this->layers_count_];
 	this->neurons_count_ = new int[this->layers_count_];
 
 	for (int i = 0; i < this->layers_count_; i++)
 	{
-		const int layer_size = topology_.layer_at(i).size(); // Size of this layer (Neurons count)
+		const int layer_size = topology_->layer_at(i).size(); // Size of this layer (Neurons count)
 		this->neurons_count_[i] = layer_size; // Set neuron count on this hidden layer
 		this->layers_[i] = static_cast<double*>(malloc(sizeof(double) * layer_size));
 	}
@@ -61,6 +61,7 @@ network::~network()
 	delete[] this->layers_;
 	delete[] this->biases_;
 	delete[] this->neurons_count_;
+	delete topology_;
 }
 
 void network::set_learnrate(const double value) noexcept
@@ -204,13 +205,13 @@ void network::fill_weights() noexcept
 	const int count = this->layers_count_ - 1; // Count of layers with connections
 	this->weights_ = new double**[count]; // init first dimension; count of layers with connections
 
-	const int lcount = this->topology_.size(); // Count of layers
+	const int lcount = this->topology_->size(); // Count of layers
 	this->biases_ = new double*[lcount];
 	this->weights_ = new double**[lcount];
 #pragma omp parallel for
 	for (int l = 0; l < lcount; l++) // Loop through each layer
 	{
-		layer& layer = this->topology_.layer_at(l);
+		layer& layer = this->topology_->layer_at(l);
 		const int ncount = layer.size(); // Count of neurons in this layer
 		this->biases_[l] = new double[ncount];
 		this->weights_[l] = new double*[ncount];
@@ -234,7 +235,7 @@ network_topology& network::build_topology() const
 	// TODO: Parallel for this?
 	for (int i = 0; i < layers_count_ - 1; i++) // Loop through each layer until last hidden layer
 	{
-		layer& layer = this->topology_.layer_at(i);
+		layer& layer = this->topology_->layer_at(i);
 		for (int n = 0; n < neurons_count_[i]; n++) // Loop through each neuron on this layer
 		{
 			neuron& neuron = layer.neuron_at(n);
@@ -247,7 +248,7 @@ network_topology& network::build_topology() const
 		}
 	}
 
-	return this->topology_;
+	return *this->topology_;
 }
 
 void network::save(const string path) const

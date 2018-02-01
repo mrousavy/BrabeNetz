@@ -48,7 +48,7 @@ private:
 	// Weight of each neuron's connection, 3D Array: [layer][neuron][connection]
 	double*** weights_;
 	// The network topology, only for logic representation and weights initialization
-	network_topology& topology_;
+	network_topology* topology_;
 	// Amount of cores/threads on this machine
 	const int core_count_ = std::thread::hardware_concurrency();
 	// The network's initializer properties
