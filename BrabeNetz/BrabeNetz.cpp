@@ -1,4 +1,5 @@
 #include "BrabeNetz.h"
+#include <vector>
 
 network_result::network_result(const brabenetz* network, std::vector<double>* values, const int feed_count)
 	: feed_count(feed_count), values_(values), network_(network)

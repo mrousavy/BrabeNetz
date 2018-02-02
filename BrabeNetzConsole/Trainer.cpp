@@ -3,6 +3,8 @@
 #include "Console.h"
 #include "Helper.h"
 
+#include <vector>
+
 using namespace std;
 
 // Use a constant learn rate (LEARN_RATE) for training instead of small decreasing one
@@ -14,74 +16,76 @@ using namespace std;
 
 /*
 	Train the network to recognize a XOR input (recommended topology: {2,3,1})
+	This example shows how to use the polished brabenetz.h interface
 */
-long long trainer::train_xor(network& net, const int train_times)
+long long trainer::train_xor(brabenetz& net, const int train_times)
 {
 	const string format = "{ %.0f, %.0f } = %.3f | e=%.3f\n";
 
-	double* zz = new double[2]{ 0,0 };
-	double* zz_e = new double[1]{ 0 };
-	double* oz = new double[2]{ 1,0 };
-	double* oz_e = new double[1]{ 1 };
-	double* zo = new double[2]{ 0,1 };
-	double* zo_e = new double[1]{ 1 };
-	double* oo = new double[2]{ 1,1 };
-	double* oo_e = new double[1]{ 0 };
+	vector<double> zz{ 0,0 };
+	vector<double> zz_e{ 0 };
+	vector<double> oz{ 1,0 };
+	vector<double> oz_e{ 1 };
+	vector<double> zo{ 0,1 };
+	vector<double> zo_e{ 1 };
+	vector<double> oo{ 1,1 };
+	vector<double> oo_e{ 0 };
 
 	const auto train_start = chrono::high_resolution_clock::now();
 	for (int i = 0; i < train_times; i++) // Loop train_times (should be %4 = 0)
 	{
-#if !CONST_LEARN_RATE
+		#if !CONST_LEARN_RATE
 		const double learn_rate = 1.0 / ((i / 4) + 1.0);
 		net.set_learnrate(learn_rate);
-#endif
+		#endif
 
 		double total_error;
-		double* output;
+		vector<double> output;
+		network_result* result = nullptr;
 
 		switch (i % 4) // Train all 4 cases alternately
 		{
-		case 0:
-			output = net.feed(zz, true);
-			total_error = net.adjust(zz_e);
-			if (PRINT_OUTPUT) printf(format.c_str(), zz[0], zz[1], output[0], total_error);
-			break;
-		case 1:
-			output = net.feed(oz, true);
-			total_error = net.adjust(oz_e);
-			if (PRINT_OUTPUT) printf(format.c_str(), oz[0], oz[1], output[0], total_error);
-			break;
-		case 2:
-			output = net.feed(zo, true);
-			total_error = net.adjust(zo_e);
-			if (PRINT_OUTPUT) printf(format.c_str(), zo[0], zo[1], output[0], total_error);
-			break;
-		case 3:
-		default:
-			output = net.feed(oo, true);
-			total_error = net.adjust(oo_e);
-			if (PRINT_OUTPUT) printf(format.c_str(), oo[0], oo[1], output[0], total_error);
-			if (UPDATE_STATUS) console::set_title("XOR: " + to_string(i + 1) + "/" + to_string(train_times));
-			break;
+			case 0:
+			{
+				auto x = zz.data();
+				auto result = net.feed(zz);
+				total_error = result.adjust(zz_e);
+				if (PRINT_OUTPUT) printf(format.c_str(), zz[0], zz[1], output[0], total_error);
+				break;
+			}
+			case 1:
+			{
+				auto result = net.feed(oz);
+				total_error = result.adjust(oz_e);
+				if (PRINT_OUTPUT) printf(format.c_str(), oz[0], oz[1], output[0], total_error);
+				break;
+			}
+			case 2:
+			{
+				auto result = net.feed(zo);
+				total_error = result.adjust(zo_e);
+				if (PRINT_OUTPUT) printf(format.c_str(), zo[0], zo[1], output[0], total_error);
+				break;
+			}
+			case 3:
+			default:
+			{
+				auto result = net.feed(oo);
+				total_error = result.adjust(oo_e);
+				if (PRINT_OUTPUT) printf(format.c_str(), oo[0], oo[1], output[0], total_error);
+				if (UPDATE_STATUS) console::set_title("XOR: " + to_string(i + 1) + "/" + to_string(train_times));
+				break;
+			}
 		}
 	}
 	const auto train_finish = chrono::high_resolution_clock::now();
-
-	// Cleanup
-	delete[] zz;
-	delete[] zz_e;
-	delete[] oz;
-	delete[] oz_e;
-	delete[] zo;
-	delete[] zo_e;
-	delete[] oo;
-	delete[] oo_e;
 
 	return std::chrono::duration_cast<chrono::microseconds>(train_finish - train_start).count();
 }
 
 /*
 	Train the network to recognize handwritten digits from the MNIST data set (recommended topology: {784,16,16,10})
+	This example shows how to use the raw network.h interface (is a bit faster)
 */
 long long trainer::train_handwritten_digits(network& net, const string mnist_images, const string mnist_labels)
 {
