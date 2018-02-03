@@ -99,6 +99,9 @@ void network_topology::save(network_topology& topology, const std::string path)
 {
 	std::ofstream file;
 	file.open(path, std::fstream::out | std::fstream::binary | std::fstream::trunc); // Open the file
+	if (!file.good())
+		throw std::runtime_error("Cannot find the file specified!");
+
 	file << topology; // Serialize network topology with operator<<
 	file.close();
 }
