@@ -47,8 +47,8 @@ long long trainer::train_xor(brabenetz& net, const int train_times)
 		{
 			case 0:
 			{
-				auto x = zz.data();
 				auto result = net.feed(zz);
+				output = result.values();
 				total_error = result.adjust(zz_e);
 				if (PRINT_OUTPUT) printf(format.c_str(), zz[0], zz[1], output[0], total_error);
 				break;
@@ -56,6 +56,7 @@ long long trainer::train_xor(brabenetz& net, const int train_times)
 			case 1:
 			{
 				auto result = net.feed(oz);
+				output = result.values();
 				total_error = result.adjust(oz_e);
 				if (PRINT_OUTPUT) printf(format.c_str(), oz[0], oz[1], output[0], total_error);
 				break;
@@ -63,6 +64,7 @@ long long trainer::train_xor(brabenetz& net, const int train_times)
 			case 2:
 			{
 				auto result = net.feed(zo);
+				output = result.values();
 				total_error = result.adjust(zo_e);
 				if (PRINT_OUTPUT) printf(format.c_str(), zo[0], zo[1], output[0], total_error);
 				break;
@@ -71,6 +73,7 @@ long long trainer::train_xor(brabenetz& net, const int train_times)
 			default:
 			{
 				auto result = net.feed(oo);
+				output = result.values();
 				total_error = result.adjust(oo_e);
 				if (PRINT_OUTPUT) printf(format.c_str(), oo[0], oo[1], output[0], total_error);
 				if (UPDATE_STATUS) console::set_title("XOR: " + to_string(i + 1) + "/" + to_string(train_times));

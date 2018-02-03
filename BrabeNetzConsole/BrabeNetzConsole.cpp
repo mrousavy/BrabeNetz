@@ -11,6 +11,10 @@ using namespace std;
 #define LOAD_STATE true
 // Amount of times to train the network
 #define TRAIN_TIMES_EACH 10000
+// Train Image recognition? MNIST
+#define TRAIN_IMAGE
+// Train XOR Logic gate?
+#define TRAIN_XOR
 
 void print_info()
 {
@@ -51,18 +55,28 @@ int main()
 
 		// boot up/load neuronal network
 		const auto boot_start = chrono::high_resolution_clock::now();
+#ifdef TRAIN_IMAGE
 		network* net;
 		if (LOAD_STATE && ifstream("state.nn", fstream::in | fstream::binary)) // Load if file exists
 			net = new network(properties);
 		else // Else create random network
 			net = new network({ 784,16,16,10 }, properties);
+#endif
+#ifdef TRAIN_XOR
+		brabenetz bnet({ 2, 3, 1 }, properties);
+#endif
 		const auto boot_finish = chrono::high_resolution_clock::now();
 
 
 		// Train neural network with trainer
-		//const auto train_microsecs = trainer::train_xor(*net, TRAIN_TIMES_EACH);
-		const auto train_microsecs = trainer::train_handwritten_digits(*net, "train-images.idx3-ubyte",
-		                                                               "train-labels.idx1-ubyte");
+		long long train_microsecs{ 0 };
+#ifdef TRAIN_XOR
+		train_microsecs += trainer::train_xor(bnet, TRAIN_TIMES_EACH);
+#endif
+#ifdef TRAIN_IMAGE
+		train_microsecs += trainer::train_handwritten_digits(*net, "train-images.idx3-ubyte", 
+																	   "train-labels.idx1-ubyte");
+#endif
 		const double train_time = train_microsecs / 1000.0;
 
 		printf("Training done!\n\n");
@@ -76,10 +90,10 @@ int main()
 
 		delete net;
 	}
-    catch (runtime_error& error)
-    {
-        cout << error.what() << endl;
-    }
+	catch (runtime_error& error)
+	{
+		cout << error.what() << endl;
+	}
 	catch (string& msg)
 	{
 		cout << msg << endl;
