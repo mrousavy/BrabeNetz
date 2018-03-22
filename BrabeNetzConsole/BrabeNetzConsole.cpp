@@ -71,7 +71,7 @@ int main()
 		// Train neural network with trainer
 		long long train_microsecs{ 0 };
 #ifdef TRAIN_XOR
-		train_microsecs += trainer::train_xor(bnet, TRAIN_TIMES_EACH);
+		train_microsecs += trainer::train_xor(bnet, TRAIN_TIMES_EACH * 4);
 #endif
 #ifdef TRAIN_IMAGE
 		train_microsecs += trainer::train_handwritten_digits(*net, "train-images.idx3-ubyte", 

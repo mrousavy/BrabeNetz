@@ -41,7 +41,6 @@ long long trainer::train_xor(brabenetz& net, const int train_times)
 
 		double total_error;
 		vector<double> output;
-		network_result* result = nullptr;
 
 		switch (i % 4) // Train all 4 cases alternately
 		{
