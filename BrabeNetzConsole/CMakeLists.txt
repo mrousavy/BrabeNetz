@@ -23,7 +23,7 @@ set(BRABENETZ_LIB "${CMAKE_CURRENT_SOURCE_DIR}/../BrabeNetz")
 if(CMAKE_BUILD_TYPE MATCHES "[Re][Ee][Ll][Ee][Aa][Ss][Ee]")
     set(BRABENETZ_BIN "${BRABENETZ_LIB}/lib/libBrabeNetz.a")
 else()
-    set(BRABENETZ_BIN "${BRABENETZ_LIB}/cmake-build-debug/libBrabeNetz.a")
+    set(BRABENETZ_BIN "${BRABENETZ_LIB}/lib/libBrabeNetz.a")
 endif()
 include_directories(${BRABENETZ_LIB})
 
