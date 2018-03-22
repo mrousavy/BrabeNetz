@@ -9,6 +9,6 @@ class connection
 public:
 	connection();
 	~connection();
-	explicit connection(const double weight);
+	explicit connection(double weight);
 	double weight = 1;
 };

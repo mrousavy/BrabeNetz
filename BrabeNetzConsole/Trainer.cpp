@@ -22,29 +22,29 @@ long long trainer::train_xor(brabenetz& net, const int train_times)
 {
 	const string format = "{ %.0f, %.0f } = %.3f | e=%.3f\n";
 
-	vector<double> zz{ 0,0 };
+	vector<double> zz{ 0, 0 };
 	vector<double> zz_e{ 0 };
-	vector<double> oz{ 1,0 };
+	vector<double> oz{ 1, 0 };
 	vector<double> oz_e{ 1 };
-	vector<double> zo{ 0,1 };
+	vector<double> zo{ 0, 1 };
 	vector<double> zo_e{ 1 };
-	vector<double> oo{ 1,1 };
+	vector<double> oo{ 1, 1 };
 	vector<double> oo_e{ 0 };
 
 	const auto train_start = chrono::high_resolution_clock::now();
 	for (int i = 0; i < train_times; i++) // Loop train_times (should be %4 = 0)
 	{
-		#if !CONST_LEARN_RATE
+#if !CONST_LEARN_RATE
 		const double learn_rate = 1.0 / ((i / 4) + 1.0);
 		net.set_learnrate(learn_rate);
-		#endif
+#endif
 
 		double total_error;
 		vector<double> output;
 
 		switch (i % 4) // Train all 4 cases alternately
 		{
-			case 0:
+		case 0:
 			{
 				auto result = net.feed(zz);
 				output = result.values();
@@ -52,7 +52,7 @@ long long trainer::train_xor(brabenetz& net, const int train_times)
 				if (PRINT_OUTPUT) printf(format.c_str(), zz[0], zz[1], output[0], total_error);
 				break;
 			}
-			case 1:
+		case 1:
 			{
 				auto result = net.feed(oz);
 				output = result.values();
@@ -60,7 +60,7 @@ long long trainer::train_xor(brabenetz& net, const int train_times)
 				if (PRINT_OUTPUT) printf(format.c_str(), oz[0], oz[1], output[0], total_error);
 				break;
 			}
-			case 2:
+		case 2:
 			{
 				auto result = net.feed(zo);
 				output = result.values();
@@ -68,8 +68,8 @@ long long trainer::train_xor(brabenetz& net, const int train_times)
 				if (PRINT_OUTPUT) printf(format.c_str(), zo[0], zo[1], output[0], total_error);
 				break;
 			}
-			case 3:
-			default:
+		case 3:
+		default:
 			{
 				auto result = net.feed(oo);
 				output = result.values();
@@ -100,7 +100,8 @@ long long trainer::train_handwritten_digits(network& net, const string mnist_ima
 	ifstream labels_stream(mnist_labels, fstream::in | fstream::binary); // Open the labels file
 
 	if (!images_stream.good() || !labels_stream.good()) // Check if exists
-		throw runtime_error("Images/Labels training file not found! Download and unzip from http://yann.lecun.com/exdb/mnist");
+		throw runtime_error(
+			"Images/Labels training file not found! Download and unzip from http://yann.lecun.com/exdb/mnist");
 
 	// First 32 bit: MAGIC NUMBER
 	const int i_magic_number = read_int(images_stream);

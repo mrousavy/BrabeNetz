@@ -16,7 +16,7 @@ public:
 	/// </summary>
 	network_result(const brabenetz* network,
 	               std::vector<double>* values,
-	               const int feed_count);
+	               int feed_count);
 
 	~network_result();
 
@@ -172,7 +172,7 @@ public:
 	network_topology& build_topology() const;
 
 	friend double network_result::adjust(const std::vector<double>& expected_output) const;
-	friend network_result::network_result(const brabenetz* network, std::vector<double>* values, const int feed_count);
+	friend network_result::network_result(const brabenetz* network, std::vector<double>* values, int feed_count);
 private:
 	network network_;
 	network_topology& topology_;

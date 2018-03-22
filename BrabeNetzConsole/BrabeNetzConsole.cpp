@@ -60,7 +60,7 @@ int main()
 		if (LOAD_STATE && ifstream("state.nn", fstream::in | fstream::binary)) // Load if file exists
 			net = new network(properties);
 		else // Else create random network
-			net = new network({ 784,16,16,10 }, properties);
+			net = new network({ 784, 16, 16, 10 }, properties);
 #endif
 #ifdef TRAIN_XOR
 		brabenetz bnet({ 2, 3, 1 }, properties);
@@ -74,8 +74,8 @@ int main()
 		train_microsecs += trainer::train_xor(bnet, TRAIN_TIMES_EACH * 4);
 #endif
 #ifdef TRAIN_IMAGE
-		train_microsecs += trainer::train_handwritten_digits(*net, "train-images.idx3-ubyte", 
-																	   "train-labels.idx1-ubyte");
+		train_microsecs += trainer::train_handwritten_digits(*net, "train-images.idx3-ubyte",
+		                                                     "train-labels.idx1-ubyte");
 #endif
 		const double train_time = train_microsecs / 1000.0;
 
