@@ -22,7 +22,7 @@ public:
 	// functions  //
 	////////////////
 	// Feed the network information and return the output layer with it's length "out_length"
-	double* feed(double* input_values, const bool copy_input) const noexcept;
+	double* feed(double* input_values, bool copy_input) const noexcept;
 	// Backwards Propagate through the network, adjust weights and biases and return total output error
 	double adjust(const double* expected_output) const noexcept;
 	// Save the network's state to disk by serializing weights
