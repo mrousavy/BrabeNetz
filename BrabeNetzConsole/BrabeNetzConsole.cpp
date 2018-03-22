@@ -85,10 +85,12 @@ int main()
 
 		printf("Bootup time: %.2fms | Train time: %.2fms | Total: %.2fms\n", boot_time, train_time, boot_time + train_time);
 
+#ifdef TRAIN_IMAGE
 		net->save();
 		printf("Saved state to state.nn file.\n\n");
 
 		delete net;
+#endif
 	}
 	catch (runtime_error& error)
 	{
