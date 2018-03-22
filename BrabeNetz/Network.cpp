@@ -78,7 +78,7 @@ double* network::feed(double* input_values, const bool copy_input) const noexcep
 	const int length = this->neurons_count_[0]; // Count of input neurons
 	if (copy_input)
 	{
-		if (!this->layers_[0]) free(this->layers_[0]);
+		if (this->layers_[0] != nullptr) free(this->layers_[0]);
 		this->layers_[0] = static_cast<double*>(malloc(sizeof(double) * length));
 		// Copy over inputs (we need this for adjust(..))
 		for (int n = 0; n < length; n++) // Loop through each input neuron "n"
@@ -88,7 +88,7 @@ double* network::feed(double* input_values, const bool copy_input) const noexcep
 	}
 
 	double* values = input_values; // Values of current layer
-	int* values_length = new int(length); // Copy input length to variable
+	auto* values_length = new int(length); // Copy input length to variable
 	for (int hidden_index = 1; hidden_index < this->layers_count_; hidden_index++)
 		// Loop through each hidden layer + output
 	{
@@ -133,7 +133,7 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 double network::adjust(const double* expected_output) const noexcept
 {
 	const int output_length = this->neurons_count_[layers_count_ - 1]; // Count of neurons in output layer
-	double** errors = static_cast<double**>(malloc(sizeof(double*) * layers_count_));
+	auto** errors = static_cast<double**>(malloc(sizeof(double*) * layers_count_));
 	// Each error value on the neurons (2D: [layer][neuron])
 	errors[layers_count_ - 1] = static_cast<double*>(malloc(sizeof(double) * output_length));
 	// Allocate output layer error size
@@ -199,7 +199,7 @@ double network::adjust(const double* expected_output) const noexcept
 void network::fill_weights() noexcept
 {
 	// if layer weights has a reference on the heap, delete it
-	if (!this->weights_)
+	if (this->weights_ != nullptr)
 		delete_weights();
 
 	const int count = this->layers_count_ - 1; // Count of layers with connections
