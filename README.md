@@ -61,6 +61,10 @@ Be sure to [read the network description](DESCRIPTION.md), and **check out my [d
 * `network_topology` helper objects for loading/saving state and inspecting network
 
 ## Usage
+<p align="center">
+    <img src="Images/example-code.png" alt="Example Usage Code" align="center" width="500" />
+</p>
+
 1. Build & link library
     * See: [build/link instructions](https://github.com/mrousavy/BrabeNetz/blob/master/BUILD.md)
 
