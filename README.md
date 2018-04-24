@@ -85,3 +85,7 @@ Be sure to [read the network description](DESCRIPTION.md), and **check out my [d
     5. `network_topology& brabenetz::build_topology()`: Build and set the network topology object of the current network's state (can be used for network visualization or similar) - [ref](https://github.com/mrousavy/BrabeNetz/blob/master/BrabeNetz/BrabeNetz.h#L164-L172)
 
 Usage examples can be found [here](https://github.com/mrousavy/BrabeNetz/blob/master/BrabeNetzConsole/BrabeNetzConsole.cpp), and [here](https://github.com/mrousavy/BrabeNetz/blob/master/BrabeNetzConsole/Trainer.cpp)
+
+> Thanks for using **BrabeNetz**!
+
+<a href='https://ko-fi.com/F1F8CLXG' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi2.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
