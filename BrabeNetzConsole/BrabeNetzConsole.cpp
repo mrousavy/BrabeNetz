@@ -12,7 +12,7 @@ using namespace std;
 // Amount of times to train the network
 #define TRAIN_TIMES_EACH 10000
 // Train Image recognition? MNIST
-#define TRAIN_IMAGE
+//#define TRAIN_IMAGE
 // Train XOR Logic gate?
 #define TRAIN_XOR
 
@@ -56,26 +56,30 @@ int main()
 		// boot up/load neuronal network
 		const auto boot_start = chrono::high_resolution_clock::now();
 #ifdef TRAIN_IMAGE
-		network* net;
-		if (LOAD_STATE && ifstream("state.nn", fstream::in | fstream::binary)) // Load if file exists
-			net = new network(properties);
-		else // Else create random network
-			net = new network({ 784, 16, 16, 10 }, properties);
+		#ifdef LOAD_STATE
+			network net(properties);
+		#elif
+			network net({ 784, 16, 16, 10 }, properties);
+		#endif
 #endif
 #ifdef TRAIN_XOR
-		brabenetz bnet({ 2, 3, 1 }, properties);
+		#ifdef LOAD_STATE
+			brabenetz xor_net(properties);
+		#elif
+			brabenetz xor_net({ 2, 3, 1 }, properties);
+		#endif
 #endif
 		const auto boot_finish = chrono::high_resolution_clock::now();
 
 
 		// Train neural network with trainer
 		long long train_microsecs{ 0 };
-#ifdef TRAIN_XOR
-		train_microsecs += trainer::train_xor(bnet, TRAIN_TIMES_EACH * 4);
-#endif
 #ifdef TRAIN_IMAGE
 		train_microsecs += trainer::train_handwritten_digits(*net, "train-images.idx3-ubyte",
-		                                                     "train-labels.idx1-ubyte");
+															 "train-labels.idx1-ubyte");
+#endif
+#ifdef TRAIN_XOR
+		train_microsecs += trainer::train_xor(xor_net, TRAIN_TIMES_EACH * 4);
 #endif
 		const double train_time = train_microsecs / 1000.0;
 
@@ -86,11 +90,12 @@ int main()
 		printf("Bootup time: %.2fms | Train time: %.2fms | Total: %.2fms\n", boot_time, train_time, boot_time + train_time);
 
 #ifdef TRAIN_IMAGE
-		net->save();
-		printf("Saved state to state.nn file.\n\n");
-
-		delete net;
+		net.save();
 #endif
+#ifdef TRAIN_XOR
+		xor_net.save();
+#endif
+		printf("Saved state to state.nn file.\n\n");
 	}
 	catch (runtime_error& error)
 	{

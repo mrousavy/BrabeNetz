@@ -78,8 +78,6 @@ double* network::feed(double* input_values, const bool copy_input) const noexcep
 	const int length = this->neurons_count_[0]; // Count of input neurons
 	if (copy_input)
 	{
-		if (this->layers_[0] != nullptr) free(this->layers_[0]);
-		this->layers_[0] = static_cast<double*>(malloc(sizeof(double) * length));
 		// Copy over inputs (we need this for adjust(..))
 		for (int n = 0; n < length; n++) // Loop through each input neuron "n"
 		{
