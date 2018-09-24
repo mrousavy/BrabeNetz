@@ -1,7 +1,9 @@
 # Description
+
 **This file explains all definitions and members important for the math of the network class.**
 
 # Members
+
 All Members of the `Network.cpp`/`Network.h` class:
 
 * `layers_[][]`: An array of **all** layers (which contain _neurons_) in the **network**. _(double)_
@@ -26,8 +28,8 @@ All Members of the `Network.cpp`/`Network.h` class:
   * **Note:**
   * Mostly used to get last element in arrays. (`layers_count_ - 1`)
 
-
 # Definitions
+
 All compile time (`#define`) Definitions inside the source/header files:
 
 * `BrabeNetz/Network.h`

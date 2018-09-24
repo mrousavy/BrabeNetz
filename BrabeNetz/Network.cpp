@@ -43,7 +43,7 @@ void network::init() noexcept
 	{
 		const int layer_size = topology_->layer_at(i).size(); // Size of this layer (Neurons count)
 		this->neurons_count_[i] = layer_size; // Set neuron count on this hidden layer
-		this->layers_[i] = static_cast<double*>(malloc(sizeof(double) * layer_size));
+		this->layers_[i] = new double[layer_size];
 	}
 	fill_weights();
 }
@@ -55,7 +55,7 @@ network::~network()
 	delete_weights();
 	for (int i = 0; i < layers_count_; i++)
 	{
-		free(this->layers_[i]);
+		delete[] this->layers_[i];
 		delete[] this->biases_[i];
 	}
 	delete[] this->layers_;
@@ -133,9 +133,9 @@ double* network::to_next_layer(double* input_values, const int input_length, con
 double network::adjust(const double* expected_output) const noexcept
 {
 	const int output_length = this->neurons_count_[layers_count_ - 1]; // Count of neurons in output layer
-	auto** errors = static_cast<double**>(malloc(sizeof(double*) * layers_count_));
+	auto** errors = new double*[layers_count_];
 	// Each error value on the neurons (2D: [layer][neuron])
-	errors[layers_count_ - 1] = static_cast<double*>(malloc(sizeof(double) * output_length));
+	errors[layers_count_ - 1] = new double[output_length];
 	// Allocate output layer error size
 	double error_sum = 0; // Sum of all errors on the output layer
 	double* actual_output = this->layers_[this->layers_count_ - 1];
@@ -153,7 +153,7 @@ double network::adjust(const double* expected_output) const noexcept
 	{
 		const int neurons = this->neurons_count_[i]; // Count of neurons in this layer
 		const int next_neurons = this->neurons_count_[i + 1]; // Count of neurons in next layer
-		errors[i] = static_cast<double*>(malloc(sizeof(double) * neurons)); // Allocate this layer's errors array
+		errors[i] = new double[neurons]; // Allocate this layer's errors array
 
 		// ReSharper disable once CppDeclaratorNeverUsed
 		const bool worth = properties_.force_multithreaded
@@ -187,8 +187,8 @@ double network::adjust(const double* expected_output) const noexcept
 	}
 
 	for (int i = 0; i < layers_count_; i++) // Loop through each layer (error)
-		free(errors[i]);
-	free(errors);
+		delete[] errors[i];
+	delete[] errors;
 	return error_sum;
 }
 

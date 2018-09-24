@@ -1,7 +1,8 @@
 # BrabeNetz
+
 <img align="right" src="Images/brain.png" alt="Brain - Image by medium.com" width=200>
 
-> **BrabeNetz** is a **supervised neural network** written in C++, aiming to be as fast as possible. It can effectively multithread on the **CPU** where needed, allocate and free fast (by `malloc`/`free`), access values faster (pointer-arrays instead of `vector`) and is well documented.
+> **BrabeNetz** is a **supervised neural network** written in C++, aiming to be as fast as possible. It can effectively multithread on the **CPU** where needed, is heavily **performance optimized** and is well inline-documented.
 
 [![NuGet](https://img.shields.io/nuget/v/BrabeNetz.svg)](https://www.nuget.org/packages/BrabeNetz/)
 [![Download on NuGet](https://img.shields.io/nuget/dt/BrabeNetz.svg)](https://www.nuget.org/packages/BrabeNetz)
@@ -50,8 +51,9 @@ Be sure to [read the network description](DESCRIPTION.md), and **check out my [d
 </p>
 
 ## Specs
-* **Faster algorithms** via `malloc`/`free` instead of `new`/`delete`, and **pointers** instead of `std::vector`
-* Smart **multithreading** by [OpenMP](http://www.openmp.org/) where worth the spawn-overhead
+
+* **Optimized algorithms** via **raw arrays**instead of `std::vector` and more
+* Smart **multithreading** by [OpenMP](http://www.openmp.org/) anywhere the spawn-overhead is worth the performance gain
 * **Scalability** (Neuron size, Layer count) - only limited by hardware
 * **Easy to use** (Inputs, outputs)
 * **Randomly generated values** to begin with
@@ -59,8 +61,10 @@ Be sure to [read the network description](DESCRIPTION.md), and **check out my [d
 * **Sigmoid** squashing function
 * **Biases** for each neuron
 * `network_topology` helper objects for loading/saving state and inspecting network
+* `brabenetz` wrapper class for an **easy-to-use interface**
 
 ## Usage
+
 <p align="center">
     <img src="Images/example-code.png" alt="Example Usage Code" align="center" width="500" />
 </p>
@@ -69,8 +73,8 @@ Be sure to [read the network description](DESCRIPTION.md), and **check out my [d
     * See: [build/link instructions](https://github.com/mrousavy/BrabeNetz/blob/master/BUILD.md)
 
 2. Choose your interface
-	1. `brabenetz.h`: _[Recommended]_ A wrapper for the raw `network.h` interface, but with **error handling** and **modern C++ interface** styling such as `std::vector`s, `std::exception`s, etc.
-	2. `network.h`: The raw `network` with C-style arrays and no bound/error checking. **Only use this if _performance_ is important.**
+    1. `brabenetz.h`: _[Recommended]_ A wrapper for the raw `network.h` interface, but with **error handling** and **modern C++ interface** styling such as `std::vector`s, `std::exception`s, etc.
+    2. `network.h`: The raw `network` with C-style arrays and no bound/error checking. **Only use this if _performance_ is important.**
 
 3. Constructors
     1. `(initializer_list<int>, properties)`: Construct a new neural network with the given network size (e.g. `{ 2, 3, 4, 1 }`) and randomize all base weights and biases - [ref](https://github.com/mrousavy/BrabeNetz/blob/master/BrabeNetz/BrabeNetz.h#L76-L92)
