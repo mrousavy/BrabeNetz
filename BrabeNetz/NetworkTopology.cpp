@@ -59,7 +59,8 @@ network_topology* network_topology::random(std::vector<int> layers)
 		{
 			neuron neuron;
 			if (l != 0) // Layer0 (input) does not have any bias
-				neuron.bias = (double(rand() % 200) / 100) - 1; // Random number between 0 and 2, minus 1 (so between -1 and 1)
+				neuron.bias = (double(rand() % 200) / 100) - 1;
+			// Random number between 0 and 2, minus 1 (so between -1 and 1)
 
 			int next_neurons; // Count of neurons in the next layer
 			if (l + 1 == layers.size())

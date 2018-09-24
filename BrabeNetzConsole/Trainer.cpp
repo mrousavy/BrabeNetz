@@ -22,14 +22,14 @@ long long trainer::train_xor(brabenetz& net, const int train_times)
 {
 	const string format = "{ %.0f, %.0f } = %.3f | e=%.3f\n";
 
-	vector<double> zz{ 0, 0 };
-	vector<double> zz_e{ 0 };
-	vector<double> oz{ 1, 0 };
-	vector<double> oz_e{ 1 };
-	vector<double> zo{ 0, 1 };
-	vector<double> zo_e{ 1 };
-	vector<double> oo{ 1, 1 };
-	vector<double> oo_e{ 0 };
+	vector<double> zz{0, 0};
+	vector<double> zz_e{0};
+	vector<double> oz{1, 0};
+	vector<double> oz_e{1};
+	vector<double> zo{0, 1};
+	vector<double> zo_e{1};
+	vector<double> oo{1, 1};
+	vector<double> oo_e{0};
 
 	const auto train_start = chrono::high_resolution_clock::now();
 	for (int i = 0; i < train_times; i++) // Loop train_times (should be %4 = 0)
@@ -165,7 +165,9 @@ long long trainer::train_handwritten_digits(network& net, const string mnist_ima
 		const int output_l = highest_index(output, 10); // get the highest index of the output array (actual result)
 
 		if (PRINT_OUTPUT) printf(format.c_str(), label, output_l);
-		if (UPDATE_STATUS) console::set_title("Learning Characters: " + to_string(i + 1) + "/" + to_string(images_count));
+		if (UPDATE_STATUS)
+			console::set_title(
+				"Learning Characters: " + to_string(i + 1) + "/" + to_string(images_count));
 		// cleanup
 		delete[] image;
 	}

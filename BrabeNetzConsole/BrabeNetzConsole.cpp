@@ -56,24 +56,24 @@ int main()
 		// boot up/load neuronal network
 		const auto boot_start = chrono::high_resolution_clock::now();
 #ifdef TRAIN_IMAGE
-		#ifdef LOAD_STATE
+#ifdef LOAD_STATE
 			network net(properties);
-		#elif
+#elif
 			network net({ 784, 16, 16, 10 }, properties);
-		#endif
+#endif
 #endif
 #ifdef TRAIN_XOR
-		#ifdef LOAD_STATE
-			brabenetz xor_net(properties);
-		#elif
+#ifdef LOAD_STATE
+		brabenetz xor_net(properties);
+#elif
 			brabenetz xor_net({ 2, 3, 1 }, properties);
-		#endif
+#endif
 #endif
 		const auto boot_finish = chrono::high_resolution_clock::now();
 
 
 		// Train neural network with trainer
-		long long train_microsecs{ 0 };
+		long long train_microsecs{0};
 #ifdef TRAIN_IMAGE
 		train_microsecs += trainer::train_handwritten_digits(*net, "train-images.idx3-ubyte",
 															 "train-labels.idx1-ubyte");
@@ -85,9 +85,11 @@ int main()
 
 		printf("Training done!\n\n");
 
-		const auto boot_time = std::chrono::duration_cast<chrono::microseconds>(boot_finish - boot_start).count() / 1000.0;
+		const auto boot_time = std::chrono::duration_cast<chrono::microseconds>(boot_finish - boot_start).count() /
+			1000.0;
 
-		printf("Bootup time: %.2fms | Train time: %.2fms | Total: %.2fms\n", boot_time, train_time, boot_time + train_time);
+		printf("Bootup time: %.2fms | Train time: %.2fms | Total: %.2fms\n", boot_time, train_time,
+		       boot_time + train_time);
 
 #ifdef TRAIN_IMAGE
 		net.save();
