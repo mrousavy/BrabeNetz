@@ -16,6 +16,8 @@ find_package(OpenMP)
 if (OPENMP_FOUND)
     set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+else()
+    message (FATAL_ERROR "OpenMP library not found!")
 endif()
 
 add_library(BrabeNetz BrabeNetz.cpp Functions.h Network.h Neuron.cpp BrabeNetz.h Connection.cpp Layer.cpp NetworkTopology.cpp Neuron.h Connection.h Layer.h Network.cpp NetworkTopology.h Properties.h)
