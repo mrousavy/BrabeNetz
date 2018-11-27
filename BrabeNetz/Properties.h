@@ -3,6 +3,10 @@
 /// \brief A structure for holding properties to initialize the network with
 struct properties
 {
+	/// \brief The state file path to save the
+	/// network's save on `network::save()` to
+	std::string state_file;
+
 	/// \brief The default learn rate to begin with
 	double def_learn_rate;
 
@@ -16,18 +20,14 @@ struct properties
 	/// (effectively ignores `iters_per_thread`)
 	bool force_multithreaded;
 
-	/// \brief The state file path to save the
-	/// network's save on `network::save()` to
-	std::string state_file;
-
-	explicit properties(const double learn_rate = 0.01,
+	explicit properties(const std::string state_file,
+						const double learn_rate = 0.01,
 	                    const int iters_per_thread = 600,
-	                    const bool force_multithreaded = false,
-	                    const std::string state_file = "state.nn")
-		: def_learn_rate(learn_rate),
+	                    const bool force_multithreaded = false)
+		: state_file(state_file),
+		  def_learn_rate(learn_rate),
 		  iters_per_thread(iters_per_thread),
-		  force_multithreaded(force_multithreaded),
-		  state_file(state_file)
+		  force_multithreaded(force_multithreaded)
 	{
 	}
 
