@@ -20,7 +20,7 @@ You can build BrabeNetz on 3 different ways, choose one:
 
 ## Manually
 1. Clone the Project from GitHub: `git clone http://github.com/mrousavy/BrabeNetz`
-	
+
 #### Windows (MSVC)
 2. Open [Developer Commandprompt for Visual Studio](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs) and navigate to the `BrabeNetz\BrabeNetz` folder
 3. Run `msbuild BrabeNetz.vcxproj /p:Configuration=Release /p:Platform=x64` (Use the configuration and platform you need)
@@ -29,7 +29,7 @@ You can build BrabeNetz on 3 different ways, choose one:
 6. Add path to `headers` to `Properties`>`C/C++`>`General`>`Additional include Directories` (should look like `$(SolutionDir)headers;%(AdditionalIncludeDirectories)`)
 7. Add path to `lib` to `Properties`>`Linker`>`General`>`Additional library Directories` (should look like `$(SolutionDir)lib;%(AdditionalLibraryDirectories)`)
 8. Add `"BrabeNetz.lib"` for Configuration **Debug**, and `BrabeNetz_d.lib` for **Release**, to `Properties`>`Linker`>`Input`>`Additional Dependencies` (should look like `BrabeNetz.lib;%(AdditionalDependencies)` or `BrabeNetz_d.lib;%(AdditionalDependencies)`)
-		
+
 #### Linux, Unix, Darwin (CMake)
 2. Run the `make.sh` script (Requires `cmake` and a compiler)
 3. Static Library is in cmake output directory: `libBrabeNetz.a`

@@ -30,20 +30,20 @@ Be sure to [read the network description](DESCRIPTION.md), and **check out my [d
 > **Commit:** [53328c3](https://github.com/mrousavy/BrabeNetz/commit/53328c3f6cc2f166ad79c7c8d01a4e6a739c3b93)
 
 <p align="center">
-   <img width="700" align="center" src="Images/cout.png" alt="Console output with elapsed time (2ms)">
+   <img width="700" align="center" src="Images/mac_cout_digits.png" alt="Console output in digit recognition">
+   <p align="center"><b>Actual prediction</b> of the digit recognizer network on <b>macOS Mojave</b></p>
+</p>
+<p align="center">
+   <img width="700" align="center" src="Images/win_time_xor.png" alt="Console output with elapsed time (2ms)">
    <p align="center">Training a <b>XOR</b> 1000 times takes just <b>0.49ms</b></p>
 </p>
 <p align="center">
-   <img width="700" align="center" src="Images/results_digits.png" alt="Actual trained network prediction output for digit recognition">
-   <p align="center"><b>Actual prediction</b> of the digit recognizer network</p>
+   <img width="700" align="center" src="Images/linux_cout_digits.png" alt="Actual trained network prediction output for digit recognition">
+   <p align="center"><b>Actual prediction</b> of the digit recognizer network on <b>Debian Linux</b></p>
 </p>
 <p align="center">
    <img width="750" align="center" src="Images/cpuload.png" alt="Using 24/24 cores in Taskmanager">
    <p align="center">Effectively using <b>all available cores</b> (24/24, 100% workload)</p>
-</p>
-<p align="center">
-   <img width="700" align="center" src="Images/linux_cout.png" alt="Running on Linux (Output)">
-   <p align="center">BrabeNetz running on <a href="https://github.com/mrousavy/BrabeNetz/tree/master/Linux">Linux</a> (Debian 9, Linux 4.9.62, KDE Plasma)</p>
 </p>
 <p align="center">
    <img width="700" align="center" src="Images/linux_htop.png" alt="Running on Linux (Task View - htop)">
