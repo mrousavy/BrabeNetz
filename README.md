@@ -2,7 +2,7 @@
 
 <img align="right" src="Images/brain.png" alt="Brain - Image by medium.com" width=200>
 
-> **BrabeNetz** is a **supervised neural network** written in C++, aiming to be as fast as possible. It can effectively multithread on the **CPU** where needed, is heavily **performance optimized** and is well inline-documented.
+> **BrabeNetz** is a **supervised neural network** written in C++, aiming to be as fast as possible. It can effectively multithread on the **CPU** where needed, is heavily **performance optimized** and is well inline-documented. System Technology (BRAH) TGM 2017/18
 
 [![NuGet](https://img.shields.io/nuget/v/BrabeNetz.svg)](https://www.nuget.org/packages/BrabeNetz/)
 [![Download on NuGet](https://img.shields.io/nuget/dt/BrabeNetz.svg)](https://www.nuget.org/packages/BrabeNetz)
