@@ -52,7 +52,7 @@ Be sure to [read the network description](DESCRIPTION.md), and **check out my [d
 
 ## Specs
 
-* **Optimized algorithms** via **raw arrays**instead of `std::vector` and more
+* **Optimized algorithms** via **raw arrays** instead of `std::vector` and more
 * Smart **multithreading** by [OpenMP](http://www.openmp.org/) anywhere the spawn-overhead is worth the performance gain
 * **Scalability** (Neuron size, Layer count) - only limited by hardware
 * **Easy to use** (Inputs, outputs)
